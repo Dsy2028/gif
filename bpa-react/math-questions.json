@@ -1,0 +1,1029 @@
+[
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "2 + 3",
+        "correct_answer": "5"
+    },
+    {
+        "category": "addition",
+        "type": "radio",
+        "level": "easy",
+        "question": "12 + 3",
+        "correct_answer": "15"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "1 + 1",
+        "correct_answer": "2"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "5 + 5",
+        "correct_answer": "10"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "9 + 7",
+        "correct_answer": "16"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "7 + 7",
+        "correct_answer": "14"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "4 + 7",
+        "correct_answer": "11"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "7 + 3",
+        "correct_answer": "10"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "5 + 6",
+        "correct_answer": "11"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "6 + 6",
+        "correct_answer": "12"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "4 + 4",
+        "correct_answer": "8"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "easy",
+        "question": "3 + 6",
+        "correct_answer": "9"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "17 + 7",
+        "correct_answer": "24"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "10 + 10",
+        "correct_answer": "20"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "6 + 12",
+        "correct_answer": "18"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "13 + 5",
+        "correct_answer": "18"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "15 + 15",
+        "correct_answer": "30"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "74 + 27",
+        "correct_answer": "101"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "36 + 32",
+        "correct_answer": "68"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "25 + 25",
+        "correct_answer": "50"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "16 + 16",
+        "correct_answer": "32"
+    },
+    {
+        "category": "addition",
+        "type": "medium",
+        "level": "easy",
+        "question": "43 + 44",
+        "correct_answer": "87"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "33 + 59",
+        "correct_answer": "92",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "27 + 29",
+        "correct_answer": "56",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "medium",
+        "question": "44 + 44",
+        "correct_answer": "88",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "107 + 203",
+        "correct_answer": "310",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "250 + 250",
+        "correct_answer": "500",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "237 + 382",
+        "correct_answer": "619",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "547 + 18",
+        "correct_answer": "565",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "165 + 47",
+        "correct_answer": "212",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "756 + 982",
+        "correct_answer": "1738",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "920 + 233",
+        "correct_answer": "1153",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "828 + 451",
+        "correct_answer": "1279",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "1234 + 321",
+        "correct_answer": "1555",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "1768 + 1999",
+        "correct_answer": "3767",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "5642 + 4853",
+        "correct_answer": "10495",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "3667 + 8377",
+        "correct_answer": "12044",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "7894 + 7832",
+        "correct_answer": "15726",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "17853 + 12537",
+        "correct_answer": "30390",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "addition",
+        "type": "input",
+        "level": "hard",
+        "question": "20000 + 20000",
+        "correct_answer": "40000",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "2-1",
+        "correct_answer": "1"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "5-2",
+        "correct_answer": "3"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "7-2",
+        "correct_answer": "1"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "1-1",
+        "correct_answer": "0"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "9-0",
+        "correct_answer": "9"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "8-7",
+        "correct_answer": "1"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "3-1",
+        "correct_answer": "1"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "9-6",
+        "correct_answer": "3"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "easy",
+        "question": "6-4",
+        "correct_answer": "2"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "22-11",
+        "correct_answer": "11"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "50-42",
+        "correct_answer": "8"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "90-66",
+        "correct_answer": "24"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "86-23",
+        "correct_answer": "63"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "22-9",
+        "correct_answer": "13"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "53-25",
+        "correct_answer": "29"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "medium",
+        "question": "79-29",
+        "correct_answer": "50"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "7894 - 7832",
+        "correct_answer": "62",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "3695 - 2863",
+        "correct_answer": "832",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "9954 - 2344",
+        "correct_answer": "7610",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "8892 - 6452",
+        "correct_answer": "2440",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "2358 - 1536",
+        "correct_answer": "822",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "1255-922",
+        "correct_answer": "2440",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "9999-5555",
+        "correct_answer": "4444",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "subtraction",
+        "type": "input",
+        "level": "hard",
+        "question": "7536 - 6357",
+        "correct_answer": "1179",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "1*1",
+        "correct_answer": "1"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "9*1",
+        "correct_answer": "9"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "6*6",
+        "correct_answer": "36"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "9*8",
+        "correct_answer": "72"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "8*3",
+        "correct_answer": "24"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "3*4",
+        "correct_answer": "12"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "5*6",
+        "correct_answer": "30"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "6*1",
+        "correct_answer": "6"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "1*0",
+        "correct_answer": "0"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "easy",
+        "question": "0*9",
+        "correct_answer": "0"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "12*8",
+        "correct_answer": "96"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "2*22",
+        "correct_answer": "44"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "11*11",
+        "correct_answer": "121"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "20*9",
+        "correct_answer": "180"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "10*8",
+        "correct_answer": "80"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "9*15",
+        "correct_answer": "135"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "9*12",
+        "correct_answer": "108"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "22-11",
+        "correct_answer": "11"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "12*12",
+        "correct_answer": "144"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "10*8",
+        "correct_answer": "80"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "12*6",
+        "correct_answer": "72"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "medium",
+        "question": "12*13",
+        "correct_answer": "156"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "14*83",
+        "correct_answer": "1162",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "93*65",
+        "correct_answer": "6045",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+        {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "77*11",
+        "correct_answer": "847",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "52*80",
+        "correct_answer": "4160",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "93*32",
+        "correct_answer": "2944",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "57*57",
+        "correct_answer": "3249",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "24*11",
+        "correct_answer": "264",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "96*17",
+        "correct_answer": "1632",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "25*65",
+        "correct_answer": "1625",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "multiplication",
+        "type": "input",
+        "level": "hard",
+        "question": "13*18",
+        "correct_answer": "234",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "12/4",
+        "correct_answer": "3"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "10/5",
+        "correct_answer": "3"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "4/2",
+        "correct_answer": "2"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "5/5",
+        "correct_answer": "1"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "16/4",
+        "correct_answer": "4"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "12/2",
+        "correct_answer": "6"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "8/2",
+        "correct_answer": "4"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "1/1",
+        "correct_answer": "1"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "15/3",
+        "correct_answer": "5"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "easy",
+        "question": "9/3",
+        "correct_answer": "3"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "100/10",
+        "correct_answer": "10"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "49/7",
+        "correct_answer": "7"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "33/11",
+        "correct_answer": "3"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "108/12",
+        "correct_answer": "9"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "84/12",
+        "correct_answer": "7"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "56/7",
+        "correct_answer": "2"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "63/9",
+        "correct_answer": "7"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "40/8",
+        "correct_answer": "5"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "72/6",
+        "correct_answer": "12"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "medium",
+        "question": "111/10",
+        "correct_answer": "11"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "845/13",
+        "correct_answer": "65",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "1752/24",
+        "correct_answer": "73",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "1089/11",
+        "correct_answer": "99",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "960/16",
+        "correct_answer": "60",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "1292/17",
+        "correct_answer": "76",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "884/13",
+        "correct_answer": "68",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "1050/25",
+        "correct_answer": "42",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+        "category": "division",
+        "type": "input",
+        "level": "hard",
+        "question": "2052/27",
+        "correct_answer": "76",
+        "descripiton": "please enter your answer as a whole number with no special characters such as commas"
+    },
+    {
+    "category": "Polynomials",
+    "type": "input",
+    "question": "Factor this completely (84^3 - 4) * 88",
+    "correct_answer": "827",
+    "descripiton": "round to the nearest hundreth"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (84^3 - 4) * 88",
+        "correct_answer": "827"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (10^3 - 2) * 55",
+        "correct_answer": "54890"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (25^3 - 10) * 1",
+        "correct_answer": "15615"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (4^3 - 4) * 8",
+        "correct_answer": "480"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (9^2 - 10) * 5",
+        "correct_answer": "355"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (7^2 - 20) * 8",
+        "correct_answer": "232"
+    },
+    {
+        "category": "Polynomials",
+        "type": "input",
+        "question": "Factor this completely (7^2 - 7) * 4",
+        "correct_answer": "168"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x (25x + 10) = 35",
+        "correct_answer": "1"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x (12x + 8) = 56",
+        "correct_answer": "4"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x (4x + 6) = -10",
+        "correct_answer": "-4"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x: x + 9 = 18 - 2x ",
+        "correct_answer": "3"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x: 2x + 6 = 4x - 2",
+        "correct_answer": "4"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x: -x - 1 = 221 + 2x",
+        "correct_answer": "-74"
+    },
+    {
+        "category": "",
+        "type": "input",
+        "question": "What is the value of x: 17x - 12 = 114 + 3x",
+        "correct_answer": "9"
+    },
+    {
+        "category": "evaluate-variables",
+        "type": "input",
+        "question": "Evaluate 3x when x = 5",
+        "correct_answer": ""
+
+    },
+    {
+        "category": "evaluate-variables",
+        "type": "input",
+        "level": "multiple",
+        "question": "Evaluate 3x - 5y when x = 5 and y = 7",
+        "correct_answer": ""
+    },
+    {
+        "category": "evaluate-variables",
+        "type": "input",
+        "level": "multiple-frac-deci",
+        "question": "Evaluate 3x - 5y when x = 5 and y = 7 / 2",
+        "correct_answer": ""
+    }
+
+    
+]
+    
