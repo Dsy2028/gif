@@ -32,7 +32,7 @@ export default function Courses() {
           { name: "AP Statistics", skills: 8 },
           { name: "Linear Algebra", skills: 8 },
           { name: "Differntial Equations", skills: 8 },
-          // Add more topics here
+      
         ]
       },
       { 
@@ -46,7 +46,7 @@ export default function Courses() {
           {name: "Environmental Science", skills: 8},
           {name: 'Anatomy & Physiology', skills: 8},
           {name: 'Health & Medicine', skills: 8},
-          // Add more topics here
+          
         ]
       },
       { 
@@ -61,7 +61,7 @@ export default function Courses() {
           {name: '7th Grade', skills: 8},
           {name: '8th Grade', skills: 8},
           {name: 'High School', skills: 8},
-          // Add more topics here
+    
         ]
       },
       { 
@@ -72,7 +72,7 @@ export default function Courses() {
           { name: 'Economics', skills: 8 },
           { name: 'Ancient History', skills: 8 },
           { name: 'US Gov & Civics', skills: 8 },
-          // Add more topics here
+   
         ]
       },
       { 
@@ -80,7 +80,7 @@ export default function Courses() {
         topics: [
           { name: 'Data Structures & Algorithims', skills: 10 },
           { name: 'Intro to Object Oriented Programming', skills: 8 },
-          // Add more topics here
+         
         ]
       },
       { 
@@ -88,10 +88,10 @@ export default function Courses() {
         topics: [
           { name: 'ACT', skills: 10 },
           { name: 'SAT', skills: 8 },
-          // Add more topics here
+          
         ]
       },
-    // Add more courses here
+    
   ];
 
   return (
@@ -105,7 +105,7 @@ export default function Courses() {
               {course.topics.map((topic, index) => (
                 <div className="card p-4 border border-gray-200 rounded shadow-sm" key={index}>
                   <h3>{topic.name}</h3>
-                  <Link to={`/courses/${course.name}/${topic.name}`} className="text-blue-700"> {topic.skills} skills</Link>
+                  <Link to={`/courses/${topic.name}`} className="text-blue-700"> {topic.skills} skills</Link>
                 </div>
               ))}
             </div>

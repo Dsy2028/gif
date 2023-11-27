@@ -27,14 +27,6 @@ const userSchema = new mongoose.Schema({
 },{timestamps: true});
 
 const User = mongoose.model('User', userSchema);
-const userResultSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz', required: true },
-    score: { type: Number, required: true },
-    // Other relevant fields...
-});
 
 
-    const UserResult = mongoose.model('UserResult', userResultSchema);
-
-    export default  { User, UserResult };
+    export default  User;

@@ -9,6 +9,7 @@ import Quiz from './pages/Quiz';
 import TestComponents from './pages/TestComponents';
 import Terms from './pages/Terms';
 import Courses from './pages/Courses'
+import TopicSkills from './components/TopicSkills';
 export default function App() {
   return(
   <BrowserRouter>
@@ -22,11 +23,11 @@ export default function App() {
     </Route>
     <Route path="/quiz" element={<Quiz/>}/>
     <Route path="/test" element={<TestComponents/>}/>
-    <Route path="/quiz/math" render={() => <Quiz type="math" />} />
-      <Route path="/quiz/science" render={() => <Quiz type="science" />} />
+    <Route path="/quiz/math" element={<Quiz type="math" />} />
+<Route path="/quiz/science" element={<Quiz type="science" />} />
       <Route path="/terms" element={<Terms/>}></Route>
       <Route path="/courses" element={<Courses/>}></Route>
-
+      <Route path="/courses/:topicName" element={<TopicSkills />} />
   </Routes>
   </BrowserRouter>
   )

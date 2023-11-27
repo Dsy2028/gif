@@ -33,7 +33,7 @@ export default function Nav() {
               </div>
               <ul className="nav-links items-center justify-center flex">
                 <li>
-                  <Link to={"/"}>Home</Link>
+                  <Link to={"/"}>Dashboard</Link>
                 </li>
                 <li>
                   <Link to={"/courses"}>Courses</Link>

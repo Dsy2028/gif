@@ -7,6 +7,7 @@ import quizRouter from './routes/user.routes.js';
 import questionsRouter from './routes/questions.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import courseRouter from './routes/course.route.js';
 dotenv.config();
 const app = express();
 mongoose.connect("mongodb+srv://admin:admin@bpa-react.xhc3sgs.mongodb.net/bpa-react?retryWrites=true&w=majority").then(() => {
@@ -25,6 +26,7 @@ app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)
 app.use('/api/quiz', quizRouter);
 app.use('/api/questions', questionsRouter);
+app.use('/api/courses', courseRouter);
 
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
