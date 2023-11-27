@@ -56,10 +56,10 @@
     background-color: var(--color-main);
     
 }
-.footer-subtitle{
-    
-
-}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 .overlay {
     position: fixed;
     top: 0;
@@ -71,6 +71,7 @@
     visibility: hidden;
     transition: opacity 0.3s ease-in-out;
     cursor: pointer;
+    
   }
   
   .overlay.show {

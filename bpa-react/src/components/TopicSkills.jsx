@@ -1,35 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import Footer from './Footer';
 
 function TopicSkills() {
-  const { topicName } = useParams();
-  const [courseDetails, setCourseDetails] = useState(null);
+  const {  topicName } = useParams();
 
+  const [courseDetails, setCourseDetails] = useState(null);
   useEffect(() => {
-    fetch(`/api/courses/${topicName}`)
-      .then(response => response.json())
-      .then(data => setCourseDetails(data));
+    fetch(`http://localhost:3000/api/courses/${topicName}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data);
+        setCourseDetails(data);
+        console.log('Course details:', courseDetails);
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+      });
   }, [topicName]);
 
   if (!courseDetails) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ border: '16px solid #f3f3f3', borderRadius: '50%', borderTop: '16px solid #0b488d', width: '120px', height: '120px', animation: 'spin 2s linear infinite' }} />
+      </div>
+    );
+  }
+   const countUnits = () => {
+    if (!courseDetails || !courseDetails.units) {
+      return 0;
+    }
+    let topicCount = 0;
+    for (let unit of courseDetails.units) {
+      if (unit.topics) {
+        topicCount += unit.topics.length;
+      }
+    }
+    return topicCount;
   }
 
-
   return (
-    <div>
-      <h1>{courseDetails.courseName}</h1>
+    <>
+    <h1 className='text-semibold text-3xl text-center'>{courseDetails.courseName}</h1>
+    <p>Number of units: {countUnits()}</p>
+    <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
       {/*  */}
       {courseDetails.units.map((unit, index) => (
-        <div key={index}>
-          <h2>{unit.unitName}</h2>
+        <div className='outline rounded'key={index}>
+          <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
           {/*  */}
           {unit.topics.map((topic, index) => (
-            <p key={index}>{topic}</p>
+            <Link to={'/'}><p className='text-normal text-lg text-blue-700 mt-1'key={index}>{topic}</p></Link>
           ))}
         </div>
       ))}
     </div>
+    <br></br>
+    <br/>
+    <br/>
+    <Footer />
+    </>
   );
 }
 

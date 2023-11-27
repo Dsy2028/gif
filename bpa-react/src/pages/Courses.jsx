@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Footer from "../components/Footer";
-
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import Footer from '../components/Footer';
 export default function Courses() {
   const courses = [
     { 
@@ -21,16 +20,16 @@ export default function Courses() {
     { 
         name: "Math: High school+",
         topics: [
-          { name: "Algebra 1", skills: 10 },
-          { name: "Calculus", skills: 8 },
-          { name: "Geometry", skills: 8 },
-          { name: "Statistics", skills: 8 },
-          { name: "Trigonometry", skills: 8 },
-          { name: "Pre-Calculus", skills: 8 },
+          { name: "Algebra 1", skills: 32 },
+          { name: "Calculus", skills:21 },
+          { name: "Geometry", skills: 28 },
+          { name: "Statistics", skills: 18 },
+          { name: "Trigonometry", skills: 25 },
+          { name: "Pre-Calculus", skills: 24},
           { name: "AP Calculus AB", skills: 8 },
           { name: "AP Calculus BC", skills: 8 },
           { name: "AP Statistics", skills: 8 },
-          { name: "Linear Algebra", skills: 8 },
+          { name: "Algebra 2", skills: 22 },
           { name: "Differntial Equations", skills: 8 },
       
         ]
@@ -42,7 +41,7 @@ export default function Courses() {
           { name: "Middle School Science", skills: 8 },
           { name: "Biology", skills: 8 },
           { name: "Chemistry", skills: 8 },
-          {name: "Physics", skills: 8},
+          {name: "Physics", skills: 32},
           {name: "Environmental Science", skills: 8},
           {name: 'Anatomy & Physiology', skills: 8},
           {name: 'Health & Medicine', skills: 8},
