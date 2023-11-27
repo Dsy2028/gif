@@ -2,18 +2,26 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 const QuestionSchema = new mongoose.Schema({
-    courseName: {
+    course: {
       type: String,
       required: true
     },
-    units: [
-      {
-        unitName: String,
-        topics: [String]
-      }
-    ]
+    question: {
+        type: String,
+        required: true
+    },
+    options: [
+        {
+            type: Array,
+            required: true
+        }
+    ],
+    correctOption: {
+        type: String,
+        required: true
+    },
   });
   
-  const courses = mongoose.model('courses', CourseSchema);
+  const questions = mongoose.model('questions', QuestionSchema);
   
-  export default courses;
+  export default questions;
