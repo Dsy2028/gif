@@ -10,6 +10,7 @@ import TestComponents from './pages/TestComponents';
 import Terms from './pages/Terms';
 import Courses from './pages/Courses'
 import TopicSkills from './components/TopicSkills';
+import Skills from './pages/Skills';
 export default function App() {
   return(
   <BrowserRouter>
@@ -28,6 +29,7 @@ export default function App() {
       <Route path="/terms" element={<Terms/>}></Route>
       <Route path="/courses" element={<Courses/>}></Route>
       <Route path="/courses/:topicName" element={<TopicSkills />} />
+      <Route path="/questions/:question" element={Skills} />
   </Routes>
   </BrowserRouter>
   )

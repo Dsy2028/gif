@@ -48,6 +48,9 @@ function TopicSkills() {
     <>
     <h1 className='text-semibold text-3xl text-center'>{courseDetails.courseName}</h1>
     <p>Number of units: {countUnits()}</p>
+    <Link to="/questions/:question">
+        <button>Go to Questions List</button>
+      </Link>
     <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
       {/*  */}
       {courseDetails.units.map((unit, index) => (
