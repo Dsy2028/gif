@@ -74,52 +74,6 @@ export default function Profile() {
 
     <div className={`overlay ${isEditProfilePopupOpen ? 'show' : ''}`} onClick={handleOverlayClick}></div>
     <div className="flex w-full h-screen bg-slate-100">
-    <div className='w-max p-6 flex flex-col relative items-center bg-white' id="math-nav">
-      <div className='grid grid-cols-1 h-full'>
-        <Link to={'/#'} >
-          <div className="flex items-center mt-5 color-main ">
-            <div className="hover" />
-            <i className="fa-solid fa-user fa-2xl" />
-            <h2 className="roboto">Dashboard</h2>
-          </div>
-        </Link>
-        <Link to={'/#'}>
-          <div className="flex items-center mt-5">
-            <i className="fa-solid fa-users fa-2xl" />
-            <h2  className="roboto">Profile</h2>
-            
-          </div>
-        </Link>
-        <Link to={'/#'}>
-          <div className="flex items-center mt-5">
-            <div className="hover" />
-            <i className="fa-solid fa-school fa-2xl" />
-            <h2 className="roboto">Assigned</h2>
-          </div>
-        </Link>
-        <Link to={'/#'}>
-          <div className="flex items-center mt-5">
-            <div className="hover" />
-            <i className="fa-solid fa-book-open fa-2xl" />
-            <h2 className="roboto">Study</h2>
-          </div>
-        </Link>
-        <Link to={'/#'}>
-          <div className="flex items-center mt-5">
-            <div className="hover" />
-            <i className="fa-solid fa-message fa-2xl" />
-            <h2 className="roboto">Chat</h2>
-          </div>
-        </Link>
-        <Link to={'/#'}>
-          <div className="flex items-center mt-5">
-            <div className="hover" />
-            <i className="fa-solid fa-gear fa-2xl" />
-            <h2 className="roboto">Settings</h2>
-          </div>
-        </Link>
-      </div>
-    </div>
     <div className="grid grid-cols-1 w-full h-full p-7 gap-y-5 relative">
       <div className="hidden z-10 top-1/3 rounded-lg right-1/3 fixed p-5 w-2/5 h-72 bg-white transition ease-out duration-200 edit-profile-popup outline" style={{ display: isEditProfilePopupOpen ? 'block' : 'none' }}>
         <div className="top-edit-profile-popup  justify-between flex items-center">
@@ -204,7 +158,7 @@ export default function Profile() {
         </div>
       </div>
       <div className="profile-container bg-white rounded-lg">
-        <h1 className='text-3xl font-semibold text-center'>Main Topics</h1>
+        <h1 className='text-3xl font-semibold text-center'>Students Work</h1>
       </div>
     </div>
   </div>

@@ -119,7 +119,7 @@ export default function index() {
     {cards.map((card) => (
       <div className="landing-card outline-main">
         <div className="flex items-center w-full ">
-          <span className="material-symbols-outlined text-3xl">{card.icon}</span>
+          <span className="material-symbols-outlined text-xl">{card.icon}</span>
           <h1 className="font-semibold text-2xl">{card.title}</h1>
         </div>
         <div className="landing-card-p">
