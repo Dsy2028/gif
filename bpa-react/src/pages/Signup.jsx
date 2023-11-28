@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 
 
@@ -63,7 +64,7 @@ export default function signup() {
         </ul>
         <div className="notha-holda">
           <h1>Sign Up</h1>
-          <p>
+          <p className=''>
             Are you tired of the same old, passive learning methods that put you
             to sleep? It's time to supercharge your education with our
             interactive learning website!
@@ -122,6 +123,7 @@ export default function signup() {
       </form>
     </div>
   </div>
+  <Footer/>
 </>
 
   )

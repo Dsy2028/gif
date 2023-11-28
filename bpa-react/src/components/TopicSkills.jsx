@@ -58,7 +58,7 @@ function TopicSkills() {
           <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
           {/*  */}
           {unit.topics.map((topic, index) => (
-            <Link to={'/'}><p className='text-normal text-lg text-blue-700 mt-1'key={index}>{topic}</p></Link>
+            <Link to={`/questions/${topic}`}><p className='text-normal text-lg text-blue-700 mt-1'key={index}>{topic}</p></Link>
           ))}
         </div>
       ))}

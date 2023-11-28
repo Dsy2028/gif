@@ -122,20 +122,19 @@ nav{
     padding: 10px 10%;
 
 }
-.nav-links{
-    list-style: none;
-    
-}
-.nav-links li{
+
+.nav-li{
     display: inline-block;
     padding: 0px 20px;
     transition: all 0.3s ease 0s;
 }
-.nav-links li a{
+.nav-links {
+    list-style: none;
     transition: all 0.3s ease 0s;
     color: var(--color-main);
     font-family: 'Poppins';
     font-weight: 500;
+
 }
 .search{
     /*width: 22%;
@@ -374,7 +373,7 @@ h1{
     font-size: large;
 }
 .form-contain input{
-    border: solid 5px var(--color-main);
+    border: solid 1.5px var(--color-main);
     border-radius: 0.2rem;
 
 }

@@ -32,13 +32,13 @@ export default function Nav() {
                 </div>
               </div>
               <ul className="nav-links items-center justify-center flex">
-                <li>
+                <li className='nav-li'>
                   <Link to={"/"}>Dashboard</Link>
                 </li>
-                <li>
+                <li className='nav-li'>
                   <Link to={"/courses"}>Courses</Link>
                 </li>
-                <li>
+                <li className='nav-li'>
                   <ProfileDropdown/>
                 </li>
               </ul>
@@ -49,10 +49,10 @@ export default function Nav() {
       <header>
       <nav>
         <Link to={"/"}><img src={logo} className="logo" alt="Logo" /></Link>
-        <ul className="nav-links">
-          <Link to={"/courses"}><li>Courses</li></Link>
-          <li>Teachers</li>
-          <Link to={"/sign-up"}><li>Sign Up</li></Link>
+        <ul className="nav-links nav-links2">
+          <Link to={"/courses"}><li className='nav-li'>Courses</li></Link>
+          <li className='nav-li'>Teachers</li>
+          <Link to={"/sign-up"}><li className='nav-li'>Sign Up</li></Link>
         </ul>
         <Link className="btn" to={'/log-in'}>
           <button className="nav-btn">Login</button>

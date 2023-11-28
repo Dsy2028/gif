@@ -6,7 +6,7 @@ export default function Skills() {
     const { questionId } = useParams();
 
     useEffect(() => {
-      fetch(`/api/questions/${questionId}`)
+      fetch(`/api/questions/${topic}`)
         .then((response) => response.json())
         .then((data) => setQuestion(data))
         .then(console.log(data))
