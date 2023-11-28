@@ -11,6 +11,7 @@ import Terms from './pages/Terms';
 import Courses from './pages/Courses'
 import TopicSkills from './components/TopicSkills';
 import Skills from './pages/Skills';
+import Help from './pages/Help';
 export default function App() {
   return(
   <BrowserRouter>
@@ -30,6 +31,7 @@ export default function App() {
       <Route path="/courses" element={<Courses/>}></Route>
       <Route path="/courses/:topicName" element={<TopicSkills />} />
       <Route path="/questions/:question" element={Skills} />
+      <Route path="/help" element={<Help/>}></Route>
   </Routes>
   </BrowserRouter>
   )

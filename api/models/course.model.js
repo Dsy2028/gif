@@ -10,7 +10,7 @@ const CourseSchema = new mongoose.Schema({
   units: [
     {
       unitName: String,
-      topics: [String]
+      topics:  [String]
     }
   ]
 });

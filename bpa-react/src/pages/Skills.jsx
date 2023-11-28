@@ -6,9 +6,7 @@ export default function Skills() {
     const { questionId } = useParams();
 
     useEffect(() => {
-      // Fetch question data from your API
-      // Update the URL with the correct endpoint to fetch a specific question by ID
-      fetch(`http://localhost:3000/api/questions/${questionId}`) // Replace 'question-id' with the actual question ID
+      fetch(`/api/questions/${questionId}`)
         .then((response) => response.json())
         .then((data) => setQuestion(data))
         .then(console.log(data))
