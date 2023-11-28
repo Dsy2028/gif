@@ -58,7 +58,7 @@ export default function ProfileDropdown() {
       />
       {profileDropdownOpen && (
         <div
-          className="absolute h-40 w-28 mt-2 z-50 bg-white p-2 rounded-lg shadow"
+          className="absolute h-44 w-28 mt-2 z-50 bg-white p-2 rounded-lg shadow"
         >
           <ul className="flex flex-col">
             <Link to="/profile">
