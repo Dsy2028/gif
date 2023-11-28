@@ -6,6 +6,8 @@ import { useRef } from 'react';
 import {getStorage,ref,uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 import { app } from '../firebase';
 import Footer from '../components/Footer'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 export default function Profile() {
   /*
@@ -159,6 +161,7 @@ export default function Profile() {
       </div>
       <div className="profile-container bg-white rounded-lg">
         <h1 className='text-3xl font-semibold text-center'>Students Work</h1>
+        
       </div>
     </div>
   </div>
