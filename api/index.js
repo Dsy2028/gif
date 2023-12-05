@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.route.js';
- // Corrected import statement
 import questionsRouter from './routes/questions.route.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -31,7 +30,7 @@ app.use(cookieParser());
 app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
-app.use('/api/questions', questionsRouter);
+app.use('/api', questionsRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter); 
 //app.use('/api/topics', topicsRouter);

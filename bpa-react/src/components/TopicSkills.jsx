@@ -4,7 +4,6 @@ import Footer from './Footer';
 
 function TopicSkills() {
   const {  topicName } = useParams();
-
   const [courseDetails, setCourseDetails] = useState(null);
   useEffect(() => {
     fetch(`http://localhost:3000/api/courses/${topicName}`)
@@ -52,16 +51,20 @@ function TopicSkills() {
         <button>Go to Questions List</button>
       </Link>
     <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
-      {/*  */}
-      {courseDetails.units.map((unit, index) => (
-        <div className='outline rounded'key={index}>
-          <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
-          {/*  */}
-          {unit.topics.map((topic, index) => (
-            <Link to={`/questions/${topic}`}><p className='text-normal text-lg text-blue-700 mt-1'key={index}>{topic}</p></Link>
-          ))}
-        </div>
+    {courseDetails.units.map((unit, index) => (
+  <div className='outline rounded' key={index}>
+    <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
+    <ul className='list-none p-0'>
+      {unit.topics.map((topic, index) => (
+        <li key={index} className='mb-2'>
+          <Link to={`/courses`} className='text-normal text-lg text-blue-700 mt-1'>
+            {topic}
+          </Link>
+        </li>
       ))}
+    </ul>
+  </div>
+))}
     </div>
     <br></br>
     <br/>

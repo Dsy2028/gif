@@ -4,11 +4,15 @@ export default function Skills() {
     
     const [question, setQuestion] = useState(null);
     const { questionId } = useParams();
+    const {topicName } = useParams();
 
     useEffect(() => {
-      fetch(`/api/questions/${topic}`)
+      fetch(`/api/topics/${topicName}/questions/${questionId}`)
         .then((response) => response.json())
-        .then((data) => setQuestion(data))
+        .then(
+          (data) => setQuestion(data)
+    
+        )
         .then(console.log(data))
         .catch((error) => console.error('Error fetching question:', error));
     }, []);

@@ -1,4 +1,21 @@
 import mongoose from 'mongoose';
+const QuestionSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  questionText: {
+    type: String,
+    required: true,
+  },
+  options: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  correctOption: {
+    type: String,
+    required: true,
+  },
+});
 
 const TopicSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -6,12 +23,7 @@ const TopicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  questions: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'questions',
-    },
-  ],
+  questions: [QuestionSchema],
 });
 
 const topics = mongoose.model('topics', TopicSchema);
