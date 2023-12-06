@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import courseRouter from './routes/course.route.js';
 import topicsRouter from './routes/topics.route.js';
+import flashRouter from './routes/flashcards.route.js';
 
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use("/api/auth", authRouter);
 app.use('/api', questionsRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter); 
+app.use('/api/flashcards', flashRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);
 

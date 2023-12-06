@@ -13,13 +13,14 @@ import TopicSkills from './components/TopicSkills';
 import Skills from './pages/Skills';
 import Help from './pages/Help';
 import Dashboard from './pages/Dashboard';
-import * as V from 'victory';
+import FlashCard from './pages/FlashCard';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Nav />
       <Routes>
+        <Route path="/flashcard" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
