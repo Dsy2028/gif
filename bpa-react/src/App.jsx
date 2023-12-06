@@ -18,7 +18,7 @@ import FlashCard from './pages/FlashCard';
 export default function App() {
   return (
     <BrowserRouter>
-      <Nav />
+      {location.pathname !== '/dashboard' && <Nav />}
       <Routes>
         <Route path="/flashcard" element={<FlashCard />} />
         <Route path="/" element={<Index />} />

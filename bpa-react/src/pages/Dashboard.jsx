@@ -7,8 +7,12 @@ export default function Dashboard() {
     const data = [{angle: 1}, {angle: 5}, {angle: 2}]
   return (
     <>
-    <div className='flex w-full h-full '>
+    <div className='flex h-screen'>
         <DashboardNav />
+        <div className='flex flex-col p-5'>
+            <div className='flex w-full h-14'>
+
+            </div>
         <div className=' grid grid-cols-4 grid-rows-1 justify-evenly '>
             <div className='outline '>
           <RadialChart data={data} height={300} width={300} />
@@ -28,6 +32,7 @@ export default function Dashboard() {
             </div>
             <div></div>
             <div></div>
+        </div>
         </div>
     </div>
     <Footer/>

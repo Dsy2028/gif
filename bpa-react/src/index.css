@@ -56,6 +56,12 @@
     background-color: var(--color-main);
     
 }
+.bordor-top{
+    border-top: outline 1px solid rgb(0, 0, 0);
+}
+.link {
+    padding-left: 10px;
+  }
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

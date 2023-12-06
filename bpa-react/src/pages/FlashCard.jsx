@@ -28,7 +28,6 @@ export default function FlashCard() {
       });
   }, [topicName,_id]);
   const handleNext = () => {
-   
     if (flashCardIndex >= flashCardData.flashCards.length - 1) {
       setflashCardIndex(0);
     } else {
