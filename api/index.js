@@ -35,6 +35,7 @@ app.use('/api', questionsRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter); 
 app.use('/api/flashcards', flashRouter);
+//app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);
 

@@ -52,6 +52,9 @@
     
     
 }
+.w-400{
+    width: 410px;
+}
 .main-color{
     background-color: var(--color-main);
     

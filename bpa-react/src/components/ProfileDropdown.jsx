@@ -61,7 +61,7 @@ export default function ProfileDropdown() {
           className="absolute h-44 w-28 mt-2 z-50 bg-white p-2 rounded-lg shadow"
         >
           <ul className="flex flex-col">
-            <Link to="/profile">
+            <Link to="/profile" >
               <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">
                 Profile
               </li>
