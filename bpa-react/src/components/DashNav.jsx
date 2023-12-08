@@ -56,6 +56,11 @@ export default function DashNav() {
       };
       
   return (
+    <>
+    {settingDropdownOpen && 
+     <div className='fixed opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
+     </div>
+    }
     <div className="flex w-full h-14 justify-between items-center p-5 ">
     <h1 className='poppins'>{getPageName()}</h1>
     <div className="flex items-center  justify-evenly w-400">
@@ -94,11 +99,22 @@ export default function DashNav() {
       <TeacherDropdown/>
       <i class="fa-solid fa-gear fa-xl cursor-pointer" onClick={openSetting}></i>
       {settingDropdownOpen && 
-      <div className="absolute h-screen w-36 bg-black right-0">
-
-      </div>
+      <div className="absolute h-screen w-48 bg-white border-[2px]  border-gray-200  right-0 z-50 top-0 p-2">
+        <div className="flex justify-end  h-8 items-center">
+        <i class="fa-solid fa-x cursor-pointer fa-xl" onClick={closedSetting}></i>
+        </div>
+        <div className='flex w-4'>
+        <i class="fa-solid fa-sun"></i>
+        <div className='flex '>
+          <input type="checkbox" name="site-mode" id="site-mode"></input>
+          <input type="checkbox" name="site-mode" id="site-mode"></input>
+        </div>
+        <i class="fa-solid fa-moon"></i>
+          </div>
+        </div>
       }
     </div>
   </div>
+  </>
   )
 }

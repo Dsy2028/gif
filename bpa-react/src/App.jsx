@@ -19,7 +19,7 @@ import Calender from './pages/Calender';
 export default function App() {
   return (
     <BrowserRouter>
-      {location.pathname !== '/dashboard' || '/classes' &&  <Nav />}
+      {location.pathname !== '/dashboard' &&  <Nav />}
       <Routes>
         <Route path="/flashcard" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
