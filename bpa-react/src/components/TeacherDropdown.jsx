@@ -56,7 +56,7 @@ export default function TeacherDropdown() {
       onClick={toggleProfileDropdown}
     />
     {profileDropdownOpen && (
-      <div className="absolute h-72 w-32 mt-2 z-50 bg-white p-2 rounded-lg shadow">
+      <div className="absolute mr-10 h-72 w-60 mt-2 z-50 bg-white p-2 rounded-lg shadow">
        <Link to={'/profile'}><button className='w-4/5 h-10 main-color text-white roboto'>Manage your Account</button></Link>
         <ul className="flex flex-col">
             <li className="w-full p-1 h-fit color-main font-normal hover:bg-gray-200 rounded">

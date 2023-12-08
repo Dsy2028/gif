@@ -8,7 +8,7 @@ export default function Classes() {
     const [code, setCode] = useState('');
   
     const createClass = async () => {
-        const response = await fetch('/api/classes', {
+        const response = await fetch('/api/classes/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code, teacher: currentUser._id })
@@ -26,9 +26,8 @@ export default function Classes() {
       setShowPopup(true);
       createClass(randomString);
     }
-  
     const closePopup = () => {
-        document.querySelector('.popup').classList.add('translate-y-full');
+        document.querySelector('.popup').classList.add('translate-y-[10rem]');
         setTimeout(() => {
           setShowPopup(false);
         }, 500);
@@ -49,7 +48,7 @@ export default function Classes() {
       <DashboardNav/>
       <div className='pl-56'>
         <DashNav/>
-        <div className='flex flex-col items-center justify-center h-screen'>
+        <div className='flex flex-col items-center justify-center h-screen '>
           <h1 className='text-3xl font-bold'>Classes</h1>
           <p className='text-xl'>You have no classes yet</p>
           <button onClick={generateCode} className='bg-blue-500 text-white px-4 py-2 rounded mt-4'>Create Class</button>

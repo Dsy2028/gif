@@ -45,6 +45,12 @@ export default function signup() {
     }
     
   }
+  const handleRoleChange = (e) => {
+    setFormData({
+      ...formData,
+      role: e.target.value,
+    });
+  };
   
   return (
 <>
@@ -109,6 +115,13 @@ export default function signup() {
             <div id="errorOutput" />
             {/*<span>must contain atleast 8 characters, one uppercase and atleast 1 number</span>*/}
           </div>
+        </div>
+        <div className="form-contain">
+          <label htmlFor="role">Select Role</label>
+          <select id="role" name="role" onChange={handleRoleChange} value={formData.role}>
+            <option value="user">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
         </div>
         <div className="sign-up-button-div">
           <button disabled={loading} className="login-btn text-white" id="log-btn">

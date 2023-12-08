@@ -11,13 +11,18 @@ export default function DashNav() {
     const dropdownRef = useRef(false);
     const location = useLocation();
     const notiDropdown = () => {
-      setNotiDropdownOpen((prevOpen) => !prevOpen);
-      console.log('noti opened')
+     setNotiDropdownOpen((prevOpen) => !prevOpen);
     };
   
     const closeNotiDropdown = () => {
       setNotiDropdownOpen(false);
     };
+    const openSetting = () => {
+      setSettingDropdownOpen((prevOpen) => !prevOpen);
+    }
+    const closedSetting = () => {
+      setSettingDropdownOpen(false);
+    }
   
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -71,8 +76,8 @@ export default function DashNav() {
           </button>
         </div>
       </div>
-        <div className="relative">
-      <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer" onclick={notiDropdown}></i>
+        <div className="relative ">
+      <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer" onClick={notiDropdown}></i>
       {notiDropdownOpen && (
         <div
           className="absolute h-44 w-28 mt-2 z-50 bg-black p-2 rounded-lg shadow"
@@ -87,7 +92,12 @@ export default function DashNav() {
       )}
       </div>
       <TeacherDropdown/>
-      <i class="fa-solid fa-gear fa-xl"></i>
+      <i class="fa-solid fa-gear fa-xl cursor-pointer" onClick={openSetting}></i>
+      {settingDropdownOpen && 
+      <div className="absolute h-screen w-36 bg-black right-0">
+
+      </div>
+      }
     </div>
   </div>
   )
