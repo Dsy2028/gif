@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useRef } from 'react';
 import {getStorage,ref,uploadBytesResumable, getDownloadURL} from 'firebase/storage';
 import { app } from '../firebase';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer.jsx'
 
 
 export default function Profile() {
@@ -161,7 +161,6 @@ export default function Profile() {
       </div>
       <div className="profile-container bg-white rounded-lg">
         <h1 className='text-3xl font-semibold text-center'>Students Work</h1>
-  
       </div>
     </div>
   </div>

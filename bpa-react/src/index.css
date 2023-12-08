@@ -52,8 +52,19 @@
     
     
 }
+.activ{
+    text-decoration: underline;
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
 .w-400{
     width: 410px;
+}
+.w-cal{
+    width: 800px;
+}
+.h-cal{
+    height: 600px;
 }
 .main-color{
     background-color: var(--color-main);

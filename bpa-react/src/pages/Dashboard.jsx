@@ -4,6 +4,7 @@ import TeacherFooter from "../components/TeacherFooter";
 import { XYPlot, RadialChart } from "react-vis";
 import TeacherDropdown from "../components/TeacherDropdown.jsx";
 import  {Doughnut } from 'react-chartjs-2';
+import DashNav from "../components/DashNav.jsx";
 
 export default function Dashboard() {
     const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
@@ -47,45 +48,7 @@ export default function Dashboard() {
             <div className='h-28 bg-black w-20 fixed top-32 right-32' style={{ display: open_Table ? 'block' : 'none' }}>
                 
             </div>
-          <div className="flex w-full h-14 justify-between items-center p-5 ">
-            <h1 className='poppins'>Dashboard</h1>
-            <div className="flex items-center  justify-evenly w-400">
-              <div className="search w-48 ">
-                <input
-                  id="search"
-                  autoCapitalize="none"
-                  autoComplete="off"
-                  autoCorrect="off"
-                  type="text"
-                  spellCheck="false"
-                  placeholder="Search"
-                  className="w-48"
-                />
-                <div className="search-icon">
-                  <button>
-                    <i className="fa-solid fa-magnifying-glass " />
-                  </button>
-                </div>
-              </div>
-                <div className="relative">
-              <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer" onclick={notiDropdown}></i>
-              {notiDropdownOpen && (
-                <div
-                  className="absolute h-44 w-28 mt-2 z-50 bg-black p-2 rounded-lg shadow"
-                >
-                  <ul className="flex flex-col">
-                    <li className="text-gray-400 text-sm">Notifications</li>
-                    <li className="text-gray-400 text-sm">Messages</li>
-                    <li className="text-gray-400 text-sm">Events</li>
-                    <li className="text-gray-400 text-sm">Help</li>
-                  </ul>
-                </div>
-              )}
-              </div>
-              <TeacherDropdown/>
-              <i class="fa-solid fa-gear fa-xl"></i>
-            </div>
-          </div>
+            <DashNav/>
           <div className="grid grid-cols-4 gap-4 mt-4 p-5">
             <div className="border-[2px] rounded border-gray-200 flex items-center justify-center">
               <RadialChart data={data} height={200} width={200} />

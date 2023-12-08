@@ -9,6 +9,7 @@ import cors from 'cors';
 import courseRouter from './routes/course.route.js';
 import topicsRouter from './routes/topics.route.js';
 import flashRouter from './routes/flashcards.route.js';
+import classRouter from './routes/class.route.js'
 
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use('/api', questionsRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter); 
 app.use('/api/flashcards', flashRouter);
+app.use('/api/classes', classRouter);
 //app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);

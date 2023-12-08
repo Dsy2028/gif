@@ -1,11 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 export default function DashboardNav() {
+  const [showInvite, setShowInvite ] = useState(false);
+
+  const openInvite = () => {
+    setShowInvite(true);
+  }
+  const closeInvite = () => {
+    setShowInvite(false);
+  }
   return (
     <div className='h-screen fixed bg-zinc-100 w-56 p-3 flex flex-col justify-between '>
+      {showInvite &&
+      <div className='fixed z-50  w-96 h-96 bg-white outline '>
+        <button onClick={closeInvite}>Close</button>
+      </div>
+        
+      }
       <div className='flex flex-col items-start justify-center gap-4 border-b-[2px] border-gray-200'>
-        <Link className='text-xl font-bold w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
+        <Link to={"/dashboard"} className='text-xl font-bold w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
           <i class="fa-solid fa-house mr-2"></i>
           Home
         </Link>
@@ -17,11 +32,11 @@ export default function DashboardNav() {
           <i class="fa-solid fa-chart-line mr-2"></i>
           Dashboards
         </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
+        <Link to={"/classes"} className='text-xl font-bold  w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
           <i class="fa-solid fa-users mr-2"></i>
           Classes
         </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded link mb-2 hover:bg-gray-200'>
+        <Link to={"/calender"}className='text-xl font-bold  w-full cursor-pointer flex items-center rounded link mb-2 hover:bg-gray-200'>
           <i class="fa-regular fa-calendar mr-2"></i>
           Calendar
         </Link>
@@ -41,7 +56,7 @@ export default function DashboardNav() {
         </Link>
       </div>
       <div className="border-t-[2px] border-gray-200  w-full justify-between flex items-center">
-        <div className='flex items-center hover:bg-gray-200 cursor-pointer'>
+        <div className='flex items-center hover:bg-gray-200 cursor-pointer' onClick={openInvite}>
           <i class="fa-solid fa-user-plus fa-lg cursor-pointer"></i>
           <p className='ml-2 text-md'>Invite</p>
         </div>

@@ -14,24 +14,20 @@ import Skills from './pages/Skills';
 import Help from './pages/Help';
 import Dashboard from './pages/Dashboard';
 import FlashCard from './pages/FlashCard';
-
+import Classes from './pages/Classes';
+import Calender from './pages/Calender';
 export default function App() {
   return (
     <BrowserRouter>
-      {location.pathname !== '/dashboard' && <Nav />}
+      {location.pathname !== '/dashboard' && '/classes' && '/calender'  && <Nav />}
       <Routes>
         <Route path="/flashcard" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
-        <Route
-          path="/profile"
-          element={
-            <PrivRoute>
-              <Profile />
-            </PrivRoute>
-          }
-        />
+        <Route element={<PrivRoute/>} >
+       <Route path="/profile" element={<Profile/>}/>
+       </Route>
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/test" element={<TestComponents />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
@@ -48,6 +44,8 @@ export default function App() {
         />
         <Route path="/help" element={<Help />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/classes" element={<Classes />} />
+        <Route path="/calender" element={<Calender />} />
       </Routes>
     </BrowserRouter>
   );

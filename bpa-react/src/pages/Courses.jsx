@@ -96,13 +96,13 @@ export default function Courses() {
   return (
     <>
       <h1 className="font-semibold text-center text-4xl color-main mt-5">Courses</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-6 md:px-16 lg:px-24 gap-9 mt-7 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-6 md:px-16 lg:px-24 gap-9 mt-7">
         {courses.map((course, index) => (
           <div key={index}>
             <h2 className="text-xl font-medium uppercase">{course.name}</h2>
             <div className="grid grid-cols-2 gap-6 mt-2">
               {course.topics.map((topic, index) => (
-                <div className="card p-4 border border-gray-200 rounded shadow-sm" key={index}>
+                <div className=" p-4 border border-gray-200 rounded shadow-sm" key={index}>
                   <h3>{topic.name}</h3>
                   <Link to={`/courses/${topic.name}`} className="text-blue-700"> {topic.skills} skills</Link>
                 </div>
