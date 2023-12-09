@@ -2,6 +2,7 @@ import React,{ useRef,useState } from 'react'
 import TeacherDropdown from './TeacherDropdown.jsx'
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import 'animate.css';
 
 export default function DashNav() {
     const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
@@ -12,16 +13,20 @@ export default function DashNav() {
     const location = useLocation();
     const notiDropdown = () => {
      setNotiDropdownOpen((prevOpen) => !prevOpen);
+     
     };
   
     const closeNotiDropdown = () => {
       setNotiDropdownOpen(false);
     };
     const openSetting = () => {
-      setSettingDropdownOpen((prevOpen) => !prevOpen);
+        setSettingDropdownOpen((prevOpen) => !prevOpen);
     }
     const closedSetting = () => {
-      setSettingDropdownOpen(false);
+      document.querySelector('.setting').classList.add('animate__slideOutRight','animate__animated');
+      setTimeout(() => {
+        setSettingDropdownOpen(false);
+      }, 500);
     }
   
     const handleClickOutside = (event) => {
@@ -99,17 +104,17 @@ export default function DashNav() {
       <TeacherDropdown/>
       <i class="fa-solid fa-gear fa-xl cursor-pointer" onClick={openSetting}></i>
       {settingDropdownOpen && 
-      <div className="absolute h-screen w-48 bg-white border-[2px]  border-gray-200  right-0 z-50 top-0 p-2">
+      <div className="fixed setting  h-screen w-48 bg-white border-[2px]  border-gray-200  right-0 z-50 top-0 p-2">
         <div className="flex justify-end  h-8 items-center">
         <i class="fa-solid fa-x cursor-pointer fa-xl" onClick={closedSetting}></i>
         </div>
-        <div className='flex w-4'>
-        <i class="fa-solid fa-sun"></i>
+        <div className='flex outline items-center justify-center'>
+        <i class="fa-solid fa-sun fa-xl mr-2"></i>
         <div className='flex '>
-          <input type="checkbox" name="site-mode" id="site-mode"></input>
-          <input type="checkbox" name="site-mode" id="site-mode"></input>
+          <input type="checkbox" name="site-mode" id="site-mode" className="w-4"></input>
+          <input type="checkbox" name="site-mode" id="site-mode" className="w-4"></input>
         </div>
-        <i class="fa-solid fa-moon"></i>
+        <i class="fa-solid fa-moon fa-xl ml-2"></i>
           </div>
         </div>
       }

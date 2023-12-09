@@ -27,7 +27,7 @@ export default function Classes() {
       createClass(randomString);
     }
     const closePopup = () => {
-        document.querySelector('.popup').classList.add('translate-y-[10rem]');
+        document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
         setTimeout(() => {
           setShowPopup(false);
         }, 500);
