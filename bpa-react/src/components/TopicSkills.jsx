@@ -47,7 +47,7 @@ function TopicSkills() {
     <>
     <h1 className='text-semibold text-3xl text-center'>{courseDetails.courseName}</h1>
     <p>Number of units: {countUnits()}</p>
-    <Link to="/questions/:question">
+    <Link to={"/questions/:question"}>
         <button>Go to Questions List</button>
       </Link>
     <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
@@ -57,7 +57,7 @@ function TopicSkills() {
     <ul className='list-none p-0'>
       {unit.topics.map((topic, index) => (
         <li key={index} className='mb-2'>
-          <Link to={`/courses`} className='text-normal text-lg text-blue-700 mt-1'>
+          <Link to={`/courses/${topicName}/${topic}`} className='text-normal text-lg text-blue-700 mt-1'>
             {topic}
           </Link>
         </li>

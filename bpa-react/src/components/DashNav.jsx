@@ -3,6 +3,7 @@ import TeacherDropdown from './TeacherDropdown.jsx'
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import 'animate.css';
+import Switch from "react-switch";
 
 export default function DashNav() {
     const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
@@ -11,6 +12,7 @@ export default function DashNav() {
     const [notiDropdownOpen, setNotiDropdownOpen] = useState(false);
     const dropdownRef = useRef(false);
     const location = useLocation();
+    const [darkMode, setDarkMode] = useState(false);
     const notiDropdown = () => {
      setNotiDropdownOpen((prevOpen) => !prevOpen);
      
@@ -58,6 +60,9 @@ export default function DashNav() {
           default:
             return '';
         }
+      };
+      const handleDarkModeToggle = (checked) => {
+        setDarkMode(checked);
       };
       
   return (
@@ -108,11 +113,11 @@ export default function DashNav() {
         <div className="flex justify-end  h-8 items-center">
         <i class="fa-solid fa-x cursor-pointer fa-xl" onClick={closedSetting}></i>
         </div>
-        <div className='flex outline items-center justify-center'>
-        <i class="fa-solid fa-sun fa-xl mr-2"></i>
+        <h1 className='text-center mt-3 mb-3 text-xl'>Toggle Mode</h1>
+        <div className='flex items-center justify-center'>
+        <i class="fa-solid fa-sun fa-xl mr-2 text-amber-300"></i>
         <div className='flex '>
-          <input type="checkbox" name="site-mode" id="site-mode" className="w-4"></input>
-          <input type="checkbox" name="site-mode" id="site-mode" className="w-4"></input>
+        <Switch onChange={handleDarkModeToggle} checked={darkMode} offColor="#bbbbbb" onHandleColor="#121212" offHandleColor="#FFBF00"  height={20} width={48} handleDiameter={18}  onColor="#1f1b24"  uncheckedIcon={false}  checkedIcon={false} />
         </div>
         <i class="fa-solid fa-moon fa-xl ml-2"></i>
           </div>

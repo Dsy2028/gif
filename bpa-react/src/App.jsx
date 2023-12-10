@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route ,useLocation} from 'react-router-dom';
 import Index from './pages/index';
 import Signup from './pages/signup';
 import LogIn from './pages/LogIn';
@@ -16,10 +16,12 @@ import Dashboard from './pages/Dashboard';
 import FlashCard from './pages/FlashCard';
 import Classes from './pages/Classes';
 import Calender from './pages/Calender';
+import Topic from './pages/Topic';
 export default function App() {
+  
   return (
     <BrowserRouter>
-      {location.pathname !== '/dashboard' &&  <Nav />}
+      {location.pathname !== '/dashboard' && location.pathname !== '/classes' && location.pathname !== '/calender' &&  <Nav />}
       <Routes>
         <Route path="/flashcard" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
@@ -29,19 +31,13 @@ export default function App() {
        <Route path="/profile" element={<Profile/>}/>
        </Route>
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/test" element={<TestComponents />} />
+        <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
+        <Route path="/courses/:topicName/:topics" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
         <Route path="/quiz/science" element={<Quiz type="science" />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />
-        <Route
-          path="/courses/:topicName"
-          element={
-            <TopicSkills>
-              <Route path="/question/:_id" element={<Skills />} />
-            </TopicSkills>
-          }
-        />
+        <Route path="/courses/:topicName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/classes" element={<Classes />} />

@@ -19,7 +19,6 @@ router.post('/update/:id', verifyToken, updateUser);
   }
 });
 
-// Retrieve user results
 router.get('/api/user-results/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;

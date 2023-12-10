@@ -2,7 +2,7 @@ import express from 'express';
 import {getTopicWithQuestion } from '../controllers/topics.controller.js';
 const router = express.Router();
 //router.get('/:topic/questions/:questionId', getTopicWithQuestion);
-router.get('/:topic/question/:question', getTopicWithQuestion);
+router.get('/:topicId/question/:questionId', getTopicWithQuestion);
 
 
 export default router;

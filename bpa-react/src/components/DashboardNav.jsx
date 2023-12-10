@@ -12,14 +12,14 @@ export default function DashboardNav() {
     setShowInvite(false);
   }
   return (
-    <div className='h-screen fixed bg-zinc-100 w-56 p-3 flex flex-col justify-between '>
+    <div className='h-screen fixed bg-zinc-100 w-48 p-3 flex flex-col justify-between '>
       {showInvite &&
       <div className='fixed z-50  w-96 h-96 bg-white outline '>
         <button onClick={closeInvite}>Close</button>
       </div>
         
       }
-      <div className='flex flex-col items-start justify-center gap-4 border-b-[2px] border-gray-200'>
+      <div className='flex flex-col items-start justify-center gap-4 border-b-[2px] border-gray-200 '>
         <Link to={"/dashboard"} className='text-xl font-bold w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
           <i class="fa-solid fa-house mr-2"></i>
           Home
@@ -32,7 +32,7 @@ export default function DashboardNav() {
           <i class="fa-solid fa-chart-line mr-2"></i>
           Dashboards
         </Link>
-        <Link to={"/classes"} className='text-xl font-bold  w-full cursor-pointer flex items-center rounded link hover:bg-gray-200'>
+        <Link to={"/classes"} className='text-xl font-bold  w-full cursor-pointer  flex items-center rounded link hover:bg-gray-200'>
           <i class="fa-solid fa-users mr-2"></i>
           Classes
         </Link>
