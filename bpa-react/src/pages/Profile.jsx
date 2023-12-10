@@ -50,7 +50,7 @@ export default function Profile() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
           setFormData({ ...formData, avatar: downloadUrl });
-          setFile(undefined); // Reset the file state after successful upload
+          setFile(undefined); // reset the file state after successful upload
         });
       }
     );

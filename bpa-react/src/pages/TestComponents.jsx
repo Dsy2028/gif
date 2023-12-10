@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 
 export default function TestComponents() {
   const { topicName } = useParams();
-  const { _id } = useParams();
+  const { topicId, questionId } = useParams();
   const [question, setQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/topics/${topicName}/question/${_id}`)
+    fetch(`http://localhost:3000/api/topics/${topicId}/question/${questionId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -68,8 +69,15 @@ export default function TestComponents() {
     setQuestion(updatedQuestion);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  
+  };
+  
+
   return (
     <>
+    <form onSubmit={handleSubmit}>
       <div className="h-screen  flex flex-col justify-center items-center bg-slate-200">
         <h1 className="text-semibold text-3xl top-32 absolute">
           {question.topicName}
@@ -146,6 +154,7 @@ export default function TestComponents() {
           </div>
         )}
       </div>
+      </form>
     </>
   );
 }

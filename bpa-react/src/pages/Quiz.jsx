@@ -11,7 +11,7 @@ const Quiz = ({category}) => {
       .then((response) => response.json())
       .then((data) => setQuestions(data))
       .catch((error) => console.error('Error fetching questions:', error));
-  }, [category]); // Empty dependency array ensures the effect runs only once on component mount
+  }, [category]); 
 
  
 

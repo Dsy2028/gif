@@ -57,6 +57,9 @@
     font-size: 1.5rem;
     line-height: 2rem;
 }
+.nunito{
+    font-family: 'Nunito Sans', sans-serif;
+}
 .w-400{
     width: 410px;
 }
