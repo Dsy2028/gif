@@ -3,7 +3,7 @@ import { useParams, useLocation, Link } from "react-router-dom";
 import science from "../imgs/genetic-data-svgrepo-com.svg";
 import endless from "../imgs/endless-constellation.svg";
 import flat from "../imgs/flat-mountains.svg";
-import snow from "../imgs/snow.jpg"
+import snow from "../imgs/confetti-doodles.svg"
 
 export default function Topic() {
   const { topicName } = useParams();
@@ -56,7 +56,7 @@ export default function Topic() {
       link: "/link-to-lesson-2",
       icon: "fa-pause",
       position: "relative",
-      marginLeft: "60px",
+      marginLeft: "80px",
       marginTop: "40px",
       
     },
@@ -109,7 +109,7 @@ export default function Topic() {
                 <h1 className="text-semibold text-lg nunito ml-3">{question.topicName}</h1>
                 }
           </div>
-          <div className="w-96 outline p-5 h-80 ">
+          <div className="w-96 shadow-md p-5 h-80 ">
             <div className="flex h-14">
               <img src={science} />
             </div>
@@ -128,12 +128,12 @@ export default function Topic() {
         <div
           className="min-h-full w-[800px] ml mb-2 p-8 flex justify-center"
           style={{
-            backgroundImage: ` url(${flat})`,
-            backgroundPosition: " bottom",
+            backgroundImage: ` url(${snow}),url(${flat})`,
+            backgroundPosition: "top, bottom",
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className=" w-[480px] z-50 flex flex-col mb-9">
+          <div className=" w-[480px] z-50 flex flex-col mb-20 ">
             {lessons.map((lesson, index) => (
               <div
                 key={index}
@@ -157,10 +157,6 @@ export default function Topic() {
                 </div>
               </div>
             ))}
-            <div>
-                <h1>Next Course</h1>
-            </div>
-
           </div>
         </div>
       </div>
