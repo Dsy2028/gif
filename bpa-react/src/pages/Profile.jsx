@@ -8,6 +8,7 @@ import { app } from '../firebase';
 import Footer from '../components/Footer.jsx'
 
 
+
 export default function Profile() {
   /*
         allow read;
@@ -15,7 +16,6 @@ export default function Profile() {
       request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*')
       */
-
 
   const Ref = useRef(null)
   const [file, setFile] = useState(undefined)
@@ -117,7 +117,11 @@ export default function Profile() {
               <div className=" ml-3" />
               <div className="ml-4 w-9/12">
                 <div className="flex w-full h-1/6 items-center justify-between">
-                  <h1 className='text-3xl font-semibold mb-6 '>Statistics</h1>
+
+                  <div className="flex flex-col ml-4">
+                    <h3></h3>
+                    <p style={{ textAlign: "center", marginTop: "5%" }}></p>
+                  </div>
                   <button className="text-white border-none rounded main-color cursor-pointer h-3/4 w-2/12 " onClick={openEditProfilePopup}>Edit Profile</button>
                 </div>
                 <div className="w-full flex items-center justify-center h-4/5">
@@ -125,14 +129,6 @@ export default function Profile() {
                     <div className="flex flex-col ml-4">
                       <h3>Join Date</h3>
                       <p>99/99/9999</p>
-                    </div>
-                    <div className="flex flex-col ml-4">
-                      <h3>Total Topics Learned</h3>
-                      <p style={{ textAlign: "center", marginTop: "5%" }}>999</p>
-                    </div>
-                    <div className="flex flex-col ml-4">
-                      <h3>Teachers</h3>
-                      <p style={{ textAlign: "center", marginTop: "5%" }}>999</p>
                     </div>
                   </div>
                 </div>
@@ -160,15 +156,43 @@ export default function Profile() {
               </div>
             </div>
             <div className="profile-container bg-white rounded-lg">
-              <h1 className='text-3xl font-semibold text-center'>Students Work</h1>
+              <h1 className='text-3xl font-semibold text-center'>Student's Class</h1>
               <div className="grid grid-cols-4 gap-4 mt-4 p-5">
-                <div className="border-[2px] rounded border-gray-200 flex items-center justify-center shadow-lg">
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>Teacher</h1>
+                  </div>
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Grade</h1>
+                    <h1 className='nunito font-bold text-xl ml-3'>Total Topics Learned</h1>
                   </div>
+                </div>
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>Grades</h1>
 
+                    <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
+                    <div class="p-18">93%</div>
+                    <div class="p-18">10%</div>
+                    <div class="p-20">20%</div>
+                    <div class="p-20">57%</div>
+                    </div>
+
+                    {/* 
+                    <div className="border-[2px] rounded border-gray-300 p-7 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>87</h1>
+                  </div>
+                </div>
+
+                <div className="border-[1px] rounded border-gray-300 p-7 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>92</h1>
+                  </div>
+                </div> */}
+
+                  </div>
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
                   <div className='flex items-center'>
@@ -221,20 +245,19 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Class Completed</h1>
-                  </div>
-                </div>
               </div>
             </div>
 
           </div>
 
         </div>
+
         <Footer />
       </div>
     </>
 
   )
 }
+
+
+
