@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { app } from '../firebase';
+import { XYPlot, RadialChart } from "react-vis";
 import Footer from '../components/Footer.jsx'
 
 
@@ -16,7 +17,7 @@ export default function Profile() {
       request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*')
       */
-
+  const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
   const Ref = useRef(null)
   const [file, setFile] = useState(undefined)
   const [filePerc, setFilePerc] = useState(0);
@@ -134,7 +135,7 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-            <div className="grid p-6 rounded-xl bg-white">
+            {/* <div className="grid p-6 rounded-xl bg-white">
               <h1 className='text-3xl font-semibold text-center'>Badge Counts</h1>
               <div className="flex flex-wrap w-full items-center justify-center">
                 <div className="flex flex-col items-center h-1/5 w-1/12 mt-8 mr-8">
@@ -154,13 +155,44 @@ export default function Profile() {
                   <p className='mt-4'>1</p>
                 </div>
               </div>
+            </div> */}
+
+            <div className="grid p-6 rounded-xl bg-white">
+              <h1 className='text-3xl font-semibold text-center'>Completed</h1>
+              <div className="flex flex-wrap w-full items-center justify-center">
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>Math</h1>
+                  </div>
+                  <RadialChart data={data} height={300} width={300} />
+                </div>
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>English</h1>
+                  </div>
+                  <RadialChart data={data} height={300} width={300} />
+                </div>
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>History</h1>
+                  </div>
+                  <RadialChart data={data} height={300} width={300} />
+                </div>
+                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+                  <div className='flex items-center'>
+                    <h1 className='nunito font-bold text-xl ml-3'>Science</h1>
+                  </div>
+                  <RadialChart data={data} height={300} width={300} />
+                </div>
+              </div>
             </div>
+
             <div className="profile-container bg-white rounded-lg">
               <h1 className='text-3xl font-semibold text-center'>Student's Class</h1>
               <div className="grid grid-cols-4 gap-4 mt-4 p-5">
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Teacher</h1>
+                    <h1 className='nunito font-bold text-xl ml-3 '>Teachers</h1>
                   </div>
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
@@ -172,27 +204,31 @@ export default function Profile() {
                   <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Grades</h1>
 
+                  </div>
+
+                  <div className="grid p-6 rounded-xl bg-black">
+                    <h1 className='text-3xl font-semibold text-center'>Completed 1</h1>
+                    <div className="flex flex-wrap w-full items-center justify-center"></div>
+                  </div>
+                  <br></br>
+                  <div className="grid p-6 rounded-xl bg-black">
+                    <h1 className='text-3xl font-semibold text-center'>Completed 2</h1>
+                    <div className="flex flex-wrap w-full items-center justify-center"></div>
+                  </div>
+                  <br></br>
+                  <div className="grid p-6 rounded-xl bg-black">
+                    <h1 className='text-3xl font-semibold text-center'>Completed 3</h1>
+                    <div className="flex flex-wrap w-full items-center justify-center"></div>
+                  </div>
+                  {/* <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
+                    <div class="p-18">93%</div>
+                    <div class="p-18">93%</div>
+                    </div>
                     <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
                     <div class="p-18">93%</div>
-                    <div class="p-18">10%</div>
-                    <div class="p-20">20%</div>
-                    <div class="p-20">57%</div>
-                    </div>
+                    <div class="p-18">93%</div>
+                    </div> */}
 
-                    {/* 
-                    <div className="border-[2px] rounded border-gray-300 p-7 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>87</h1>
-                  </div>
-                </div>
-
-                <div className="border-[1px] rounded border-gray-300 p-7 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>92</h1>
-                  </div>
-                </div> */}
-
-                  </div>
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
                   <div className='flex items-center'>
