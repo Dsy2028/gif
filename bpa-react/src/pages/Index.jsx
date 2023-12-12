@@ -96,7 +96,6 @@ export default function index() {
     <>
       <br />
       <br />
-
       <section className="discover-section">
         <div className="discover-container">
           <div className="img-discover">
@@ -128,14 +127,14 @@ export default function index() {
       </div>
     ))}
   </div>
+
       <div className="hero">
         <div className="content-holder">
-          <h1 className="font-semibold text-3xl mb-4">PLaceholder</h1>
+          <h1 className="font-semibold text-3xl mb-4"></h1>
           <p>
-            : This is an HTML tag used to define a division or section in the
-            webpage. class="section-heading home_build_animation
-            home_animation": This is specifying multiple classes for this. These
-            c CSS rules to this element.
+          Embrace the freedom to connect without boundaries. Whether you're in the heart of the city or the 
+          tranquility of nature, our website ensures that distance is no longer a hurdle. Stay plugged in, 
+          stay connected—wherever your journey takes you.
           </p>
         </div>
         <img src={ThirdPicture} />
@@ -143,7 +142,7 @@ export default function index() {
       <div className="potential-container">
         <img src={SecondPicture} />
         <div className="content-holder ">
-          <h1 className="font-semibold text-3xl mb-4">Maximize Your Potential</h1>
+          <h1 className="font-semibold text-3xl mb-4"></h1>
           <p>
             Unlock your full potential with our interactive learning platform.
             Powered by AI, we provide personalized insights for tailored
@@ -155,6 +154,7 @@ export default function index() {
           </p>
         </div>
       </div>
+      
       <div className="slider">
         <div className="list">
           {items.map((item, index) => (
@@ -162,7 +162,7 @@ export default function index() {
               className={`item ${index === active ? "active" : ""}`}
               key={index}
             >
-              <h1>Here's what parents have to say</h1>
+              <h1>Here's  parents have to say</h1>
               <div className="testimonials-text" id={`testimonial-${index}`}>
                 <div className="testimonials-img">
                   <img src={item.img} alt={item.name} />

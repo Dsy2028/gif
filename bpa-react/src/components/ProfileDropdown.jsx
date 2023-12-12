@@ -66,16 +66,11 @@ export default function ProfileDropdown() {
                 Profile
               </li>
             </Link>
-            <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded"></li>
-            <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">hold</li>
             <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">hold</li>
             <li className="py-1 px-2 color-main  font-normal hover:bg-gray-200 rounded">
               Settings
             </li>
-            <li
-              onClick={handleLogout}
-              className="py-1 px-2 mt-7 text-red-700 hover:bg-gray-200 rounded"
-            >
+            <li onClick={handleLogout} className="py-1 px-2 mt-7 text-red-700 hover:bg-gray-200 rounded" >
               Log Out
             </li>
           </ul>

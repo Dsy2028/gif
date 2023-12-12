@@ -17,6 +17,7 @@ import FlashCard from './pages/FlashCard';
 import Classes from './pages/Classes';
 import Calender from './pages/Calender';
 import Topic from './pages/Topic';
+import About from './pages/About';
 export default function App() {
   
   return (
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/classes" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
+        <Route path="/about" element ={<About />} />
       </Routes>
     </BrowserRouter>
   );
