@@ -6,10 +6,9 @@ import flat from "../imgs/flat-mountains.svg";
 import snow from "../imgs/confetti-doodles.svg"
 
 export default function Topic() {
-  const { topicName } = useParams();
-  const { topicId, questionId } = useParams();
-  const [question, setQuestion] = useState(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { courseName, lessonName } = useParams();
+  const [lessons, setLessons] = useState({});
+  const [name, setName] = useState({});
   const location = useLocation();
 
   const pageNames = {
@@ -26,7 +25,7 @@ export default function Topic() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/topics/656604348bc2ccb633300115/question/656603178bc2ccb633300114`)
+    fetch(`http://localhost:3000/api/lessons/courses/${courseName}/${lessonName}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,64 +34,17 @@ export default function Topic() {
       })
       .then((data) => {
         console.log("Fetched data:", data);
-        setQuestion(data);
+        setLessons(data.lessons);    
+        setName(data);    
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
       });
-  }, [topicName]);
+  }, [lessonName]);
 
-
-
-  const lessons = [
-    {
-      title: "Intro to Real Numbers",
-      link: "/link-to-lesson-1",
-      icon: "fa-play",
-      position: "relative",
-    },
-    {
-      title: "Recap",
-      link: "/link-to-lesson-2",
-      icon: "fa-pause",
-      position: "relative",
-      marginLeft: "80px",
-      marginTop: "40px",
-      
-    },
-    {
-        title: "Practice Questions",
-        link: "/link-to-lesson-2",
-        icon: "fa-pencil",
-        position: "relative",
-        marginLeft: "140px",
-        marginTop: "40px"
-      },
-      {
-        title: "Intro to Real Numbers",
-        link: "/link-to-lesson-2",
-        icon: "fa-pencil",
-        position: "relative",
-        marginLeft: "250px",
-        marginTop: "40px"
-      },
-      {
-        title: "Intro to Real Numbers",
-        link: "/link-to-lesson-2",
-        icon: "fa-file",
-        position: "relative",
-        marginLeft: "140px",
-        marginTop: "40px"
-      },
-      {
-        title: "Intro to Real Numbers",
-        link: "/link-to-lesson-2",
-        icon: "fa-pause",
-        position: "relative",
-        marginLeft: "60px",
-        marginTop: "40px"
-      },
-  ];
+  
+  const lessonOrder = ['intro', 'recap', 'practice', 'practice_2', 'review', 'quiz'];
+  //const lessonOrder = lesson.lessonOrder || Object.keys(lesson.lessons);
 
   return (
     <>
@@ -105,11 +57,11 @@ export default function Topic() {
               {getPageName()}
             </h1>
             <i class="fa-solid fa-chevron-right fa-sm ml-3"></i>
-            { question &&
-                <h1 className="text-semibold text-lg nunito ml-3">{question.topicName}</h1>
+            { name &&
+                <h1 className="text-semibold text-lg nunito ml-3">{name.lessonName}</h1>
                 }
           </div>
-          <div className="w-96 shadow-md p-5 h-80 ">
+          <div className="w-96 p-5 h-80" style={{ backgroundImage: ` url(${snow})`, backgroundRepeat: "no-repeat", backgroundSize: "100%"}}>
             <div className="flex h-14">
               <img src={science} />
             </div>
@@ -117,8 +69,8 @@ export default function Topic() {
               <h1>{getPageName()}</h1>
             </div>
             <div className="text-3xl">
-                { question &&
-                <h1>{question.topicName}</h1>
+                { name &&
+                <h1>{name.lessonName}</h1>
                 }
             </div>
             <p>Understand the use of REal Numbers</p>
@@ -133,31 +85,37 @@ export default function Topic() {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className=" w-[480px] z-50 flex flex-col mb-20 ">
-            {lessons.map((lesson, index) => (
-              <div
-                key={index}
-                className="  w-fit flex flex-col z-50 p-3"
-                style={{ marginLeft: lesson.marginLeft, marginTop: lesson.marginTop}}
-              >
-                <div className="flex justify-center h-7">
-                  <div className="w-10 flex justify-center items-center outline">
-                    <i
-                      className={`fa-solid ${lesson.icon} fa-xl text-center`}
-                    ></i>
-                  </div>
-                </div>
-                <h1 className="mt-2 text-center">{lesson.title}</h1>
-                <div className="flex items-center justify-center mt-1">
-                  <Link to={lesson.link}>
-                    <button className="main-color rounded w-20 text-white hover:bg-blue-700">
-                      Go
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+  <div className="w-[480px] z-50 flex flex-col mb-20">
+  {lessons && lessonOrder.map((key, index) => (
+    lessons[key] && (
+    <div
+      key={index}
+      className="w-fit flex flex-col z-50 p-3"
+      style={{
+        marginLeft: lessons[key].marginLeft,
+        marginTop: lessons[key].marginTop,
+      }}
+    >
+      <div className="flex justify-center h-7 ">
+        <div
+          className="w-10 flex justify-center items-center "
+          style={{ backgroundColor: lessons[key].backgroundColor, borderRadius: lessons[key].borderRadius }}
+        >
+          <i className={`fa-solid ${lessons[key].icon} fa-xl text-center`} />
+        </div>
+      </div>
+      <h1 className="mt-2 text-center">{lessons[key].title}</h1>
+      <div className="flex items-center justify-center mt-1">
+        <Link to={lessons[key].link}>
+          <button className="main-color rounded w-20 text-white hover:bg-blue-700">
+            Go
+          </button>
+        </Link>
+      </div>
+    </div>
+  )
+  ))}
+</div>
         </div>
       </div>
     </>
