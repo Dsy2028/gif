@@ -18,19 +18,21 @@ import Classes from './pages/Classes';
 import Calender from './pages/Calender';
 import Topic from './pages/Topic';
 import About from './pages/About';
+import Lesson from './pages/Lesson'
 export default function App() {
   
   return (
     <BrowserRouter>
       {location.pathname !== '/dashboard' && location.pathname !== '/classes' && location.pathname !== '/calender' &&  <Nav />}
       <Routes>
-        <Route path="/flashcard" element={<FlashCard />} />
+        <Route path="/" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route element={<PrivRoute/>} >
        <Route path="/profile" element={<Profile/>}/>
        </Route>
+       <Route path="/courses/:courseName/:lessonName/:lessonType" element={<Lesson/>}/>
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />

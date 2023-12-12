@@ -130,7 +130,7 @@ export default function index() {
 
       <div className="hero">
         <div className="content-holder">
-          <h1 className="font-semibold text-3xl mb-4"></h1>
+          <h1 className="font-semibold text-3xl mb-4">dfsdfsdfsdfdsf</h1>
           <p>
           Embrace the freedom to connect without boundaries. Whether you're in the heart of the city or the 
           tranquility of nature, our website ensures that distance is no longer a hurdle. Stay plugged in, 

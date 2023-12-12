@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 
 export default function TestComponents() {
-  const { topicName } = useParams();
+  const { topicName,courseName,lessonName } = useParams();
   const { topicId, questionId } = useParams();
   const [question, setQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);

@@ -24,6 +24,13 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
   questions: [QuestionSchema],
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'courses',
+    courseName: {
+      type: String,
+    },
+  }
 });
 
 const topics = mongoose.model('topics', TopicSchema);

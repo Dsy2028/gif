@@ -13,6 +13,9 @@ const lessonSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    lessonDescription: {
+      type: String
+    },
     lessons: {
       intro: {
         title: String,
