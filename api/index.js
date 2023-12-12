@@ -10,6 +10,7 @@ import courseRouter from './routes/course.route.js';
 import topicsRouter from './routes/topics.route.js';
 import flashRouter from './routes/flashcards.route.js';
 import classRouter from './routes/class.route.js'
+import lessonRouter from './routes/lesson.route.js'
 
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter);
 app.use('/api/flashcards', flashRouter);
 app.use('/api/classes', classRouter);
+app.use('/api/lessons', lessonRouter);
 //app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);

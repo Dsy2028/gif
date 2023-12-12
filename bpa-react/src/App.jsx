@@ -18,6 +18,7 @@ import Classes from './pages/Classes';
 import Calender from './pages/Calender';
 import Topic from './pages/Topic';
 import About from './pages/About';
+import Chat from './pages/Chat'
 export default function App() {
   
   return (
@@ -33,7 +34,7 @@ export default function App() {
        </Route>
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
-        <Route path="/courses/:topicName/:topics" element={<Topic />} />
+        <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
         <Route path="/quiz/science" element={<Quiz type="science" />} />
         <Route path="/terms" element={<Terms />} />
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/classes" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
+        <Route path="/Chat" element ={<Chat />} />
       </Routes>
     </BrowserRouter>
   );
