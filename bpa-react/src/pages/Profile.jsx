@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import ApexCharts from 'apexcharts'
 import ProfilePicture from '../imgs/police.svg'
 import { useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { app } from '../firebase';
 import { XYPlot, RadialChart } from "react-vis";
+import Calender from './Calender.jsx';
 import Footer from '../components/Footer.jsx'
 
 
@@ -17,6 +19,46 @@ export default function Profile() {
       request.resource.size < 2 * 1024 * 1024 &&
       request.resource.contentType.matches('image/.*')
       */
+
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const months = ["January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
+
+  useEffect(() => {
+    renderCalendar();
+  }, [currentDate]);
+
+  const renderCalendar = () => {
+    let currentYear = currentDate.getFullYear();
+    let currentMonth = currentDate.getMonth();
+    let firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay();
+    let lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    let lastDayofMonth = new Date(currentYear, currentMonth, lastDateofMonth).getDay();
+    let lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+    let days = [];
+
+    for (let i = firstDayofMonth; i > 0; i--) {
+      days.push(<li className="inactive border-[2px] rounded border-gray-200 text-2xl">{lastDateofLastMonth - i + 1}</li>);
+    }
+
+    for (let i = 1; i <= lastDateofMonth; i++) {
+      let isToday = i === currentDate.getDate() && currentMonth === new Date().getMonth()
+        && currentYear === new Date().getFullYear() ? "activ" : "";
+      days.push(<li className={`border-[2px] rounded border-gray-200 text-2xl${isToday}`}>{i}</li>);
+    }
+
+    for (let i = lastDayofMonth; i < 6; i++) {
+      days.push(<li className="inactive border-[2px] rounded border-gray-200 text-2xl">{i - lastDayofMonth + 1}</li>);
+    }
+
+    return days;
+  };
+
+  const changeMonth = (direction) => {
+    let newDate = new Date(currentDate.setMonth(currentDate.getMonth() + direction));
+    setCurrentDate(newDate);
+  };
+
   const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
   const Ref = useRef(null)
   const [file, setFile] = useState(undefined)
@@ -186,7 +228,26 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-
+{/* 
+            <div className="grid p-6 rounded-xl bg-black">
+              <div className="flex flex-wrap w-full items-center justify-center">
+                <div className='pl-35 ' >
+                  <div className='flex flex-col items-center justify-center '>
+                    <h1 className='text-3xl font-bold'></h1>
+                    <div className='grid w-cal h-cal border-[130px] rounded border-gray-100 '>
+                      <h1>{`${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`}</h1>
+                      <ul className='grid grid-cols-12 '>
+                        {renderCalendar()}
+                      </ul>
+                    </div>
+                    <div className='flex justify-between mt-1 w-32'>
+                      <button id="prev" onClick={() => changeMonth(-1)}><i class="fa-solid fa-chevron-left color-main fa-1xl"></i></button>
+                      <button onClick={() => changeMonth(1)}><i class="fa-solid fa-chevron-right fa-1xl color-main"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> */}
             <div className="profile-container bg-white rounded-lg">
               <h1 className='text-3xl font-semibold text-center'>Student's Class</h1>
               <div className="grid grid-cols-4 gap-4 mt-4 p-5">
@@ -194,15 +255,19 @@ export default function Profile() {
                   <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3 '>Teachers</h1>
                   </div>
+                  <div className="border-[1px] rounded border-gray-300 p-20 shadow-lg flex flex-col">
+                    <button class="graph-button">4</button>
+                  </div>
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Total Topics Learned</h1>
                   </div>
+                  <RadialChart data={data} height={300} width={300} />
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Grades</h1>
+                    <h1 className='nunito font-bold text-xl ml-3'>Progress With topics </h1>
 
                   </div>
 
@@ -232,8 +297,44 @@ export default function Profile() {
                 </div>
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
                   <div className='flex items-center'>
-                    {/* <h1 className='nunito font-bold text-xl ml-3'>Coming up Assignments</h1> */}
-                    <div class="datepicker">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <Footer />
+      </div>
+    </>
+
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div class="datepicker">
                       <div class="datepicker-top">
                         <div class="month-selector">
                         </div>
@@ -278,22 +379,4 @@ export default function Profile() {
                         <button class="date">30</button>
                         <button class="date">31</button>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-        <Footer />
-      </div>
-    </>
-
-  )
-}
-
-
-
+</div> */}
