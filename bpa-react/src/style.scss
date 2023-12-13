@@ -8,11 +8,16 @@
     .container{
         border: 1px solid white;
         border-radius: 10px;
-        width: 65%;
-        height: 80%;
+        width: 90%;
+        height: 90%;
         display: flex;
+        overflow: hidden;
 
-        .sidebar{flex: 1;}
+        .sidebar{
+            flex: 1;
+            border-right: 1px solid #c1cffc;
+            background-color: #c1cffc;
+        }
         .chat{flex: 2;}
 
     }
