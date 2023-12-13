@@ -25,14 +25,16 @@ export default function TestComponents() {
       });
   }, [topicName]);
 
-  const handleNext = () => {
+  const handleNext = (event) => {
+    event.preventDefault();
     if (currentQuestionIndex >= question.questions.length - 1) {
       setCurrentQuestionIndex(0);
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
-  const handleBack = () => {
+  const handleBack = (event) => {
+    event.preventDefault();
     if (currentQuestionIndex <= 0) {
       setCurrentQuestionIndex(0);
     } else {
@@ -72,6 +74,29 @@ export default function TestComponents() {
   const handleSubmit = (event) => {
     event.preventDefault();
   
+    // Check if a selectedOption exists for all questions
+    const allQuestionsAnswered = question.questions.every(
+      (q) => q.selectedOption !== undefined
+    );
+  
+    if (!allQuestionsAnswered) {
+      alert("Please answer all questions before submitting.");
+      return;
+    }
+  
+    // Process the answers
+    const answers = question.questions.map((q) => q.selectedOption);
+  
+    // TODO: Send the answers to the server or process them in some other way
+    console.log("Submitted answers:", answers);
+  
+    // Optionally, reset the form after submission
+    const updatedQuestion = { ...question };
+    updatedQuestion.questions.forEach((q) => {
+      q.selectedOption = undefined;
+    });
+    setQuestion(updatedQuestion);
+    setCurrentQuestionIndex(0);
   };
   
 

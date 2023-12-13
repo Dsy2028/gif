@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function FlashCard() {
-  const { topicName, _id } = useParams();
+  const { topicName, _id,topicId } = useParams();
   const [flashCardData, setFlashCardData] = useState(null);
   const[flashCardIndex, setflashCardIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/flashcards/656fbc90dfff0a737a888e7b`)
+    fetch(`http://localhost:3000/api/flashcards/${topicId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

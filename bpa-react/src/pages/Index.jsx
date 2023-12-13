@@ -8,28 +8,6 @@ import Footer from "../components/Footer";
 
 export default function index() {
   const [active, setActive] = useState(0);
-  const items = [
-    {
-      img: FourthPicture,
-      name: "Dave",
-      text: 'This is an HTML tag used to define a division or section in the webpage. class="section-heading home_build_animation home_animation": This is specifying multiple classes for this. These c CSS rules to this element.',
-    },
-    {
-      img: SecondPicture,
-      name: "Dave",
-      text: 'This is an HTML tag used to define a division or section in the webpage. class="section-heading home_build_animation home_animation": This is specifying multiple classes for this. These c CSS rules to this element.',
-    },
-    {
-      img: FourthPicture,
-      name: "Dadve",
-      text: 'This is an HTML tag used to define a division or section in the webpage. class="section-heading home_build_animation home_animation": This is specifying multiple classes for this. These c CSS rules to this element.',
-    },
-    {
-      img: FourthPicture,
-      name: "Dave",
-      text: 'This is an HTML tag used to define a division or section in the webpage. class="section-heading home_build_animation home_animation": This is specifying multiple classes for this. These c CSS rules to this element.',
-    },
-  ];
   const cards = [
     {
       icon: "smart_toy",
@@ -56,42 +34,8 @@ export default function index() {
         "it's all entirely free, making quality education accessible to all.",
     },
   ];
-  let lengthItems = items.length - 1;
 
-  const next = () => {
-    setActive((prevActive) =>
-      prevActive + 1 <= lengthItems ? prevActive + 1 : 0
-    );
-  };
 
-  const prev = () => {
-    setActive((prevActive) =>
-      prevActive - 1 >= 0 ? prevActive - 1 : lengthItems
-    );
-  };
-
-  useEffect(() => {
-    // slider.style.left = -items[active].offsetLeft + 'px';
-    //reloadSlider();
-  }, [active]);
-  /* function reloadSlider() {
-    slider.style.left = -items[active].offsetLeft + "px";
-    //
-    let last_active_dot = document.querySelector(".slider .dots li.active");
-    last_active_dot.classList.remove("active");
-    dots[active].classList.add("active");
-  }
-  
-  dots.forEach((li, key) => {
-    li.addEventListener("click", () => {
-      active = key;
-  
-      reloadSlider();
-    });
-  });
-  window.onresize = function (event) {
-    reloadSlider();
-  };*/
   return (
     <>
       <br />
@@ -154,39 +98,14 @@ export default function index() {
           </p>
         </div>
       </div>
-      
-      <div className="slider">
-        <div className="list">
-          {items.map((item, index) => (
-            <div
-              className={`item ${index === active ? "active" : ""}`}
-              key={index}
-            >
-              <h1>Here's  parents have to say</h1>
-              <div className="testimonials-text" id={`testimonial-${index}`}>
-                <div className="testimonials-img">
-                  <img src={item.img} alt={item.name} />
-                  <h3>{item.name}</h3>
-                </div>
-                <p>{item.text}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="buttons">
-          <button id="prev-test" onClick={prev}>
-            &lt;
-          </button>
-          <button id="next-test" onClick={next}>
-            &gt;
-          </button>
-        </div>
-        <ul className="dots">
-          {items.map((item, index) => (
-            <li className={index === active ? "active" : ""} key={index} />
-          ))}
-        </ul>
+      <div className="h-96 main-color">
+
       </div>
+      <div className="h-96">
+
+      </div>
+      
+
       <Footer />
     </>
   );

@@ -25,14 +25,14 @@ export default function App() {
     <BrowserRouter>
       {location.pathname !== '/dashboard' && location.pathname !== '/classes' && location.pathname !== '/calender' &&  <Nav />}
       <Routes>
-        <Route path="/flashcard" element={<FlashCard />} />
+        <Route path="/:topicId" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route element={<PrivRoute/>} >
        <Route path="/profile" element={<Profile/>}/>
        </Route>
-        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
         <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />

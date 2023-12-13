@@ -33,7 +33,7 @@ export default function Topic() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched data:", data);
+       // console.log("Fetched data:", data);
         setLessons(data.lessons);    
         setName(data);    
       })
@@ -50,7 +50,7 @@ export default function Topic() {
     <>
       <div className="  pl-56 pr-56 flex">
         <div className="h-full fixed">
-          <div className="flex items-center mb-7">
+          <div className="flex items-center mb-7  animate__animated  animate__fadeInLeft">
             <h1 className="text-semibold text-lg nunito mr-3">Courses</h1>
             <i class="fa-solid fa-chevron-right fa-sm"></i>
             <h1 className="text-semibold text-lg nunito ml-3">
@@ -61,7 +61,7 @@ export default function Topic() {
                 <h1 className="text-semibold text-lg nunito ml-3">{name.lessonName}</h1>
                 }
           </div>
-          <div className="w-96 p-5 h-80" style={{ backgroundImage: ` url(${snow})`, backgroundRepeat: "no-repeat", backgroundSize: "100%"}}>
+          <div className="w-96 p-5 h-80  animate__animated animate__zoomIn "  style={{ backgroundImage: ` url(${snow})`, backgroundRepeat: "no-repeat", backgroundSize: "100%"}}>
             <div className="flex h-14">
               <img src={science} />
             </div>
@@ -90,7 +90,7 @@ export default function Topic() {
     lessons[key] && (
     <div
       key={index}
-      className="w-fit flex flex-col z-50 p-3"
+      className="w-fit flex flex-col z-50 p-3 animate__animated animate__jackInTheBox"
       style={{
         marginLeft: lessons[key].marginLeft,
         marginTop: lessons[key].marginTop,
