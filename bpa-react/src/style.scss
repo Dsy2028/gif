@@ -17,6 +17,11 @@
             flex: 1;
             border-right: 1px solid #c1cffc;
             background-color: #c1cffc;
+            .navbar{
+                display: flex;
+                align-items: center;
+                background-color: #1f398f;
+            }
         }
         .chat{flex: 2;}
 
