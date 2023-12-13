@@ -1,10 +1,12 @@
 import React from 'react';
-import DashNav from '../components/DashNav'
-import DashboardNav from '../components/DashboardNav'
+import Sidebar from '../components/Sidebar';
 const Chat = () => {
     return(
-        <div>
-            <h1>Hello World</h1>
+        <div className='home'>
+            <div className ="container">
+                <Sidebar/>
+                <Sidebar/>
+            </div>
         </div>
     )
 }
