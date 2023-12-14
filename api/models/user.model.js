@@ -29,6 +29,27 @@ const userSchema = new mongoose.Schema({
         enum: ["student", "teacher"],
         default: "student",
     },
+    quizResults: [
+        {
+            quizId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'topics', 
+            },
+            correctAnswers: {
+                type: Number,
+                required: true,
+            },
+            totalQuestions: {
+                type: Number,
+                required: true,
+            },
+            answers: [String], 
+            timestamp: {
+                type: Date,
+                default: Date.now,
+            },
+        },
+    ],
 },{timestamps: true});
 
 const User = mongoose.model('User', userSchema);

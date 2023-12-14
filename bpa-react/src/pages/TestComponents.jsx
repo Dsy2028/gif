@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function TestComponents() {
@@ -7,6 +8,12 @@ export default function TestComponents() {
   const { topicId, questionId } = useParams();
   const [question, setQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [message, setMessage] = useState(false);
+  const [questionsCorrect, setQuestionsCorrect] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [error,setError] = useState(null);
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/topics/${topicId}/question/${questionId}`)
@@ -70,27 +77,60 @@ export default function TestComponents() {
       selectedOption;
     setQuestion(updatedQuestion);
   };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    let correct = 0;
   
-    // Check if a selectedOption exists for all questions
+
     const allQuestionsAnswered = question.questions.every(
       (q) => q.selectedOption !== undefined
     );
   
     if (!allQuestionsAnswered) {
-      alert("Please answer all questions before submitting.");
+      setMessage(true);
       return;
     }
+
+    const answers = question.questions.map((q) => {
+      if (q.selectedOption === q.correctOption) {
+        correct++;
+      }
+      return q.selectedOption;
+    });
   
-    // Process the answers
-    const answers = question.questions.map((q) => q.selectedOption);
+    console.log(`${correct} / ${question.questions.length}`);
+    setCorrectAnswers(correct);
+    setQuestionsCorrect(true);
   
-    // TODO: Send the answers to the server or process them in some other way
-    console.log("Submitted answers:", answers);
+    try {
+      setLoading(true);
+      // Send the answers to the server
+      const response = await fetch('http://localhost:3000/api/user/updateQuizResults', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          quizId: `${topicId}`, 
+          correctAnswers: correct,
+          totalQuestions: question.questions.length,
+          answers: answers,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
   
-    // Optionally, reset the form after submission
+      const data = await response.json();
+      console.log('Success:', data);
+      
+      navigate('/courses');
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+
     const updatedQuestion = { ...question };
     updatedQuestion.questions.forEach((q) => {
       q.selectedOption = undefined;
@@ -99,11 +139,37 @@ export default function TestComponents() {
     setCurrentQuestionIndex(0);
   };
   
+  const closePopup = () => {
+    document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
+    setTimeout(() => {
+      setMessage(false);
+    }, 500);
+  }
 
   return (
     <>
     <form onSubmit={handleSubmit}>
       <div className="h-screen  flex flex-col justify-center items-center bg-slate-200">
+      {message && 
+            <div className='popup p-3 z-50 bg-white fixed  top-60 border-[2px] rounded border-gray-200  h-48  '>
+                <div className='flex'>
+                <div className='rounded-full bg-red-500 w-7 grid place-items-center'>
+                <i class="fa-solid fa-xmark"></i>
+                </div>
+            <h1 className='text-xl font-bold ml-2'>Some questions are not answered</h1>
+              </div>
+              <div className='place-items-center grid  mt-24'>
+              <button className='bg-red-500 w-96 p-1 rounded-sm poppins text-white' onClick={closePopup}>Close</button>
+              </div>
+            </div>
+          }
+          {questionsCorrect && 
+
+          <div className='popup p-3 z-50 bg-white fixed  top-60 border-[2px] rounded border-gray-200  h-48 outline  '>
+            <h1>{correctAnswers} / {question.questions.length} </h1>
+          </div>
+
+          }
         <h1 className="text-semibold text-3xl top-32 absolute">
           {question.topicName}
         </h1>

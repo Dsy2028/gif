@@ -98,9 +98,11 @@ export default function index() {
           </p>
         </div>
       </div>
-      <div className="h-96 main-color">
-
-      </div>
+      <div className="h-96 main-color" style={{ 
+  background: 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\'><path d=\'M 10 10 Q 7.5 0 5 10 Q 2.5 0 0 10\' fill=\'%23ff0000\' /></svg>") repeat-x', 
+  backgroundSize: 'auto 100%' 
+}}>
+</div>
       <div className="h-96">
 
       </div>
