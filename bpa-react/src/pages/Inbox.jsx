@@ -9,9 +9,13 @@ export default function Inbox() {
         <>
             <DashboardNav />
 
-            <div className="grid p-80 rounded-xl bg-black">
+            <div className="grid p-80 rounded-xxl bg-black">
+                <div className="grid p-40 rounded-xl bg-white">
+
+                </div>
             </div>
 
         </>
     )
+
 }

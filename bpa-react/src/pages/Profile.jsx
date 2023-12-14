@@ -228,7 +228,7 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-{/* 
+            {/* 
             <div className="grid p-6 rounded-xl bg-black">
               <div className="flex flex-wrap w-full items-center justify-center">
                 <div className='pl-35 ' >
@@ -253,14 +253,6 @@ export default function Profile() {
               <div className="grid grid-cols-4 gap-4 mt-4 p-5">
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3 '>Teachers</h1>
-                  </div>
-                  <div className="border-[1px] rounded border-gray-300 p-20 shadow-lg flex flex-col">
-                    <button class="graph-button">4</button>
-                  </div>
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Total Topics Learned</h1>
                   </div>
                   <RadialChart data={data} height={300} width={300} />
@@ -268,9 +260,7 @@ export default function Profile() {
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Progress With topics </h1>
-
                   </div>
-
                   <div className="grid p-6 rounded-xl bg-white">
                     <h1 className='text-3xl font-semibold text-center'>Integration</h1>
                     <div className="flex flex-wrap w-full items-center justify-center"></div>
