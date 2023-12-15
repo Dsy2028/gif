@@ -19,6 +19,7 @@ import Calender from './pages/Calender';
 import Topic from './pages/Topic';
 import About from './pages/About';
 import Lesson from './pages/Lesson'
+import Chat from './pages/Chat'
 export default function App() {
   
   return (
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/classes" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
+        <Route path="/Chat" element ={<Chat />} />
       </Routes>
     </BrowserRouter>
   );
