@@ -3,15 +3,16 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
-export default function TestComponents() {
+export default function HarderQuestions() {
   const { topicName } = useParams();
-  const { topicId, questionId,harderQuestionsId} = useParams();
+  const { topicId, questionId } = useParams();
+  const{harderQuestionsId} = useParams();
   const [question, setQuestion] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [message, setMessage] = useState(false);
   const [questionsCorrect, setQuestionsCorrect] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [harder,setharderQuestion] = useState(null);
+  const [error,setError] = useState(null);
   const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,8 +21,8 @@ export default function TestComponents() {
       setLoading(true);
 
       const url = harderQuestionsId
-        ? `http://localhost:3000/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`
-        : `http://localhost:3000/api/topics/${topicId}/questions/${questionId}`;
+        ? `http://localhost:3000/api/topics/${topicId}/questions/${harderQuestionsId}`
+        : `http://localhost:3000/api/topics/${topicId}/question/${questionId}`;
 
       try {
         const response = await fetch(url);
@@ -31,12 +32,6 @@ export default function TestComponents() {
 
         const data = await response.json();
         setQuestion(data);
-        setharderQuestion(data.harderQuestions);
-if (data.harderQuestions && data.harderQuestions.length > 0) {
-  console.log("First harder question text:", data.harderQuestions[0].questionText);
-} else {
-  console.log("No harder questions");
-}
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -44,9 +39,7 @@ if (data.harderQuestions && data.harderQuestions.length > 0) {
       }
     };
 
-  
     fetchQuestion();
-  
   }, [topicName]);
 
   const handleNext = (event) => {
@@ -167,12 +160,6 @@ if (data.harderQuestions && data.harderQuestions.length > 0) {
   return (
     <>
     <form onSubmit={handleSubmit}>
-    {message &&
-    <div className='absolute opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
-
-    </div>
-
-    }
       <div className="h-screen  flex flex-col justify-center items-center bg-slate-200">
       {message && 
             <div className='popup p-3 z-50 bg-white fixed  top-60 border-[2px] rounded border-gray-200  h-48  '>
@@ -202,69 +189,72 @@ if (data.harderQuestions && data.harderQuestions.length > 0) {
         </button>
         
         {question && question.questions[currentQuestionIndex] && (
-  <div className="w-questions bg-white rounded p-4">
-    <div className="flex justify-between mb-3">
-      <button
-        onClick={handleBack}
-        className="main-color text-white rounded-md poppins w-16"
-      >
-        Back
-      </button>
-      <button
-        onClick={handleNext}
-        className="main-color text-white rounded-md poppins w-16"
-      >
-        Next
-      </button>
-    </div>
-    <h1 className="text-lg">Question {currentQuestionIndex + 1}</h1>
-    <h1 className="text-xl">
-      {question.questions[currentQuestionIndex].questionText}
-    </h1>
-    {question.questions[currentQuestionIndex].type === "input" ? (
-      <div>
-        <input
-          className="outline rounded mt-2 p-1"
-          type="text"
-          id={`input-question-${currentQuestionIndex}`}
-          name={`input-question-${currentQuestionIndex}`}
-          value={
-            question.questions[currentQuestionIndex].selectedOption || ""
-          }
-          onChange={(e) => handleOptionChange(e.target.value)}
-        />
-      </div>
-    ) : (
-      <>
-        {question.questions[currentQuestionIndex].options.map(
-          (option, index) => (
-            <div key={index}>
-              <input
-                type="radio"
-                id={`option-${index}`}
-                name={`question-${currentQuestionIndex}`}
-                value={option}
-                checked={
-                  option ===
-                  question.questions[currentQuestionIndex].selectedOption
-                }
-                onChange={() => handleOptionChange(option)}
-              />
-              <label className="ml-2" htmlFor={`option-${index}`}>
-                {option}
-              </label>
+          <div className="w-questions bg-white rounded p-4">
+            <div className="flex justify-between mb-3">
+              <button
+                onClick={handleBack}
+                className="main-color text-white rounded-md poppins w-16"
+              >
+                Back
+              </button>
+              <button
+                onClick={handleNext}
+                className="main-color text-white rounded-md poppins w-16"
+              >
+                Next
+              </button>
             </div>
-          )
+            <h1 className="text-lg">Question {currentQuestionIndex + 1}</h1>
+            <h1 className="text-xl">
+              {question.questions[currentQuestionIndex].questionText}
+            </h1>
+            {question.questions[currentQuestionIndex].type === "input" ? (
+              <div>
+                <input
+                className='outline rounded mt-2 p-1'
+                  type="text"
+                  id={`input-question-${currentQuestionIndex}`}
+                  name={`input-question-${currentQuestionIndex}`}
+                  value={
+                    question.questions[currentQuestionIndex].selectedOption ||
+                    ""
+                  }
+                  onChange={(e) => handleOptionChange(e.target.value)}
+                />
+              </div>
+            ) : (
+              <>
+                {question.questions[currentQuestionIndex].options.map(
+                  (option, index) => (
+                    <div key={index}>
+                      <input
+                        type="radio"
+                        id={`option-${index}`}
+                        name={`question-${currentQuestionIndex}`}
+                        value={option}
+                        checked={
+                          option ===
+                          question.questions[currentQuestionIndex]
+                            .selectedOption
+                        }
+                        onChange={() => handleOptionChange(option)}
+                      />
+                      <label className="ml-2" htmlFor={`option-${index}`}>
+                        {option}
+                      </label>
+                    </div>
+                  )
+                )}
+              </>
+            )}
+
+            <div className="w-full flex justify-end">
+              <button className="main-color text-white rounded-md poppins p-1  w-16">
+                Submit
+              </button>
+            </div>
+          </div>
         )}
-      </>
-    )}
-    <div className="w-full flex justify-end">
-      <button className="main-color text-white rounded-md poppins p-1  w-16">
-        Submit
-      </button>
-    </div>
-  </div>
-)}
       </div>
       </form>
     </>

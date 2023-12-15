@@ -27,10 +27,12 @@ mongoose.connect("mongodb+srv://admin:admin@bpa-react.xhc3sgs.mongodb.net/bpa-re
   .catch((error) => {
     console.log('error')
   });
-
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // replace with the origin of your frontend
+  credentials: true
+}));
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use('/api', questionsRouter);

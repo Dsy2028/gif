@@ -7,7 +7,7 @@ import { updateQuizResults } from '../controllers/user.controller.js';
 const router = express.Router();
 
 router.get('/', test);
-router.post('/update/:id', verifyToken, updateUser);
-router.post('/updateQuizResults', verifyToken,updateQuizResults);
+router.post('/update/:_id', verifyToken, updateUser);
+router.post('/updateQuizResults', verifyToken, updateQuizResults);
 
 export default router;

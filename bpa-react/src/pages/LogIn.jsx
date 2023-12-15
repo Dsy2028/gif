@@ -36,6 +36,8 @@ export default function LogIn() {
         dispatch(signInFailure(data.message));
         return;
       }
+      document.cookie = `access_token=${data.token}; path=/`;
+      console.log(document.cookie);
       dispatch(signInSuccess(data));
       if (data.role === 'teacher') {
         navigate('/dashboard');

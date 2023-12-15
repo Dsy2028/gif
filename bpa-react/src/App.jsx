@@ -19,6 +19,7 @@ import Calender from './pages/Calender';
 import Topic from './pages/Topic';
 import About from './pages/About';
 import Chat from './pages/Chat'
+import HarderQuestions from './pages/HarderQuestions';
 export default function App() {
   
   return (
@@ -33,7 +34,8 @@ export default function App() {
        <Route path="/profile" element={<Profile/>}/>
        </Route>
         <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
-        <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
+        <Route path="/:topicId/questions/:questionId" element={<TestComponents />} />
+        <Route path="/:topicId/harderQuestions/:harderQuestionsId" element={<TestComponents />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
         <Route path="/quiz/science" element={<Quiz type="science" />} />

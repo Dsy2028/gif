@@ -32,19 +32,16 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
 
   const top = db.topics.findOne({ "_id": ObjectId("656604348bc2ccb633300115") })
 
- /* db.topics.updateOne(
+  db.topics.updateOne(
     { "_id": ObjectId("656604348bc2ccb633300115") },
     {
       $push: {
-        "questions": {
-          "_id": ObjectId("656603178bc2ccb633300114"),
-          "questionText": "What are real numbers?",
-          "options": ["Whole numbers", "Natural numbers", "Irrational numbers", "Rational numbers"],
-          "correctOption": "Irrational numbers"
+        "harderQuestions": {
+          "_id":ObjectId("656f4e79a2bacccc8796ca41"),"questionText":"Which of the following is a whole number?","options":["-2","1/2","0.75","8"],"correctOption":"8"
         }
       }
     }
-  )*/
+  )
   /*db.courses.updateOne(
     { "_id": ObjectId("65641442e17b033e4ac90558") },
     { $push: { "units": { "unitName": "New Unit", "topics": ["New Topic"] } } }
@@ -76,7 +73,7 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
       }
     }
   );*/
-
+/*
   db.lessons.updateOne(
     {
       $set: {
@@ -134,6 +131,6 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
       }
       }
   );
-  
+  */
 console.log(find)
 //console.log(find)

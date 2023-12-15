@@ -73,8 +73,9 @@ export default function Topic() {
                 <h1>{name.lessonName}</h1>
                 }
             </div>
-            <p>Understand the use of REal Numbers</p>
-            <p>10 lessons</p>
+            { name && 
+              <p>{name.lessonDescription}</p>
+            }
           </div>
         </div>
         <div
