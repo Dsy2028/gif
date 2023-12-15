@@ -1,6 +1,9 @@
 import React from 'react'
 import Add from "../imgs/add.png";
 import More from "../imgs/more.png";
+import Messages from './Messages';
+import Input from './Input';
+//import { Input } from 'postcss';
 
 const Chat1 = () => {
   return (
@@ -12,6 +15,8 @@ const Chat1 = () => {
           <img src={More} alt="" />
         </div>
       </div>
+      <Messages/>
+      <Input/>
     </div>
   )
 }
