@@ -7,7 +7,7 @@ const Search = () => {
         <input type="text" />
       </div>
       <div className="userChat">
-        <img src="" alt="" />
+        <img src="https://retratosbarcelona.com/wp-content/uploads/2022/09/Retratos-Barcelona-Linkedin-Photography-Alejandra.jpg" alt="" />
         <div className="userChatInfo">
           <span></span>
         </div>
