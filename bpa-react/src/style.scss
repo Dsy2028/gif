@@ -24,6 +24,46 @@
                 height: 50px;
                 padding: 10px;
                 justify-content: space-between;
+                color: white;
+
+                .logo{
+                    font-weight: bold;
+                }
+
+                .user{
+                    display: flex;
+                    gap: 10px;
+                    img{
+                        background-color: #ddddf7;
+                        height: 24px;
+                        width: 24px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    button{
+                        background-color: #2252ee;
+                        color: white;
+                        font-size: 14px;
+                        border: none;
+                        cursor: pointer;
+                        padding: .4rem;
+                        border-radius: 10px;
+
+                    }
+                }
+                .search{
+                    border-bottom: 1px solid gray;
+
+                    .searchForm{
+                        input{}
+                    }
+                }
+                .userChat{
+                    img{
+                        width: 50;
+                        height: 50px;
+                    }
+                }
             }
         }
         .chat{flex: 2;}
