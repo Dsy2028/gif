@@ -24,6 +24,7 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
   questions: [QuestionSchema],
+  harderQuestions: [QuestionSchema],
 });
 
 const topics = mongoose.model('topics', TopicSchema);

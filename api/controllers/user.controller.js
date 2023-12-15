@@ -6,13 +6,13 @@ export const test = (req,res)=>{
 }
 
 export const updateUser = async (req,res, next)=> {
-    if(req.user._id !== req.params._id) return next(errorHandler(401, 'You can only update your account'));
+    if(req.user.id !== req.params.id) return next(errorHandler(401, 'You can only update your account'));
     console.log(req.user);
     try {
         if(req.body.password){
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
         }
-        const updateUser = await User.findByIdAndUpdate(req.params._id,{
+        const updateUser = await User.findByIdAndUpdate(req.params.id,{
             $set:{
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
@@ -34,7 +34,8 @@ export const updateQuizResults = async (req, res,next) => {
   try {
     const { quizId, correctAnswers, totalQuestions, answers } = req.body;
     //if(req.user._id !== req.params._id) return next(errorHandler(403, 'Forbidden'));
-    console.log(req.user);
+    console.log('user',req.user);
+    console.log('user id',req.user.id);
 
 
     const updatedUser = await User.findByIdAndUpdate(
