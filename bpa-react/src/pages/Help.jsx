@@ -17,12 +17,12 @@ export default function Help() {
 
   return (
     <>
-      <div className='w-full'>
+      <div className='p-11'>
         <h1 className='text-center text-3xl font-semibold'>Help</h1>
         <h2 className='text-2xl text-center color-main'>use tools below for assistance</h2>
         <div className='grid grid-cols-3 grid-rows-2 gap-5 mt-3 pr-6 pl-6 mb-20'>
           {helpTopics.map((topic, index) => (
-            <div className='shadow-lg rounded outline-slate-500  flex flex-col items-center hover:mb-7 transition-all duration-500 ease-in-out'key={index}>
+            <div className='shadow-lg rounded outline-slate-500   flex flex-col items-center hover:mb-7 animate__slideInLeft animate__animated  cursor-pointer'key={index}>
               <img className='w-full h-4/5'src={topic.image} alt={topic.title} />
               <div >
               <Link className='text-semibold text-2xl' to={'/'}>{topic.title}</Link>

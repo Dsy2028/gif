@@ -20,6 +20,7 @@ import Topic from './pages/Topic';
 import About from './pages/About';
 import Lesson from './pages/Lesson'
 import Chat from './pages/Chat'
+import HarderQuestions from './pages/HarderQuestions';
 export default function App() {
   
   return (
@@ -27,6 +28,7 @@ export default function App() {
       {location.pathname !== '/dashboard' && location.pathname !== '/classes' && location.pathname !== '/calender' &&  <Nav />}
       <Routes>
         <Route path="/" element={<FlashCard />} />
+        <Route path="/:topicId" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
@@ -36,6 +38,9 @@ export default function App() {
        <Route path="/courses/:courseName/:lessonName/:lessonType" element={<Lesson/>}/>
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/:topicId/question/:questionId" element={<TestComponents />} />
+        <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
+        <Route path="/:topicId/questions/:questionId" element={<TestComponents />} />
+        <Route path="/:topicId/harderQuestions/:harderQuestionsId" element={<TestComponents />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
         <Route path="/quiz/science" element={<Quiz type="science" />} />
