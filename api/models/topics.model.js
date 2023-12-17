@@ -23,6 +23,13 @@ const TopicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  course:{
+    _id: mongoose.Schema.Types.ObjectId,
+    courseName: {
+      type: String,
+      required: true,
+    },
+  },
   questions: [QuestionSchema],
   harderQuestions: [QuestionSchema],
 });
