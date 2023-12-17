@@ -36,10 +36,10 @@ export default function App() {
        </Route>
         <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
         <Route path="/:topicId/questions/:questionId" element={<TestComponents />} />
-        <Route path="/:topicId/harderQuestions/:harderQuestionsId" element={<TestComponents />} />
+        <Route path="/:topicId/harderQuestions/:harderQuestionsId" element={<HarderQuestions />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
         <Route path="/quiz/math" element={<Quiz type="math" />} />
-        <Route path="/quiz/science" element={<Quiz type="science" />} />
+        <Route path="/quiz/science" element={<Quiz type="science" />} /> 
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:topicName" element={<TopicSkills/>}/>
@@ -49,7 +49,7 @@ export default function App() {
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
         <Route path="/Chat" element ={<Chat />} />
-        <Route path ="/Inbox" element ={<Inbox />}/>
+        <Route path ="/inbox" element ={<Inbox />}/>
       </Routes>
     </BrowserRouter>
   );

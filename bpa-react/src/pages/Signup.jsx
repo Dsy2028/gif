@@ -119,7 +119,7 @@ export default function signup() {
         <div className="form-contain">
           <label htmlFor="role">Select Role</label>
           <select id="role" name="role" onChange={handleRoleChange} value={formData.role}>
-            <option value="user">Student</option>
+            <option value="student">Student</option>
             <option value="teacher">Teacher</option>
           </select>
         </div>

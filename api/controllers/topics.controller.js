@@ -13,7 +13,6 @@ export const getTopicWithQuestion = async (req, res) => {
         { 'questions._id': questionId },
       ],
     }).lean();
-
     if (!result) {
       return res.status(404).json({ message: 'Topic or question not found' });
     }

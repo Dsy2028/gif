@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import stars from "../imgs/stars.svg";
+import running from "../imgs/running.svg";
+import { Progress } from 'flowbite-react';
+
 
 
 export default function TestComponents() {
@@ -142,7 +146,7 @@ if (data.harderQuestions && data.harderQuestions.length > 0) {
       const data = await response.json();
       console.log('Success:', data);
       
-      navigate(`/courses/${question.course.courseName}/${question.topicName}`);
+    //  navigate(`/courses/${question.course.courseName}/${question.topicName}`);
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -158,40 +162,49 @@ if (data.harderQuestions && data.harderQuestions.length > 0) {
   };
   
   const closePopup = () => {
-    document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
+    document.querySelector('.popup').classList.add('animate__backOutDown', 'animate__animated' );
     setTimeout(() => {
       setMessage(false);
     }, 500);
   }
+  const closeQuestions = () => {
+    setQuestionsCorrect(false);
+    navigate(`/courses/${question.course.courseName}/${question.topicName}`);
+  }
+
 
   return (
     <>
     <form onSubmit={handleSubmit}>
-    {message &&
+        {questionsCorrect &&
     <div className='absolute opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
-
     </div>
-
     }
       <div className="h-screen  flex flex-col justify-center items-center bg-slate-200">
       {message && 
-            <div className='popup p-3 z-50 bg-white fixed  top-60 border-[2px] rounded border-gray-200  h-48  '>
-                <div className='flex'>
-                <div className='rounded-full bg-red-500 w-7 grid place-items-center'>
-                <i class="fa-solid fa-xmark"></i>
-                </div>
-            <h1 className='text-xl font-bold ml-2'>Some questions are not answered</h1>
-              </div>
-              <div className='place-items-center grid  mt-24'>
-              <button className='bg-red-500 w-96 p-1 rounded-sm poppins text-white' onClick={closePopup}>Close</button>
-              </div>
-            </div>
+      <div onClick={closePopup} role="alert" className="cursor-pointer animate__backInDown animate__animated fixed top-11 z-50 popup alert alert-error w-96 bg-yellow-100">
+      <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="cursor-pointer stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div className='flex items-center justify-between'>
+      <span>Warning! Some questions are unanswered.</span>
+      
+      </div>
+    </div>
           }
           {questionsCorrect && 
 
-          <div className='popup p-3 z-50 bg-white fixed  top-60 border-[2px] rounded border-gray-200  h-48 outline  '>
-            <h1>{correctAnswers} / {question.questions.length} </h1>
-          </div>
+<div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] rounded border-gray-200 h-48 outline'>
+  <div className="flex w-full justify-between items-center">
+{(correctAnswers / question.questions.length) * 100 >= 70 ? 
+    <img src={stars} className="w-8 h-8" alt="Stars" /> : 
+    <img src={running} className="w-8 h-8"  alt="Almost There" />}
+    <i class="fa-solid fa-xmark fa-xl cursor-pointer" onClick={closeQuestions}></i>
+    </div>
+  {(correctAnswers / question.questions.length) * 100 >= 70 ? 
+    <h1> Good Job! {correctAnswers} / {question.questions.length} </h1> : 
+    <h1>Almost There! {correctAnswers} / {question.questions.length} </h1>}
+    <Progress progress={(correctAnswers / question.questions.length)} size="md"/>
+
+</div>
 
           }
         <h1 className="text-semibold text-3xl top-32 absolute">

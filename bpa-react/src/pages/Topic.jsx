@@ -4,6 +4,7 @@ import science from "../imgs/genetic-data-svgrepo-com.svg";
 import endless from "../imgs/endless-constellation.svg";
 import flat from "../imgs/flat-mountains.svg";
 import snow from "../imgs/confetti-doodles.svg"
+import math from "../imgs/math-svgrepo-com.svg"
 
 export default function Topic() {
   const { courseName, lessonName } = useParams();
@@ -63,7 +64,7 @@ export default function Topic() {
           </div>
           <div className="w-96 p-5 h-80  animate__animated animate__zoomIn "  style={{ backgroundImage: ` url(${snow})`, backgroundRepeat: "no-repeat", backgroundSize: "100%"}}>
             <div className="flex h-14">
-              <img src={science} />
+              <img src={math} />
             </div>
             <div className="flex">
               <h1>{getPageName()}</h1>
@@ -99,7 +100,7 @@ export default function Topic() {
     >
       <div className="flex justify-center h-7 ">
         <div
-          className="w-10 flex justify-center items-center "
+          className="w-10 flex justify-center items-center  "
           style={{ backgroundColor: lessons[key].backgroundColor, borderRadius: lessons[key].borderRadius }}
         >
           <i className={`fa-solid ${lessons[key].icon} fa-xl text-center`} />
