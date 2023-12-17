@@ -20,6 +20,7 @@ import Topic from './pages/Topic';
 import About from './pages/About';
 import Chat from './pages/Chat'
 import HarderQuestions from './pages/HarderQuestions';
+import Inbox from'./pages/Inbox';
 export default function App() {
   
   return (
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
         <Route path="/Chat" element ={<Chat />} />
+        <Route path ="/Inbox" element ={<Inbox />}/>
       </Routes>
     </BrowserRouter>
   );

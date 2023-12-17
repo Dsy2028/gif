@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import ApexCharts from 'apexcharts'
 import ProfilePicture from '../imgs/police.svg'
 import { useSelector } from 'react-redux';
 import { useRef } from 'react';
@@ -8,6 +7,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import { app } from '../firebase';
 import { XYPlot, RadialChart } from "react-vis";
 import Calender from './Calender.jsx';
+import PropTypes from 'prop-types';
 import Footer from '../components/Footer.jsx'
 
 
@@ -228,7 +228,7 @@ export default function Profile() {
                 </div>
               </div>
             </div>
-{/* 
+            {/* 
             <div className="grid p-6 rounded-xl bg-black">
               <div className="flex flex-wrap w-full items-center justify-center">
                 <div className='pl-35 ' >
@@ -253,14 +253,6 @@ export default function Profile() {
               <div className="grid grid-cols-4 gap-4 mt-4 p-5">
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3 '>Teachers</h1>
-                  </div>
-                  <div className="border-[1px] rounded border-gray-300 p-20 shadow-lg flex flex-col">
-                    <button class="graph-button">4</button>
-                  </div>
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Total Topics Learned</h1>
                   </div>
                   <RadialChart data={data} height={300} width={300} />
@@ -268,21 +260,19 @@ export default function Profile() {
                 <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
                   <div className='flex items-center'>
                     <h1 className='nunito font-bold text-xl ml-3'>Progress With topics </h1>
-
                   </div>
-
-                  <div className="grid p-6 rounded-xl bg-black">
-                    <h1 className='text-3xl font-semibold text-center'>Completed 1</h1>
+                  <div className="grid p-6 rounded-xl bg-white">
+                    <h1 className='text-3xl font-semibold text-center'>Integration</h1>
                     <div className="flex flex-wrap w-full items-center justify-center"></div>
                   </div>
                   <br></br>
-                  <div className="grid p-6 rounded-xl bg-black">
-                    <h1 className='text-3xl font-semibold text-center'>Completed 2</h1>
+                  <div className="grid p-6 rounded-xl bg-white">
+                    <h1 className='text-3xl font-semibold text-center'>Differentiation</h1>
                     <div className="flex flex-wrap w-full items-center justify-center"></div>
                   </div>
                   <br></br>
-                  <div className="grid p-6 rounded-xl bg-black">
-                    <h1 className='text-3xl font-semibold text-center'>Completed 3</h1>
+                  <div className="grid p-6 rounded-xl bg-white">
+                    <h1 className='text-3xl font-semibold text-center'>Continuity</h1>
                     <div className="flex flex-wrap w-full items-center justify-center"></div>
                   </div>
                   {/* <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
@@ -299,6 +289,7 @@ export default function Profile() {
                   <div className='flex items-center'>
 
                   </div>
+                  <RadialChart data={data} height={300} width={300} />
                 </div>
               </div>
             </div>
