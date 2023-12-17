@@ -3,6 +3,7 @@ import FirstPicture from "../imgs/medium-shot-kids-drawing-together.jpg";
 import SecondPicture from "../imgs/Tiny professional business people carrying upward arrow.jpg";
 import FourthPicture from "../imgs/cute-smiling-young-man-with-bristle-looking-satisfied.jpg";
 import ThirdPicture from "../imgs/reading-books.jpg";
+import FunPicture from "../imgs/FunPicture.avif"
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
@@ -70,8 +71,20 @@ export default function index() {
         </div>
       </div>
     ))}
-  </div>
+      {/* fun info card */}
+          <div className="hero">
+        <div className="content-holder">
+          <h1 className="font-semibold text-3xl mb-4"></h1>
+          <p>
+         THINGS ABOUT BEING FUN --SOON
+          </p>
+        </div>
+  
+        <img src={ FunPicture} />
+      </div>
 
+
+  </div>
       <div className="hero">
         <div className="content-holder">
           <h1 className="font-semibold text-3xl mb-4">dfsdfsdfsdfdsf</h1>
@@ -81,6 +94,7 @@ export default function index() {
           stay connected—wherever your journey takes you.
           </p>
         </div>
+  
         <img src={ThirdPicture} />
       </div>
       <div className="potential-container">

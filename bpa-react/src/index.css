@@ -10,6 +10,8 @@
 @tailwind components;
 @tailwind utilities;  
 
+
+
 /* #606C38 #283618 #FEFAE0 #DDA15E #BC6C25 */
 :root{
     --color-primary: #6C9BCF;
@@ -354,6 +356,8 @@ background-color: var(--color-light);
     transition: all 0.3s ease 0s;
     color: white;
     font-family: 'Poppins';
+
+    
 }
 .nav-btn:hover{
     background-color: rgba(0.8, 136,169,1);
@@ -789,7 +793,7 @@ label{
     }
 }
 .discover-section{
-    height: 585px;
+    height: 610px;
     width: 100%;
 }
 .discover-container{
@@ -2415,23 +2419,30 @@ flex-direction: column;
 .hero{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     height: auto;
     padding: 2%;
     gap: 5%;
     align-items: center;
     flex-direction: column;
+
 }
 
 .hero img{
     width: 100%;
-    height: auto;
-    border-radius: 1px 1222px 1px 1px;
+    height: 100%;
+    
 }
 
+/* Responsive styles */
+@media screen and (min-width: 768px) {
+
+}
 .content-holder{
     height: auto;
     width: 100%;
     z-index: 9999;
+    position: relative;
 }
 
 .potential-container{
