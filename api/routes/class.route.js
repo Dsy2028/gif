@@ -1,5 +1,6 @@
 import express from 'express';
 import Class from '../models/class.model.js';
+import { verifyToken } from '../utils/verify.js';
 
 const router = express.Router();
 
@@ -9,8 +10,9 @@ router.post('/', async (req, res) => {
   res.status(201).json(newClass);
 });
 
-router.post('/api/classes/join', async (req, res) => {
-    const classToJoin = await Class.findOne({ code: req.body.code });
+router.post('/api/classes/join',verifyToken,  async (req, res) => {
+    req.user.id
+    const classToJoin = await Class.findOne({ code: req.body.code, teacher: req.user.id });
     if (!classToJoin) {
       return res.status(404).json({ message: 'Class not found' });
     }

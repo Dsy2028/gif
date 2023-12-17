@@ -3,14 +3,19 @@ import DashboardNav from '../components/DashboardNav'
 import DashNav from '../components/DashNav'
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
 export default function Classes() {
     const [showPopup, setShowPopup] = useState(false);
     const [code, setCode] = useState('');
-  
+    const { currentUser } = useSelector(state => {
+      console.log(state.user.currentUser); // Log the currentUser
+      return state.user;
+    });
     const createClass = async () => {
-        const response = await fetch('/api/classes/', {
+        const response = await fetch('http://localhost:3000/api/classes/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({ code, teacher: currentUser._id })
         });
         const data = await response.json();
@@ -24,7 +29,7 @@ export default function Classes() {
       }
       setCode(randomString);
       setShowPopup(true);
-      createClass(randomString);
+      createClass(code);
     }
     const closePopup = () => {
         document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );

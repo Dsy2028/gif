@@ -50,9 +50,8 @@ function TopicSkills() {
     <Link to={"/questions/:question"}>
         <button>Go to Questions List</button>
       </Link>
-    <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8  '>
+    <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
     {courseDetails.units.map((unit, index) => (
-  <div className='outline rounded animate__fadeInDown animate__animated ' key={index}>
   <div className='outline rounded animate__animated animate__fadeInDown' key={index}>
     <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
     <ul className='list-none p-0'>

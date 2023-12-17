@@ -63,3 +63,22 @@ export const updateQuizResults = async (req, res,next) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+export const getUserResults =  async (req, res) => {
+  try{
+  const { quizId } = req.user.quizId;
+  const { quizResults } = req.user;
+  const {answers} = req.user.answers;
+
+  const quizResult = quizResults.find((result) => result.quizId === quizId);
+
+  if (!quizResult) {
+    return res.status(404).json({ message: 'Quiz result not found' });
+  }
+  res.status(200).json({ quizResult });
+}
+  catch(error){
+    console.error('Error getting quiz results:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
