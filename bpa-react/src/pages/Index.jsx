@@ -49,10 +49,10 @@ export default function index() {
           <div className="discover-content">
             <h3>Elevate Learning, One Click at a Time.</h3>
             <p>Aiming to provide free education to any and all</p>
-            <Link className="btn" to={"/sign-up"}>
+            <Link className="" to={"/sign-up"}>
               <button className="nav-btn">Learners</button>
             </Link>
-            <Link className="btn">
+            <Link className="">
               <button className="nav-btn">Teachers</button>
             </Link>
           </div>

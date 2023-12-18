@@ -7,12 +7,15 @@ import {
   signInSuccess,
 } from "../redux/user/userSlice";
 import GoogleAuth from "../components/GoogleAuth";
-
+import background from "../imgs/background.svg";
+import background1 from "../imgs/background1.svg";
+import { Checkbox, Label } from 'flowbite-react';
 export default function LogIn() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [message, setMessage] = useState(false);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -34,6 +37,7 @@ export default function LogIn() {
       console.log(data);
       if (data.success === false) {
         dispatch(signInFailure(data.message));
+        setMessage(true);
         return;
       }
       document.cookie = `access_token=${data.token}; path=/`;
@@ -46,63 +50,87 @@ export default function LogIn() {
       }
     } catch (error) {
       dispatch(signInFailure(error.message));
+      setMessage(true);
     }
   };
+
+  const closePopup = () => {
+    document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
+    setTimeout(() => {
+      setMessage(false);
+      dispatch(resetError());
+    }, 500);
+  }
   return (
-    <div className="login-section">
-      <div className="login-container1">
+    <div className="login-section" style={{ backgroundImage: ` url(${background1})`}}>
+       {message && error && 
+       <div  onClick={closePopup}  role="alert" className="animate__backInDown animate__animated fixed top-11 z-50 popup alert alert-error w-96 bg-red-500">
+       <svg xmlns="http://www.w3.org/2000/svg" className="cursor-pointer stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+       <div className='flex items-center justify-between'>
+       <span>{error}</span>
+       
+       </div>
+     </div>
+       }
+      <div className="bg-white h-[35rem] w-[28rem] rounded p-8 ">
+        <h1 className="font-bold nunito text-xl mb-3">Sign in to your account</h1>
         <form onSubmit={handleSubmit}>
-          <div className="form-contain1">
-            <label htmlFor="email" placeholder="email">
+          <div className="flex  flex-col mb-6">
+            <label htmlFor="email" placeholder="email" className="nunito">
               Email
             </label>
             <input
+            className="border-[1px] rounded border-gray-200 w-full"
               type="text"
               name="email"
               id="email"
               onChange={handleChange}
             />
-            <div id="error emailError" />
           </div>
-          <div className="form-contain1">
-            <div className="forgot-pass">
+          <div className="flex  flex-col">
               <label htmlFor="password" placeholder="password">
                 Password
               </label>
-              <Link to={"/#"} className="text-blue-700 ml">
-                Forgot password?
-              </Link>
-            </div>
             <input
+            className="border-[1px] rounded border-gray-200 bg-[] w-full"
               type="password"
               name="password"
               id="password"
               onChange={handleChange}
             />
-            <div id="errorOutput" />
-            <div className="btn-holder">
+          </div>
+          <div className="mt-5 flex w-full justify-between ">
+            <div className="flex items-center">
+            <span className="mr-3">Remember Me</span>
+            <Checkbox id="accept" className="h-fit w-fit" defaultChecked />
+          </div>
+          <Link to={"/#"} className="text-blue-700 ">
+                Forgot password?
+              </Link>
+          </div>
+          <div className="btn-holder mt-3">
               <button
                 disabled={loading}
-                className="login-btn text-white uppercase hover:opacity-90 disabled:opacity-80"
-                id="log-btn1"
+                className="rounded h-9 nunito w-full main-color cursor-pointer mt-3  text-white uppercase hover:opacity-90 disabled:opacity-80"
+                
               >
-                {loading ? "Loading.." : "Log In"}
+                {loading ? "Loading.." : "Sign In"}
               </button>
             </div>
-            <p id="noAccount">
+          <div className=" flex items-center justify-center mt-5">
+            <div className="border-[1px] border-gray-200 w-5/6"></div>
+            <span className="mr-1 ml-1"> or </span>
+            <div className="border-[1px] border-gray-200 w-5/6"></div>
+          </div>
+          <GoogleAuth />
+          <div className="mt-3 text-center">
+          <p  className="" >
               dont have an account?{" "}
               <Link to={"/sign-up"} className="text-blue-700">
                 Sign Up!
               </Link>
             </p>
-          </div>
-          {error && <p className="text-red-600 mt-5">{error}</p>}
-          <div className="or-hold">
-            <div className="or ml-2"></div>
-            <span> or </span>
-            <div className="or"></div>
-          </div>
-          <GoogleAuth />
+           </div>
         </form>
       </div>
     </div>

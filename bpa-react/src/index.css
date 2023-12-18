@@ -76,6 +76,18 @@
 	margin-bottom: 1rem;
 	margin-top: -.5rem;
 }
+input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    padding-left: 10px;
+}
+input::-moz-placeholder { /* Firefox 19+ */
+    padding-left: 10px;
+}
+input:-ms-input-placeholder { /* IE 10+ */
+    padding-left: 10px;
+}
+input:-moz-placeholder { /* Firefox 18- */
+    padding-left: 10px;
+}
 
 .tag {
 	margin-right: .5rem;
@@ -401,15 +413,7 @@ background-color: var(--color-light);
     justify-content: right;
     align-items: center;
 }
-.login-container1{
-    background-color: rgb(243, 239, 239);
-    width: 32rem;
-    height: 80%;
-    border-radius: 25px;
-    padding: 34px;
-    box-shadow: var(--box-shadow);
-    margin-bottom: 8rem;
-}
+
 .poppins{
     font-family: 'Poppins';
 }
@@ -448,7 +452,8 @@ background-color: var(--color-light);
     align-items: center;
 }
 .login-container1{
-    background-color: rgb(243, 239, 239);
+  /*  background-color: rgb(243, 239, 239);*/
+  background-color: white;
     width: 32rem;
     height: 80%;
     border-radius: 25px;
@@ -620,19 +625,16 @@ form{
     width: 45%;
     height: 2px;
 }
-.external-icons{
-    margin-top: 10%;
+/*.external-icons{
     display: flex;
     height: 20%;
     width: 100%;
     align-items: center;
     justify-content: space-evenly;
-}
+}*/
 .external-icon{
     background-color: #0b488d;
-    width: 15%;
-    height: 50%;
-    border-radius: 10px;
+
     display: flex;
     align-items: center;
     justify-content: center;

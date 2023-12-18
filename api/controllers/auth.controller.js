@@ -4,6 +4,21 @@ import {errorHandler} from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 dotenv.config();
+function getIp(req) {
+  let ipaddress = '';
+  if (req.headers['x-client-ip']) ipaddress = req.headers['x-client-ip'];
+  else if (req.headers['x-real-ip']) ipaddress = req.headers['x-real-ip'];
+  else if (req.headers['cf-connecting-ip']) ipaddress = req.headers['cf-connecting-ip'];
+  else if (req.headers['x-forwarded-for']) ipaddress = req.headers['x-forwarded-for'].split(',')[0];
+  else if (req.headers['forwarded-for']) ipaddress = req.headers['forwarded-for'];
+  else if (req.headers['forwarded']) ipaddress = req.headers['forwarded'];
+  else ipaddress = req.connection.remoteAddress || 'UNKNOWN';
+
+  if (ipaddress === '::1') {
+      return '127.0.0.1';
+  }
+  return ipaddress;
+}
 export const signup = async (req, res, next) => {
     const { firstName, lastName, email, password, role } = req.body;
   
@@ -13,12 +28,14 @@ export const signup = async (req, res, next) => {
     }
   
     const hashedPassword = bcryptjs.hashSync(password, 10);
+    const ip = getIp(req);
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: hashedPassword,
-      role, // Assign the role to the user
+      role, 
+      ip,
     });
   
     try {
@@ -28,7 +45,7 @@ export const signup = async (req, res, next) => {
       next(error);
     }
   };
-  
+
   export const signin = async (req, res, next) => {
     const { email, password } = req.body;
     try {

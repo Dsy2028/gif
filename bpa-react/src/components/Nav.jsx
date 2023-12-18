@@ -54,7 +54,7 @@ export default function Nav() {
           <li className='nav-li'>Teachers</li>
           <Link to={"/sign-up"}><li className='nav-li'>Sign Up</li></Link>
         </ul>
-        <Link className="btn" to={'/log-in'}>
+        <Link className="" to={'/log-in'}>
           <button className="nav-btn">Login</button>
         </Link>
       </nav>

@@ -4,22 +4,15 @@ import DashNav from '../components/DashNav'
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useEffect } from 'react';
 export default function Classes() {
     const [showPopup, setShowPopup] = useState(false);
     const [code, setCode] = useState('');
+    const [getCode, setGetCode] = useState(0);
     const { currentUser } = useSelector(state => {
       console.log(state.user.currentUser); // Log the currentUser
       return state.user;
     });
-    const createClass = async () => {
-        const response = await fetch('http://localhost:3000/api/classes/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ code, teacher: currentUser._id })
-        });
-        const data = await response.json();
-      };
     const generateCode = () => {
       const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*?';
       let randomString = '';
@@ -29,8 +22,38 @@ export default function Classes() {
       }
       setCode(randomString);
       setShowPopup(true);
-      createClass(code);
+      createClass(randomString);
     }
+    const createClass = async (code) => {
+      const response = await fetch('http://localhost:3000/api/classes/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ code, teacher: currentUser._id })
+      });
+      const data = await response.json();
+    };
+    useEffect(() => {
+      fetch(`http://localhost:3000/api/classes/`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Fetched data:", data);
+  
+          if (data ) {
+            setGetCode(data);
+          } else {
+            console.error("Fetched data is empty or missing flashCards array.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    });
     const closePopup = () => {
         document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
         setTimeout(() => {

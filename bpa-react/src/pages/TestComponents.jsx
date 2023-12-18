@@ -36,11 +36,6 @@ export default function TestComponents() {
         const data = await response.json();
         setQuestion(data);
         setharderQuestion(data.harderQuestions);
-if (data.harderQuestions && data.harderQuestions.length > 0) {
-  console.log("First harder question text:", data.harderQuestions[0].questionText);
-} else {
-  console.log("No harder questions");
-}
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

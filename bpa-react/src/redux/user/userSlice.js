@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 
 
 const initialState = {
@@ -49,6 +50,13 @@ const userSlice = createSlice({
           },
     }
 })
+export const resetError = createAction('user/resetError');
+extraReducers: (builder) => {
+  builder
+    .addCase(resetError, (state) => {
+      state.error = null;
+    });
+}
 
 export const {
     signInStart,

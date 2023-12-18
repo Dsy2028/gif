@@ -20,4 +20,16 @@ router.post('/api/classes/join',verifyToken,  async (req, res) => {
     await classToJoin.save();
     res.status(200).json(classToJoin);
   });
+
+
+  router.get('/', verifyToken, async (req, res) => {
+    const classToGet = await Class.findById(req.user.id);
+    console.log('user id', req.user.id);
+    if (!classToGet) {
+      return res.status(404).json({ message: 'Class not found' });
+    }
+    res.status(200).json(classToGet);
+  });
  export default router;
+
+ //"__v": { "$numberInt": "0" }

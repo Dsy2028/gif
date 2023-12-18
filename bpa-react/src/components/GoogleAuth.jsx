@@ -34,8 +34,8 @@ export default function GoogleAuth() {
   };
 
   return (
-    <div className="external-icons">
-      <div className="external-icon cursor-pointer" onClick={handleGoogleClick}>
+    <div className="external-icons mt-3">
+      <div className="external-icon cursor-pointer h-6 p-6 rounded hover:opacity-90" onClick={handleGoogleClick}>
         <i className="fa-brands fa-google fa-2xl" style={{ color: "#fff" }} />
       </div>
       {/* Additional icons go here */}
