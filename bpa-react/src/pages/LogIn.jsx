@@ -34,14 +34,12 @@ export default function LogIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         setMessage(true);
         return;
       }
       document.cookie = `access_token=${data.token}; path=/`;
-      console.log(document.cookie);
       dispatch(signInSuccess(data));
       if (data.role === 'teacher') {
         navigate('/dashboard');

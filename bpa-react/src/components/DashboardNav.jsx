@@ -1,9 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 
 export default function DashboardNav() {
   const [showInvite, setShowInvite ] = useState(false);
+  const { currentUser } = useSelector(state => {
+    return state.user;
+  });
 
   const openInvite = () => {
     setShowInvite(true);
@@ -32,7 +36,7 @@ export default function DashboardNav() {
           <i class="fa-solid fa-chart-line mr-2"></i>
           Dashboards
         </Link>
-        <Link to={"/classes"} className='text-xl font-bold  w-full cursor-pointer  flex items-center rounded link hover:bg-gray-200'>
+        <Link to={`/classes/${currentUser._id}`} className='text-xl font-bold  w-full cursor-pointer  flex items-center rounded link hover:bg-gray-200'>
           <i class="fa-solid fa-users mr-2"></i>
           Classes
         </Link>

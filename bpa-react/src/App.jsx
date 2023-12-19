@@ -19,13 +19,14 @@ import Calender from './pages/Calender';
 import Topic from './pages/Topic';
 import About from './pages/About';
 import Chat from './pages/Chat'
-import HarderQuestions from './pages/HarderQuestions';
 import Inbox from'./pages/Inbox';
+import HarderQuestions from './pages/HarderQuestions';
 export default function App() {
-  
+  const paths = ['/dashboard', '/classes', '/calendar'];
+
   return (
     <BrowserRouter>
-      {location.pathname !== '/dashboard' && location.pathname !== '/classes' && location.pathname !== '/calender' &&  <Nav />}
+      {!paths.some(path => location.pathname.includes(path)) && <Nav />}
       <Routes>
         <Route path="/:topicId" element={<FlashCard />} />
         <Route path="/" element={<Index />} />
@@ -45,7 +46,7 @@ export default function App() {
         <Route path="/courses/:topicName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/classes" element={<Classes />} />
+        <Route path="/classes/:teacherId" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
         <Route path="/Chat" element ={<Chat />} />

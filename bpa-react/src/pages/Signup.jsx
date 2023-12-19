@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../components/Footer';
 import background1 from "../imgs/background1.svg";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function signup() {
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState({
+    role: 'student',
+  });
   const [error,setError] = useState(null);
   const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [message, setMessage] = useState(false);
   const handleChange = (e) => {
     setFormData(
       {
@@ -33,6 +38,7 @@ export default function signup() {
       console.log(data);
       if(data.success === false) {
         setError(data.message);
+        setMessage(true);
         setLoading(false);
         return;
       }
@@ -42,6 +48,7 @@ export default function signup() {
     } catch (error) {
       setLoading(false);
       setError(error.message);
+      setMessage(true);
     }
     
   }
@@ -50,7 +57,16 @@ export default function signup() {
       ...formData,
       role: e.target.value,
     });
+    console.log(e.target.value)
   };
+
+  const closePopup = () => {
+    document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
+    setTimeout(() => {
+      setMessage(false);
+      dispatch(resetError());
+    }, 500);
+  }
 
   /*        <ul className="circles">
           <li />
@@ -62,11 +78,19 @@ export default function signup() {
           <li />
           <li />
         </ul>*/
-  
   return (
 <>
 
   <div className="grid place-items-center h-screen" style={{ backgroundImage: ` url(${background1})`}}>
+  {message && error && 
+       <div  onClick={closePopup}  role="alert" className="animate__backInDown animate__animated fixed top-11 z-50 popup alert alert-error w-96 bg-red-500">
+       <svg xmlns="http://www.w3.org/2000/svg" className="cursor-pointer stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+       <div className='flex items-center justify-between'>
+       <span>{error}</span>
+       
+       </div>
+     </div>
+       }
     <div className="w-[27rem] h-[33rem] bg-white rounded p-6">
       <form onSubmit={handleSubmit}>
         <h1 className="font-semibold nunito text-xl">Create your account</h1>
@@ -108,8 +132,6 @@ export default function signup() {
         <p className="text-center mt-3">
             already have an account?<Link to={"/log-in"}><span className="text-blue-700 ml-2">Log In</span></Link>
           </p>
-        {error && <p className='text-red-600 mt-5'>{error}</p>}
-      
       </form>
     </div>
   </div>
