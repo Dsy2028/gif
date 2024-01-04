@@ -9,8 +9,10 @@ import cors from 'cors';
 import courseRouter from './routes/course.route.js';
 import topicsRouter from './routes/topics.route.js';
 import flashRouter from './routes/flashcards.route.js';
-import classRouter from './routes/class.route.js'
-import lessonRouter from './routes/lesson.route.js'
+import classRouter from './routes/class.route.js';
+import lessonRouter from './routes/lesson.route.js';
+import introRouter from './routes/intro.route.js';
+import recapRouter from './routes/recap.route.js'
 
 
 dotenv.config();
@@ -30,7 +32,7 @@ mongoose.connect("mongodb+srv://admin:admin@bpa-react.xhc3sgs.mongodb.net/bpa-re
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:5173', // replace with the origin of your frontend
+  origin: 'http://localhost:5173', 
   credentials: true
 }));
 app.use("/api/user", userRouter);
@@ -41,6 +43,8 @@ app.use('/api/topics', topicsRouter);
 app.use('/api/flashcards', flashRouter);
 app.use('/api/classes', classRouter);
 app.use('/api/lessons', lessonRouter);
+app.use('/api/intros', introRouter);
+app.use('/api/recap' ,recapRouter);
 //app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);

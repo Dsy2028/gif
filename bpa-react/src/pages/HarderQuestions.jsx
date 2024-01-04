@@ -3,20 +3,25 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import stars from "../imgs/stars.svg";
 import running from "../imgs/running.svg";
-
+import { useSelector } from "react-redux";
+import { updateUserStart , updateUserSuccess } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function HarderQuestions() {
   const { topicName } = useParams();
   const { topicId, questionId,harderQuestionsId} = useParams();
   const [question, setQuestion] = useState(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setIndex] = useState(0);
   const [message, setMessage] = useState(false);
   const [questionsCorrect, setQuestionsCorrect] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [harder,setharderQuestions] = useState(null);
   const [loading,setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { currentUser, error } = useSelector((state) => state.user);
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     fetch(`http://localhost:3000/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`)
       .then(response => {
@@ -33,20 +38,50 @@ export default function HarderQuestions() {
         console.error('Error fetching data: ', error);
       });
   }, [topicName]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = currentUser._id;
+  
+        const response = await fetch('/api/user/get', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Failed to join class: ${errorMessage}`);
+        }
+  
+        const got = await response.json();
+        setUser(got);
+        
+      } catch (error) {
+        console.error('Error joining class:', error);
+        // setError(error.message); // Uncomment this if you have setError defined
+        // setMessage(true); // Uncomment this if you have setMessage defined
+      }
+    };
+  
+    fetchUser();
+  },[]);
   const handleNext = (event) => {
     event.preventDefault();
     if (currentQuestionIndex >= harder.harderQuestions.length - 1) {
-      setCurrentQuestionIndex(0);
+      setIndex(0);
     } else {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setIndex(currentQuestionIndex + 1);
     }
   };
   const handleBack = (event) => {
     event.preventDefault();
     if (currentQuestionIndex <= 0) {
-      setCurrentQuestionIndex(0);
+      setIndex(0);
     } else {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setIndex(currentQuestionIndex - 1);
     }
   };
   if (!harder) {
@@ -132,14 +167,110 @@ export default function HarderQuestions() {
     } finally {
       setLoading(false);
     }
+    const percentageScore = (correct / harder.harderQuestions.length) * 100;
+    setProgress(percentageScore);
+    
 
+if (percentageScore >= 70) {
+  try {
+    setLoading(true);
+    // Second POST request
+    const res = await fetch(`http://localhost:3000/api/user/harderQuestions/${harderQuestionsId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        assignment: `${harderQuestionsId}`
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log('Success:', data);
+    
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    setLoading(false);
+  }
+}
+try {
+  const urlParts = window.location.pathname.split('/');
+  const part = urlParts[urlParts.length - 4];
+  const completedLessons = user.completedLessons;
+  console.log('CompletedLessons:', completedLessons);
+
+  let lesson;
+  let method = 'POST'; // Default to 'POST'
+
+  // Check if the completedLessons field exists
+  if (completedLessons) {
+    // Find the lesson object with the matching lessonId
+    lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
+    console.log('Lesson:', lesson);
+
+    // If the lesson exists, use 'PUT' method
+    if (lesson) {
+      method = 'PUT';
+    }
+  }
+
+  console.log('HTTP method:', method);
+
+  fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+    method: method, // Use the method determined above
+    credentials: 'include',
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Response:', data)
+    // dispatch(updateUserSuccess(data)) // Dispatch the action with the response data
+  })
+  .catch(error => console.error('Error:', error));
+} catch (error) {
+  console.error('Error:', error);
+} finally {
+  setLoading(false);
+}
     const updatedQuestion = { ...harder };
     updatedQuestion.harderQuestions.forEach((q) => {
       q.selectedOption = undefined;
     });
     setQuestion(updatedQuestion);
-    setCurrentQuestionIndex(0);
+    setIndex(0);
   };
+
+  const save = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/user/saveQuizState', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          quizId: `${topicId}`, 
+          quizState: harder,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      
+      navigate(`/courses/${harder.course.courseName}/${harder.topicName}`);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+
+  
+
   
   const closePopup = () => {
     document.querySelector('.popup').classList.add('animate__fadeOutDown', 'animate__animated' );
@@ -175,7 +306,7 @@ export default function HarderQuestions() {
           }
           {questionsCorrect && 
 
-<div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] rounded border-gray-200 h-48 outline'>
+<div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] w-[20rem] rounded border-gray-200 h-48 '>
   <div className="flex w-full justify-between items-center">
 {(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <img src={stars} className="w-8 h-8" alt="Stars" /> : 
@@ -185,7 +316,11 @@ export default function HarderQuestions() {
   {(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <h1> Good Job! {correctAnswers} / {harder.harderQuestions.length} </h1> : 
     <h1>Almost There! {correctAnswers} / {harder.harderQuestions.length} </h1>}
-    <progress value={(correctAnswers / harder.harderQuestions.length) * 100} max={100}/>
+    <div className="w-full border-[1px] mt-3 h-4 flex items-center rounded-xl">
+      <div className="rounded-lg bg-green-500 h-3 " style={{ width: `${progress}%` , transition: 'width 2s' }}>
+
+      </div>
+    </div>
 
 </div>
 

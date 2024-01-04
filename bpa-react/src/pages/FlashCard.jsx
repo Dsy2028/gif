@@ -1,13 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from "react-redux";
 export default function FlashCard() {
-  const { topicName, _id,topicId } = useParams();
+  const { topicName, _id,flashCardId, topicId } = useParams();
   const [flashCardData, setFlashCardData] = useState(null);
   const[flashCardIndex, setflashCardIndex] = useState(0);
+  const [user, setUser] = useState({});
+  const { currentUser, error } = useSelector((state) => state.user);
+  const [loading,setLoading] = useState(false);
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = currentUser._id;
+  
+        const response = await fetch('/api/user/get', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Failed to join class: ${errorMessage}`);
+        }
+  
+        const got = await response.json();
+        setUser(got);
+        
+      } catch (error) {
+        console.error('Error joining class:', error);
+        // setError(error.message); // Uncomment this if you have setError defined
+        // setMessage(true); // Uncomment this if you have setMessage defined
+      }
+    };
+  
+    fetchUser();
+  },[]);
+
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/flashcards/${topicId}`)
+    fetch(`http://localhost:3000/api/flashcards/${flashCardId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -27,6 +62,48 @@ export default function FlashCard() {
         console.error("Error fetching data: ", error);
       });
   }, [topicName,_id]);
+  console.log(user);
+  useEffect(() => {
+    try {
+      const urlParts = window.location.pathname.split('/');
+      const part = urlParts[urlParts.length - 1];
+      console.log(part);
+      const completedLessons = user.completedLessons;
+      console.log('CompletedLessons:', completedLessons);
+    
+      let lesson;
+      let method = 'POST'; // Default to 'POST'
+    
+      // Check if the completedLessons field exists
+      if (completedLessons) {
+        // Find the lesson object with the matching lessonId
+        lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
+        console.log('Lesson:', lesson);
+    
+        // If the lesson exists, use 'PUT' method
+        if (lesson) {
+          method = 'PUT';
+        }
+      }
+    
+      console.log('HTTP method:', method);
+    
+      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+        method: method, // Use the method determined above
+        credentials: 'include',
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Response:', data)
+        // dispatch(updateUserSuccess(data)) // Dispatch the action with the response data
+      })
+      .catch(error => console.error('Error:', error));
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
   const handleNext = () => {
     if (flashCardIndex >= flashCardData.flashCards.length - 1) {
       setflashCardIndex(0);
@@ -64,6 +141,8 @@ export default function FlashCard() {
       </div>
     );
   }
+
+
 
   return (
     <div className='h-screen items-center flex flex-col justify-center'>

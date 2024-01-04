@@ -97,22 +97,22 @@ export default function signup() {
           <div className="flex flex-col mt-4">
             <label htmlFor="firstName">Name</label>
             <div className="flex">
-            <input className="border-[1px] rounded border-gray-200 w-full" placeholder="First Name"  type="text" name="firstName" id="firstName" required="" onChange={handleChange}/>
-            <input className="border-[1px] rounded border-gray-200 w-full ml-3" placeholder="Last Name" type="text" name="lastName" id="lastName" required=""onChange={handleChange} />
+            <input className="border-[1px] p-1 rounded border-gray-200 w-full" placeholder="First Name"  type="text" name="firstName" id="firstName" required="" onChange={handleChange}/>
+            <input className="border-[1px] p-1 rounded border-gray-200 w-full ml-3" placeholder="Last Name" type="text" name="lastName" id="lastName" required=""onChange={handleChange} />
             </div>
           </div>
           <div className="flex flex-col mt-5 ">
             <label htmlFor="email" placeholder="email">
               Email
             </label>
-            <input className="border-[1px] rounded border-gray-200 w-full" type="text" name="email" id="email" required="" onChange={handleChange}/>
+            <input className="border-[1px] p-1 rounded border-gray-200 w-full" type="text" name="email" id="email" required="" onChange={handleChange}/>
             <div id="error emailError" />
           </div>
           <div className="flex flex-col mt-5 ">
             <label htmlFor="password" placeholder="password">
               Create Password
             </label>
-            <input className="border-[1px] rounded border-gray-200 w-full" type="password" name="password" id="password" onChange={handleChange}/>
+            <input className="border-[1px] p-1 rounded border-gray-200 w-full" type="password" name="password" id="password" onChange={handleChange}/>
             <div id="errorOutput" />
             {/*<span>must contain atleast 8 characters, one uppercase and atleast 1 number</span>*/}
           </div>

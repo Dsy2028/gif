@@ -24,11 +24,11 @@ const topic = db.getCollection('topics').findOne({
 
  
   
-db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
+db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 
 
   console.log(topic);*/
-  const find = db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
+ /* const find = db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
 
   const top = db.topics.findOne({ "_id": ObjectId("656604348bc2ccb633300115") })
 
@@ -41,7 +41,7 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
         }
       }
     }
-  )
+  )*/
   /*db.courses.updateOne(
     { "_id": ObjectId("65641442e17b033e4ac90558") },
     { $push: { "units": { "unitName": "New Unit", "topics": ["New Topic"] } } }
@@ -66,13 +66,22 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
     { "_id": ObjectId("656604348bc2ccb633300115") },
     {
       $set: {
-        "course": {
-          "_id": {"$oid": "65641442e17b033e4ac90558"},
-          "courseName": "Algebra 1",
+        "quiz": {
+          "quizQuestions": [{"$oid": "656603178bc2ccb633300114"},{"$oid": "656f4017a2bacccc8796ca34"},{"$oid": "656f3faea2bacccc8796ca33"},{"$oid": "656f4e79a2bacccc8796ca41"},{"$oid": "656f4ceaa2bacccc8796ca36"}],
         }
       }
     }
-  );*/
+  );
+  db.topics.update(
+    { "_id": ObjectId("656604348bc2ccb633300115") },
+    {
+      $set: {
+        "quiz": {
+          "quizQuestions": ["656603178bc2ccb633300114", "656f4017a2bacccc8796ca34", "656f3faea2bacccc8796ca33", "656f4e79a2bacccc8796ca41", "656f4ceaa2bacccc8796ca36"],
+        }
+      }
+    }
+  );
 /*
   db.lessons.updateOne(
     {
@@ -132,5 +141,11 @@ db.questions.findOne({ "_id": ObjectId("656603178bc2ccb633300114") })
       }
   );
   */
-console.log(find)
 //console.log(find)
+//console.log(find)
+
+//db.classes.findOne({ code: 'cD@J^F!AFK5!', teacher: ObjectId('658053a892ead5d8d52e8bfb') });
+
+
+//db.intro.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
+db.intro.find();

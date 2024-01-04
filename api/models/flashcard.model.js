@@ -12,7 +12,8 @@ const flashSchema = new mongoose.Schema({
             cardFront: String,
             cardBack: String
         }
-    ]
+    ],
+    topicId: String
   });
 
     const flashcards = mongoose.model('flashcards', flashSchema);

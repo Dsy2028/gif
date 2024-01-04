@@ -23,7 +23,7 @@ export const signup = async (req, res, next) => {
     const { firstName, lastName, email, password, role } = req.body;
   
     // Validate role
-    if (!['user', 'teacher'].includes(role)) {
+    if (!['student', 'teacher'].includes(role)) {
       return next(errorHandler(400, 'Invalid role specified'));
     }
   

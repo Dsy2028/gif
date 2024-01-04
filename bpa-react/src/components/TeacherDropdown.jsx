@@ -56,25 +56,33 @@ export default function TeacherDropdown() {
       onClick={toggleProfileDropdown}
     />
     {profileDropdownOpen && (
-      <div className="absolute mr-10 h-72 w-60 mt-2 z-50 bg-white p-2 rounded-lg shadow">
-       <Link to={'/profile'}><button className='w-4/5 h-10 main-color text-white roboto'>Manage your Account</button></Link>
-        <ul className="flex flex-col">
-            <li className="w-full p-1 h-fit color-main font-normal hover:bg-gray-200 rounded">
-              Profile
-            </li>
-          <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded"></li>
-          <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">hold</li>
-          <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">hold</li>
-          <li className="py-1 px-2 color-main  font-normal hover:bg-gray-200 rounded">
-            Support
-          </li>
-          <li
+      <div className="absolute  right-0 animate__animated  animate__fadeIn mt-2 min-h-72 w-60 z-50 bg-white p-2 rounded-lg shadow ">
+        <div>
+          <div className="flex items-center">
+            <img className="h-9 w-9 rounded-full" src={currentUser.avatar}/>
+            <div className="flex flex-col ml-2">
+              <p className="font-bold">{currentUser.firstName} {currentUser.lastName}</p>
+              <p className="text-sm text-gray-500 ">{currentUser.email}</p>
+              </div>
+            </div>
+          </div>
+        <div className="flex flex-col mt-2 ">
+            <Link to={`/prof/${currentUser._id}`}><div className="w-full p-1 cursor-pointer h-fit color-main border-b-[2px] border-gray-200 text-center nunito text-lg font-normal hover:bg-gray-200 rounded">
+              Manage your Account
+            </div></Link>
+          <div className="py-1 px-2 cursor-pointer border-b-[2px] border-gray-200 color-main nunito text-lg font-normal hover:bg-gray-200 rounded">Updates</div>
+          <div className="py-1 px-2 cursor-pointer color-main border-b-[2px] border-gray-200  nunito text-lg font-normal hover:bg-gray-200 rounded">Support</div>
+          <div className="py-1 px-2 cursor-pointer color-main border-b-[2px] border-gray-200  nunito text-lg  font-normal hover:bg-gray-200 rounded">
+            Settings
+          </div>
+          <div
             onClick={handleLogout}
-            className="py-1 px-2 mt-7 text-red-700 hover:bg-gray-200 rounded"
+            className="py-1 px-2 cursor-pointer mt-7 text-red-700 nunito text-lg hover:bg-gray-200  rounded"
           >
+            <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>
             Log Out
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     )}
   </div>

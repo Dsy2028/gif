@@ -13,6 +13,25 @@ export default function DashNav() {
     const dropdownRef = useRef(false);
     const location = useLocation();
     const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+      const localDarkMode = window.localStorage.getItem('darkMode') === 'true';
+      setDarkMode(localDarkMode);
+      if (localDarkMode) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    }, []);
+    
+    useEffect(() => {
+      window.localStorage.setItem('darkMode', darkMode);
+      if (darkMode) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    }, [darkMode]);
     const notiDropdown = () => {
      setNotiDropdownOpen((prevOpen) => !prevOpen);
      
@@ -63,6 +82,11 @@ export default function DashNav() {
       };
       const handleDarkModeToggle = (checked) => {
         setDarkMode(checked);
+        if (checked) {
+          document.body.classList.add('dark');
+        } else {
+          document.body.classList.remove('dark');
+        }
       };
       
   return (
@@ -72,7 +96,7 @@ export default function DashNav() {
      </div>
     }
     <div className="flex w-full h-14 justify-between items-center p-5 ">
-    <h1 className='poppins'>{getPageName()}</h1>
+    <h1 className='poppins dark:text-white'>{getPageName()}</h1>
     <div className="flex items-center  justify-evenly w-400">
       <div className="search w-48 ">
         <input
@@ -92,7 +116,7 @@ export default function DashNav() {
         </div>
       </div>
         <div className="relative ">
-      <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer" onClick={notiDropdown}></i>
+      <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer dark:text-white" onClick={notiDropdown}></i>
       {notiDropdownOpen && (
         <div
           className="absolute h-44 w-28 mt-2 z-50 bg-black p-2 rounded-lg shadow"
@@ -106,8 +130,8 @@ export default function DashNav() {
         </div>
       )}
       </div>
+      <i class="fa-solid fa-gear fa-xl cursor-pointer dark:text-white" onClick={openSetting}></i>
       <TeacherDropdown/>
-      <i class="fa-solid fa-gear fa-xl cursor-pointer" onClick={openSetting}></i>
       {settingDropdownOpen && 
       <div className="fixed setting  h-screen w-48 bg-white border-[2px]  border-gray-200  right-0 z-50 top-0 p-2">
         <div className="flex justify-end  h-8 items-center">
@@ -119,7 +143,7 @@ export default function DashNav() {
         <div className='flex '>
         <Switch onChange={handleDarkModeToggle} checked={darkMode} offColor="#bbbbbb" onHandleColor="#121212" offHandleColor="#FFBF00"  height={20} width={48} handleDiameter={18}  onColor="#1f1b24"  uncheckedIcon={false}  checkedIcon={false} />
         </div>
-        <i class="fa-solid fa-moon fa-xl ml-2"></i>
+        <i class="fa-solid fa-moon fa-xl ml-2 text-violet-700"></i>
           </div>
         </div>
       }

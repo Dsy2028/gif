@@ -45,19 +45,17 @@ function TopicSkills() {
 
   return (
     <>
-    <h1 className='text-semibold text-3xl text-center'>{courseDetails.courseName}</h1>
-    <p>Number of units: {countUnits()}</p>
-    <Link to={"/questions/:question"}>
-        <button>Go to Questions List</button>
-      </Link>
+     <div className="dark:bg-slate-800">
+    <div className="pl-[12rem] pr-[12rem]">
+    <h1 className='font-semibold text-3xl text-center nunito mb-11 dark:text-white'>{courseDetails.courseName}</h1>
     <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
     {courseDetails.units.map((unit, index) => (
-  <div className='outline rounded animate__animated animate__fadeInDown' key={index}>
-    <h2 className='text-semibold text-2xl'>{unit.unitName}</h2>
+  <div className='border-[2px] p-4 shadow-md rounded hover:shadow-lg animate__animated animate__fadeInDown' key={index}>
+    <h2 className='font-semibold text-xl mb-2 dark:text-slate-300'>{unit.unitName}</h2>
     <ul className='list-none p-0'>
       {unit.topics.map((topic, index) => (
         <li key={index} className='mb-2'>
-          <Link to={`/courses/${topicName}/${topic}`} className='text-normal text-lg text-blue-700 mt-1'>
+          <Link to={`/courses/${topicName}/${topic}`} className='text-normal text-lg text-blue-700  hover:underline'>
             {topic}
           </Link>
         </li>
@@ -66,9 +64,12 @@ function TopicSkills() {
   </div>
 ))}
     </div>
+
+    </div>
     <br></br>
     <br/>
     <br/>
+    </div>
     <Footer />
     </>
   );

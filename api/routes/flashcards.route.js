@@ -3,6 +3,6 @@ import { getFlashcardByTopic } from '../controllers/flashcard.controller.js';
 
 const router = express.Router();
 
-router.get('/:topicId',getFlashcardByTopic);
+router.get('/:flashCardId',getFlashcardByTopic);
 
 export default router;

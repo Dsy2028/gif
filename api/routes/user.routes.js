@@ -1,13 +1,17 @@
 import express from 'express';
-import {test, updateUser} from '../controllers/user.controller.js';
+import {test, updateUser, deleteUser, updateQuizResults, completedAssignments, updateLessonCompletion, get} from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verify.js';
-import { updateQuizResults } from '../controllers/user.controller.js';
 //import UserResult from '../models/user.model.js';
 
 const router = express.Router();
 
-router.get('/', test);
-router.post('/update/:_id', verifyToken, updateUser);
+//router.get('/', test);
+router.post('/update/:id', verifyToken, updateUser);
+router.delete('/delete/:id', verifyToken, deleteUser);
 router.post('/updateQuizResults', verifyToken, updateQuizResults);
+router.post('/harderQuestions/:harderQuestionsId', verifyToken, completedAssignments);
+router.post('/:topicId/:part' , verifyToken, updateLessonCompletion);
+router.put('/:topicId/:part' , verifyToken, updateLessonCompletion);
+router.get('/get' , verifyToken, get)
 
 export default router;

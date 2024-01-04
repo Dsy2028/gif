@@ -18,13 +18,13 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <div className="flex justify-center w-full h-56 main-color text-white">
+    <div className="flex justify-center w-full h-56 main-color text-white dark:bg-slate-800">
       <div className="pt-3 w-10/12">
         <div className="flex w-full bb-grey h-24 items-center">
           <h1 className="semibold font-semibold text-3xl">Follow us!</h1>
           <div className="ml-5 flex justify-evenly w-44 items-center">
             {socialMedia.map((media) => (
-              <i className={`fa-brands fa-${media.class} fa-xl`}></i>
+              <i className={`fa-brands ${media.class} fa-xl cursor-pointer`}></i>
             ))}
           </div>
         </div>

@@ -16,6 +16,9 @@ export default function LogIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [message, setMessage] = useState(false);
+  const { currentUser } = useSelector(state => {
+    return state.user;
+  });
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -42,7 +45,7 @@ export default function LogIn() {
       document.cookie = `access_token=${data.token}; path=/`;
       dispatch(signInSuccess(data));
       if (data.role === 'teacher') {
-        navigate('/dashboard');
+        navigate(`/dashboard/${currentUser._id}`);
       } else {
         navigate('/');
       }
@@ -70,15 +73,15 @@ export default function LogIn() {
        </div>
      </div>
        }
-      <div className="bg-white h-[35rem] w-[28rem] rounded p-8 ">
-        <h1 className="font-bold nunito text-xl mb-3">Sign in to your account</h1>
+      <div className="bg-white h-[35rem] w-[28rem] rounded p-8 dark:bg-slate-800 ">
+        <h1 className="font-bold nunito text-xl mb-3 dark:text-white">Sign in to your account</h1>
         <form onSubmit={handleSubmit}>
           <div className="flex  flex-col mb-6">
-            <label htmlFor="email" placeholder="email" className="nunito">
+            <label htmlFor="email" placeholder="email" className="nunito dark:text-white">
               Email
             </label>
             <input
-            className="border-[1px] rounded border-gray-200 w-full"
+            className="border-[1px] p-1 rounded border-gray-200 w-full"
               type="text"
               name="email"
               id="email"
@@ -86,11 +89,11 @@ export default function LogIn() {
             />
           </div>
           <div className="flex  flex-col">
-              <label htmlFor="password" placeholder="password">
+              <label htmlFor="password" placeholder="password" className="nunito dark:text-white">
                 Password
               </label>
             <input
-            className="border-[1px] rounded border-gray-200 bg-[] w-full"
+            className="border-[1px] rounded p-1 border-gray-200 bg-[] w-full"
               type="password"
               name="password"
               id="password"
@@ -99,7 +102,7 @@ export default function LogIn() {
           </div>
           <div className="mt-5 flex w-full justify-between ">
             <div className="flex items-center">
-            <span className="mr-3">Remember Me</span>
+            <span className="mr-3 dark:text-white">Remember Me</span>
             <Checkbox id="accept" className="h-fit w-fit" defaultChecked />
           </div>
           <Link to={"/#"} className="text-blue-700 ">
@@ -109,7 +112,7 @@ export default function LogIn() {
           <div className="btn-holder mt-3">
               <button
                 disabled={loading}
-                className="rounded h-9 nunito w-full main-color cursor-pointer mt-3  text-white uppercase hover:opacity-90 disabled:opacity-80"
+                className="rounded h-9 nunito w-full main-color cursor-pointer mt-3  text-white uppercase hover:opacity-90 disabled:opacity-80 dark:bg-violet-700"
                 
               >
                 {loading ? "Loading.." : "Sign In"}
@@ -117,12 +120,12 @@ export default function LogIn() {
             </div>
           <div className=" flex items-center justify-center mt-5">
             <div className="border-[1px] border-gray-200 w-5/6"></div>
-            <span className="mr-1 ml-1"> or </span>
+            <span className="mr-1 ml-1 dark:text-white"> or </span>
             <div className="border-[1px] border-gray-200 w-5/6"></div>
           </div>
           <GoogleAuth />
           <div className="mt-3 text-center">
-          <p  className="" >
+          <p  className="dark:text-white" >
               dont have an account?{" "}
               <Link to={"/sign-up"} className="text-blue-700">
                 Sign Up!

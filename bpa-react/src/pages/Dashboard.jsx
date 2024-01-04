@@ -8,14 +8,17 @@ import DashNav from "../components/DashNav.jsx";
 import ApexCharts from 'apexcharts'
 import { json } from "react-router-dom";
 import Chart from "react-apexcharts";
+import { useParams } from "react-router-dom";
 export default function Dashboard() {
     const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
     const [open_Table, setisOpenTable] = useState(false);
     const [settingDropdownOpen, setSettingDropdownOpen] = useState(false);
     const [notiDropdownOpen, setNotiDropdownOpen] = useState(false);
     const [chart, setChart] = useState({});
+    const [getStudents, setGetStudents] = useState(0);
+    const {teacherId} = useParams();
     const dropdownRef = useRef(false);
-
+    const [getCode, setGetCode] = useState(0);
     useEffect(() => {
       fetch("")
       .then(res => res.json())
@@ -25,6 +28,59 @@ export default function Dashboard() {
         })
       })
     })
+
+    useEffect(() => {
+      fetch(`http://localhost:3000/api/classes/${teacherId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data && data.length > 0) {
+            setGetCode(data);
+            console.log(data)
+          
+            
+          } else {
+            console.error("Fetched data is empty or no classes");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
+    }, []);
+    useEffect(() => {
+      // Fetch all classes
+      fetch(`http://localhost:3000/api/classes/${teacherId}`)
+        .then(response => response.json())
+        .then(classes => {
+          // For each class, fetch its students
+          const promises = classes.map(classItem => 
+            fetch(`http://localhost:3000/api/classes/students?classId=${classItem._id}`)
+              .then(response => response.json()),
+              
+          );
+
+          return Promise.all(promises);
+        })
+        .then(allStudents => {
+          setGetStudents(allStudents);
+        })
+        .catch(error => console.error('Error:', error));
+    }, []);
+    useEffect(() => {
+      let count = 0;
+      if (getCode && getCode.length > 0) {
+        getCode.forEach(classItem => {
+          count += classItem.students.length;
+          
+        });
+      }
+    }, [getCode]);
+ 
+    
   /** <Chart type='donut' options={chartOptions} series={chartSeries}/> */
     const notiDropdown = () => {
       setNotiDropdownOpen((prevOpen) => !prevOpen);
@@ -55,98 +111,79 @@ export default function Dashboard() {
       }, []);
     return (
         
-      <div className="flex h-screen ">
+      <div className="flex min-h-screen dark:bg-slate-700">
         <DashboardNav />
         < div className="flex flex-col flex-grow pl-48">
             <div className='h-28 bg-black w-20 fixed top-32 right-32' style={{ display: open_Table ? 'block' : 'none' }}>
                 
             </div>
             <DashNav/>
-          <div className="grid grid-cols-4 gap-4 mt-4 p-5">
-            <div className="border-[2px] rounded border-gray-200 flex items-center justify-center shadow-lg">
-              <RadialChart data={data} height={200} width={200} />
-            </div>
-            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
+          <div className="grid grid-cols-3 gap-4 mt-4 p-5">
+
+            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col dark:bg-slate-600 dark:border-none">
               <div className='flex items-center'>
               <div className='rounded-full w-9  grid place-items-center h-9 bg-green-500'>
               <i class="fa-solid fa-check fa-xl"></i>
               </div>
-              <h1 className='nunito font-bold text-xl ml-3'>Completed Assignments</h1>
+              <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Completed Assignments</h1>
               </div>
-            
+              <RadialChart data={data} height={200} width={200} />
             </div>
-            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
+            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg dark:bg-slate-600 dark:border-none">
               <div className='flex items-center'>
               <div className='rounded-full w-9  grid place-items-center h-9 bg-red-600'>
               <i class="fa-solid fa-exclamation fa-xl text"></i>
               </div>
-              <h1 className='nunito font-bold text-xl ml-3'>Missing Assignments</h1>
+              <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Missing Assignments</h1>
               </div>
             </div>
-            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
+            <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg dark:bg-slate-600 dark:border-none">
               <div className='flex items-center'>
                 <div className='rounded-full w-9  grid place-items-center h-9 bg-amber-100'>
               <i class="fa-solid fa-star fa-xl text-amber-400"></i>
               </div>
-              <h1 className='nunito font-bold text-xl ml-3'>Top Class</h1>
+              <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Top Class</h1>
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4 mt-4 p-5">
-            <div className="border-[2px] rounded border-gray-200 grid place-items-center">
+          <div className="grid grid-cols-3 gap-4 mt-4 p-5 ">
+            <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
             <RadialChart data={data} height={300} width={200} />
             </div>
-            <div className="border-[2px] rounded border-gray-200 grid place-items-center">
+            <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
             <RadialChart data={data} height={300} width={200} />
             </div>
-            <div className="border-[2px] rounded border-gray-200 grid place-items-center">
+            <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
            
             </div>
           </div>
           <div className='grid grid-cols-2 gap-4 p-5'>
-            <div className='border-[2px] rounded border-gray-200'>
+            <div className='border-[2px] rounded border-gray-200 dark:bg-slate-600 dark:border-none'>
             </div>
-            <div className='border-[2px] rounded border-gray-200 p-4'>
+            <div className='border-[2px] rounded border-gray-200 p-4 dark:bg-slate-600 dark:border-none'>
                 <div className='flex justify-between mb-3'>
-                    <h1 className='font-medium poppins text-lg'>All Classes</h1>
+                    <h1 className='font-medium poppins text-lg dark:text-white'>All Classes</h1>
                     <i onclick={closeTable} class="fa-solid fa-ellipsis-vertical cursor-pointer"></i>
                 </div>
                 <table className='w-full text-center'>
-                    <tr className='font-semibold text-gray-400 border-b-[2px] text-lg'>
-                        <th>Classes</th>
-                        <th>Students</th>
-                        <th>Assignments</th>
-                        <th>Due</th>
-                    </tr>
-                    <tr className='border-b-[2px] p-5'>
-                        <td>2nd Period</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                    </tr>
-                    <tr className='border-b-[2px]'>
-                        <td>4th Period</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                    </tr>
-                    <tr className='border-b-[2px]'>
-                        <td>7th Period</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                    </tr>
-                    <tr className='border-b-[2px] p-3'>
-                        <td>9th Period</td>
-                        <td>20</td>
-                        <td>10</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+  <tr className='font-semibold text-gray-400 border-b-[2px] text-lg dark:text-slate-300'>
+    <th>Classes</th>
+    <th>Students</th>
+    <th>Assignments</th>
+    <th>Due</th>
+  </tr>
+  {Array.isArray(getCode) && [...getCode.classes, ...getCode.classToGet].map((classItem, index) => (
+    <tr className='border-b-[2px] p-5 dark:text-white' key={index}>
+      <td>{classItem.className}</td>
+      <td>{classItem.students ? classItem.students.length : 0}</td>
+      <td>{classItem.assignments ? classItem.assignments.length : 0}</td>
+      <td>{classItem.due ? classItem.due.length : 0}</td>
+    </tr>
+  ))}
+</table>
             </div>
           </div>
-          <br></br>
-          <br></br>
+          
           <TeacherFooter />
         </div>
       </div>

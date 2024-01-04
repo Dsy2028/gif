@@ -32,6 +32,9 @@ const TopicSchema = new mongoose.Schema({
   },
   questions: [QuestionSchema],
   harderQuestions: [QuestionSchema],
+  quiz: { 
+    quizQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'questions' }],
+  },
 });
 
 const topics = mongoose.model('topics', TopicSchema);

@@ -56,7 +56,7 @@ export const submitQuiz = async (req, res) => {
   }
 };*/
 
-export const getQuestions = async (req, res) => {
+/*export const getQuestions = async (req, res) => {
   try {
     const { topic, questionId } = req.query;
     console.log(req.query);
@@ -82,4 +82,4 @@ export const getQuestions = async (req, res) => {
     console.error('Error fetching topic with question:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-};
+};*/

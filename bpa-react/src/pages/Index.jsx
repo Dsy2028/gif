@@ -39,6 +39,7 @@ export default function index() {
 
   return (
     <>
+    <div className="dark:bg-slate-800">
       <br />
       <br />
       <section className="discover-section">
@@ -46,14 +47,14 @@ export default function index() {
           <div className="img-discover">
             <img src={FirstPicture} />
           </div>
-          <div className="discover-content">
+          <div className="discover-content dark:text-white">
             <h3>Elevate Learning, One Click at a Time.</h3>
             <p>Aiming to provide free education to any and all</p>
             <Link className="" to={"/sign-up"}>
-              <button className="nav-btn">Learners</button>
+              <button className="nav-btn dark:bg-violet-700">Learners</button>
             </Link>
             <Link className="">
-              <button className="nav-btn">Teachers</button>
+              <button className="nav-btn dark:bg-violet-700">Teachers</button>
             </Link>
           </div>
         </div>
@@ -120,7 +121,7 @@ export default function index() {
       <div className="h-96">
 
       </div>
-      
+      </div>
 
       <Footer />
     </>

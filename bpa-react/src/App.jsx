@@ -21,36 +21,44 @@ import About from './pages/About';
 import Chat from './pages/Chat'
 import Inbox from'./pages/Inbox';
 import HarderQuestions from './pages/HarderQuestions';
+import TeacherProfile from './components/TeacherProfile';
+import Intro from './pages/Intro';
+import Recap from './pages/Recap'
+import Privacy from './pages/Privacy'
 export default function App() {
-  const paths = ['/dashboard', '/classes', '/calendar'];
+
+  const paths = ['/dashboard', '/classes', '/calender', '/prof'];
 
   return (
     <BrowserRouter>
       {!paths.some(path => location.pathname.includes(path)) && <Nav />}
       <Routes>
-        <Route path="/:topicId" element={<FlashCard />} />
+        <Route path="/prof/:teacherId" element={<TeacherProfile />} />
+        <Route path="/:topicId/:flashCardId/review" element={<FlashCard />} />
+        <Route path="/:topicId/:recapId/recap" element={<Recap />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route element={<PrivRoute/>} >
-       <Route path="/profile" element={<Profile/>}/>
+       <Route path="/profile/:studentId" element={<Profile/>}/>
        </Route>
+        <Route path="/intro/:topicId/:introId" element={<Intro />} />
         <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
-        <Route path="/:topicId/questions/:questionId" element={<TestComponents />} />
-        <Route path="/:topicId/harderQuestions/:harderQuestionsId" element={<HarderQuestions />} />
+        <Route path="/practice/:topicId/questions/:questionId" element={<TestComponents />} />
+        <Route path="/practice/:topicId/harderQuestions/:harderQuestionsId" element={<HarderQuestions />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
-        <Route path="/quiz/math" element={<Quiz type="math" />} />
-        <Route path="/quiz/science" element={<Quiz type="science" />} /> 
+        <Route path="/:topicId/quiz" element={<Quiz />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:topicName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:teacherId" element={<Dashboard />} />
         <Route path="/classes/:teacherId" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />
         <Route path="/Chat" element ={<Chat />} />
         <Route path ="/inbox" element ={<Inbox />}/>
+        <Route path='privacy' element={<Privacy/>}/>
       </Routes>
     </BrowserRouter>
   );

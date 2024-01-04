@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import ProfilePicture from '../imgs/police.svg'
-import { useSelector } from 'react-redux';
-import { useRef } from 'react';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { app } from '../firebase';
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import ProfilePicture from "../imgs/police.svg";
+import { useSelector } from "react-redux";
+import { useRef } from "react";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../firebase";
 import { XYPlot, RadialChart } from "react-vis";
-import Calender from './Calender.jsx';
-import PropTypes from 'prop-types';
-import Footer from '../components/Footer.jsx'
-
-
-
+import Calender from "./Calender.jsx";
+import PropTypes from "prop-types";
+import Footer from "../components/Footer.jsx";
+import { useDispatch } from "react-redux";
+import { updateUserSuccess, deleteUserSuccess, deleteUserFailure, deleteUserStart, updateUserStart } from '../redux/user/userSlice.js';
 export default function Profile() {
   /*
         allow read;
@@ -20,60 +24,53 @@ export default function Profile() {
       request.resource.contentType.matches('image/.*')
       */
 
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const months = ["January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"];
-
-  useEffect(() => {
-    renderCalendar();
-  }, [currentDate]);
-
-  const renderCalendar = () => {
-    let currentYear = currentDate.getFullYear();
-    let currentMonth = currentDate.getMonth();
-    let firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay();
-    let lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    let lastDayofMonth = new Date(currentYear, currentMonth, lastDateofMonth).getDay();
-    let lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
-    let days = [];
-
-    for (let i = firstDayofMonth; i > 0; i--) {
-      days.push(<li className="inactive border-[2px] rounded border-gray-200 text-2xl">{lastDateofLastMonth - i + 1}</li>);
-    }
-
-    for (let i = 1; i <= lastDateofMonth; i++) {
-      let isToday = i === currentDate.getDate() && currentMonth === new Date().getMonth()
-        && currentYear === new Date().getFullYear() ? "activ" : "";
-      days.push(<li className={`border-[2px] rounded border-gray-200 text-2xl${isToday}`}>{i}</li>);
-    }
-
-    for (let i = lastDayofMonth; i < 6; i++) {
-      days.push(<li className="inactive border-[2px] rounded border-gray-200 text-2xl">{i - lastDayofMonth + 1}</li>);
-    }
-
-    return days;
-  };
-
-  const changeMonth = (direction) => {
-    let newDate = new Date(currentDate.setMonth(currentDate.getMonth() + direction));
-    setCurrentDate(newDate);
-  };
-
-  const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
-  const Ref = useRef(null)
-  const [file, setFile] = useState(undefined)
+  const Ref = useRef(null);
+  const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const { currentUser, loading, error } = useSelector((state) => state.user)
-  console.log(filePerc)
-  console.log(formData)
-  console.log(fileUploadError)
+  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const [edit, setEdit] = useState(false);
+  const [teacher, setTeacher] = useState(null);
+  const [user, setUser] = useState(null);
+  const { studentId } = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
     }
   }, [file]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = currentUser._id;
+  
+        const response = await fetch('/api/user/get', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          throw new Error(`Failed to join class: ${errorMessage}`);
+        }
+  
+        const got = await response.json();
+        setUser(got);
+      
+      } catch (error) {
+        console.error('Error joining class:', error);
+        // setError(error.message); // Uncomment this if you have setError defined
+        // setMessage(true); // Uncomment this if you have setMessage defined
+      }
+    };
+  
+    fetchUser();
+  },[]);
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -82,9 +79,10 @@ export default function Profile() {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
-      'state_changed',
+      "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePerc(Math.round(progress));
       },
       (error) => {
@@ -93,281 +91,352 @@ export default function Profile() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
           setFormData({ ...formData, avatar: downloadUrl });
-          setFile(undefined); // reset the file state after successful upload
+          setFile(undefined);
+          setFilePerc(0);
+
+          fetch(`http://localhost:3000/api/user/update/${studentId}`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ avatar: downloadUrl }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              dispatch(updateUserSuccess(data));
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
       }
     );
   };
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  console.log(file);
-  const openEditProfilePopup = () => {
-    setIsEditProfilePopupOpen(true);
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/classes/${studentId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.length > 0) {
+        } else {
+          console.error("Fetched data is empty or no classes");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+      });
+  }, []);
+
+  // console.log(file);
+
+  const openEdit = () => {
+    setEdit(true);
+    document.body.style.overflow = "hidden";
   };
 
-  const closeEditProfilePopup = () => {
-    setIsEditProfilePopupOpen(false);
+  const closeEdit = () => {
+    setEdit(false);
+    document.body.style.overflow = "auto";
   };
 
+  const deleteUser = async () => {
+    const c = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    if (!c) {
+      return;
+    }
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+  const update = async () => {
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      dispatch(updateUserSuccess(data));
+      closeEdit();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
   const handleOverlayClick = (e) => {
-    if (e.target.className === 'overlay') {
+    if (e.target.className === "overlay") {
       closeEditProfilePopup();
     }
   };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+  const [activeTab, setActiveTab] = useState("My Courses");
+
+  const date = new Date(currentUser.createdAt);
+  const formattedDate = `${
+    date.getMonth() + 1
+  }-${date.getDate()}-${date.getFullYear()}`;
   return (
     <>
-      <div className='h-full w-full'>
-        <div className={`overlay ${isEditProfilePopupOpen ? 'show' : ''}`} onClick={handleOverlayClick}></div>
-        <div className="flex w-full h-screen bg-slate-100">
-          <div className="grid grid-cols-1 w-full h-full p-7 gap-y-5 relative">
-            <div className="hidden z-10 top-1/3 rounded-lg right-1/3 fixed p-5 w-2/5 h-72 bg-white transition ease-out duration-200 edit-profile-popup outline" style={{ display: isEditProfilePopupOpen ? 'block' : 'none' }}>
-              <div className="top-edit-profile-popup  justify-between flex items-center">
-                <h1 className='text-2xl'>Edit Profile</h1>
-                <i id="close-profile-popup" className="fa-solid fa-x fa-2xl cursor-pointer " onClick={closeEditProfilePopup} />
+    <div className="dark:bg-slate-800">
+      {edit && (
+        <div className="fixed opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50  "></div>
+      )}
+      <div className="h-screen p-7">
+        {edit && (
+          <div className="fixed z-50 inset-0 flex items-center justify-center ">
+            <div className="rounded mt-20 p-3 h-[40rem] w-[40rem] bg-white">
+              <div className="flex justify-between items-center p-2 border-b-[1px] border-gray-200">
+                <h1 className="text-3xl nunito ">Edit Profile</h1>
+                <i
+                  class="fa-solid fa-xmark fa-2xl cursor-pointer"
+                  onClick={closeEdit}
+                ></i>
               </div>
-              <div className="form-cont  h-full ">
-                <form action="" className='h-full'>
-                  <div className="form-0 items-center flex flex-col">
-                    <h3>Edit Username</h3>
-                    <input type="text" name="edit-email" placeholder='email' className='border p-3 border-slate-500' />
-                  </div>
-                  <div className="form-0 items-center flex flex-col">
-                    <h3>Edit Password</h3>
-                    <input type="text" name="edit-pass" placeholder='password' className='border p-3 border-slate-500' />
-                  </div>
-                  <div className="flex w-full  justify-between mt-12">
-                    <div className="">
-                      <span className='text-red-700'>Delete Account</span>
-                    </div>
-                    <button className='text-white main-color rounded w-32 h-9 text-lg font-semibold'>Save</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div className="flex rounded-xl p-6 bg-white">
-              <div className="w-1/5">
-                <div className="h-1/6 w-full">
-                  <h1 className='text-3xl font-semibold text-center'>Profile</h1>
-                </div>
-                <div className="flex justify-center items-center mt-1 flex-col">
+              <div className="mt-2 flex border-b-[1px] border-gray-200 p-1">
+                <h1 className="nunito text-xl">Edit Photo</h1>
+                <div>
                   <form>
-                    <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={Ref} hidden accept='image/*'></input>
-                    <img onClick={() => Ref.current.click()} src={currentUser && currentUser.avatar} alt="profile-picture" className='rounded-full cursor-pointer h-40 w-40 object-cover ' />
+                    <input
+                      onChange={(e) => setFile(e.target.files[0])}
+                      type="file"
+                      ref={Ref}
+                      hidden
+                      accept="image/*"
+                    ></input>
+                    <img
+                      onClick={() => Ref.current.click()}
+                      src={currentUser && currentUser.avatar}
+                      alt="profile-picture"
+                      className="rounded-full cursor-pointer h-40 w-40 object-cover "
+                    />
                   </form>
-                  <p>{fileUploadError ? (<span className='text-red-700'>Error Uploading Image</span>) : filePerc > 0 && filePerc < 100 ? (<span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>) : filePerc === 100 ? (<span className='text-green-500'>Image Uploaded Succesfully</span>) : ""}</p>
-                </div>
-              </div>
-              <div className=" ml-3" />
-              <div className="ml-4 w-9/12">
-                <div className="flex w-full h-1/6 items-center justify-between">
-
-                  <div className="flex flex-col ml-4">
-                    <h3></h3>
-                    <p style={{ textAlign: "center", marginTop: "5%" }}></p>
-                  </div>
-                  <button className="text-white border-none rounded main-color cursor-pointer h-3/4 w-2/12 " onClick={openEditProfilePopup}>Edit Profile</button>
-                </div>
-                <div className="w-full flex items-center justify-center h-4/5">
-                  <div className="flex justify-center w-9/12">
-                    <div className="flex flex-col ml-4">
-                      <h3>Join Date</h3>
-                      <p>99/99/9999</p>
-                    </div>
+                  <div>
+                    {filePerc > 0 && filePerc < 100 && (
+                      <div className=" mt-4" style={{ width: "100%" }}>
+                        <div
+                          className="bg-sky-500 rounded-lg h-4"
+                          style={{ width: `${filePerc}%` }}
+                        ></div>
+                      </div>
+                    )}
+                    {filePerc === 100 ? (
+                      <span>Image Successfully Uploaded</span>
+                    ) : (
+                      <span></span>
+                    )}
                   </div>
                 </div>
               </div>
-            </div>
-            {/* <div className="grid p-6 rounded-xl bg-white">
-              <h1 className='text-3xl font-semibold text-center'>Badge Counts</h1>
-              <div className="flex flex-wrap w-full items-center justify-center">
-                <div className="flex flex-col items-center h-1/5 w-1/12 mt-8 mr-8">
-                  <i className="fa-solid fa-hat-wizard fa-2xl " />
-                  <p className='mt-4'>1</p>
-                </div>
-                <div className="flex flex-col items-center h-1/5 w-1/12 mt-8 mr-8">
-                  <i className="fa-solid fa-chess-knight fa-2xl" />
-                  <p className='mt-4'>1</p>
-                </div>
-                <div className="flex flex-col items-center h-1/5 w-1/12 mt-8 mr-8">
-                  <i className="fa-solid fa-dragon fa-2xl" />
-                  <p className='mt-4'>1</p>
-                </div>
-                <div className="flex flex-col items-center h-1/5 w-1/12 mt-8 mr-8">
-                  <i className="fa-solid fa-ghost fa-2xl" />
-                  <p className='mt-4'>1</p>
-                </div>
+              <div className="mt-2 flex border-b-[1px] border-gray-200 p-1">
+                <h1 className="nunito text-xl">First Name</h1>
+                <input
+                id="firstName"
+                  type="text"
+                  
+                  onChange={handleChange}
+                  className="border-[1px] border-gray-200 rounded w-full p-1"
+                />
               </div>
-            </div> */}
-
-            <div className="grid p-6 rounded-xl bg-white">
-              <h1 className='text-3xl font-semibold text-center'>Completed</h1>
-              <div className="flex flex-wrap w-full items-center justify-center">
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Math</h1>
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>English</h1>
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>History</h1>
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Science</h1>
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
-                </div>
+              <div className="mt-4 flex border-b-[1px] border-gray-200 p-1">
+                <h1 className="nunito text-xl">Last Name</h1>
+                <input
+                id="lastName"
+                  type="text"
+                 
+                  onChange={handleChange}
+                  className="border-[1px] border-gray-200 rounded w-full p-1"
+                />
               </div>
-            </div>
-            {/* 
-            <div className="grid p-6 rounded-xl bg-black">
-              <div className="flex flex-wrap w-full items-center justify-center">
-                <div className='pl-35 ' >
-                  <div className='flex flex-col items-center justify-center '>
-                    <h1 className='text-3xl font-bold'></h1>
-                    <div className='grid w-cal h-cal border-[130px] rounded border-gray-100 '>
-                      <h1>{`${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`}</h1>
-                      <ul className='grid grid-cols-12 '>
-                        {renderCalendar()}
-                      </ul>
-                    </div>
-                    <div className='flex justify-between mt-1 w-32'>
-                      <button id="prev" onClick={() => changeMonth(-1)}><i class="fa-solid fa-chevron-left color-main fa-1xl"></i></button>
-                      <button onClick={() => changeMonth(1)}><i class="fa-solid fa-chevron-right fa-1xl color-main"></i></button>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                <h1 className="nunito text-xl">Email</h1>
+                <input
+                id="email"
+                  type="text"
+                 
+                  onChange={handleChange}
+                  className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                />
               </div>
-            </div> */}
-            <div className="profile-container bg-white rounded-lg">
-              <h1 className='text-3xl font-semibold text-center'>Student's Class</h1>
-              <div className="grid grid-cols-4 gap-4 mt-4 p-5">
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Total Topics Learned</h1>
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
+              <div className="mt-4 flex border-b-[1px] border-gray-200 p-1">
+                <h1 className="nunito text-xl">Password</h1>
+                <input
+                id="password"
+                  type="text"
+                  name="password"
+                  onChange={handleChange}
+                  className="border-[1px] border-gray-200 rounded w-full p-1"
+                />
+              </div>
+              <div className=" flex justify-between mt-[4.5rem]">
+                <div>
+                  <button
+                    onClick={deleteUser}
+                    className="bg-red-500 rounded w-[8rem] "
+                  >
+                    Delete Account
+                  </button>
                 </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg flex flex-col">
-                  <div className='flex items-center'>
-                    <h1 className='nunito font-bold text-xl ml-3'>Progress With topics </h1>
-                  </div>
-                  <div className="grid p-6 rounded-xl bg-white">
-                    <h1 className='text-3xl font-semibold text-center'>Integration</h1>
-                    <div className="flex flex-wrap w-full items-center justify-center"></div>
-                  </div>
-                  <br></br>
-                  <div className="grid p-6 rounded-xl bg-white">
-                    <h1 className='text-3xl font-semibold text-center'>Differentiation</h1>
-                    <div className="flex flex-wrap w-full items-center justify-center"></div>
-                  </div>
-                  <br></br>
-                  <div className="grid p-6 rounded-xl bg-white">
-                    <h1 className='text-3xl font-semibold text-center'>Continuity</h1>
-                    <div className="flex flex-wrap w-full items-center justify-center"></div>
-                  </div>
-                  {/* <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
-                    <div class="p-18">93%</div>
-                    <div class="p-18">93%</div>
-                    </div>
-                    <div class="grid-cols-1 sm:grid md:grid-cols-2 ">
-                    <div class="p-18">93%</div>
-                    <div class="p-18">93%</div>
-                    </div> */}
-
-                </div>
-                <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg">
-                  <div className='flex items-center'>
-
-                  </div>
-                  <RadialChart data={data} height={300} width={300} />
+                <div className="">
+                  <button className="w-[5rem] border-[1px] rounded mr-3">
+                    Cancel
+                  </button>
+                  <button
+                    className="w-[5rem] border-[1px] rounded main-color text-white dark:bg-violet-700"
+                    onClick={update}
+                  >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>
-
           </div>
-
+        )}
+        <div className=" ">
+          <div className="profile__container  flex ">
+            <div className="profile__avatar-container">
+              <img
+                className="profile__avatar rounded-full object-cover h-48 w-48"
+                src={`${currentUser.avatar}`}
+                alt="avatar"
+              />
+            </div>
+            <div className="profile__info ml-4">
+              <h1 className="profile__name dark:text-white">
+                {currentUser.firstName} {currentUser.lastName}
+              </h1>
+              <p className="profile__email dark:text-white">{currentUser.email}</p>
+              <p className="profile__date dark:text-white">Joined on {formattedDate}</p>
+              <button
+                className="border-[1px] rounded w-[6rem] border-gray-200 mt-3 dark:text-white dark:bg-violet-700"
+                onClick={openEdit}
+              >
+                Edit Profile
+              </button>
+            </div>
+          </div>
         </div>
-
-        <Footer />
-      </div>
-    </>
-
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <div class="datepicker">
-                      <div class="datepicker-top">
-                        <div class="month-selector">
+        <div className="border-b-2  mt-5">
+          <div className="flex">
+            <h1
+              className={` w-[8rem] text-center text-xl cursor-pointer dark:text-white ${
+                activeTab === "My Courses" ? "border-blue-500 border-b-2" : ""
+              }`}
+              onClick={() => setActiveTab("My Courses")}
+            >
+              My Courses
+            </h1>
+            <h1
+              className={`w-[7rem]  text-center text-xl cursor-pointer dark:text-white ${
+                activeTab === "Progress" ? "border-blue-500 border-b-2 " : ""
+              }`}
+              onClick={() => setActiveTab("Progress")}
+            >
+              Progress
+            </h1>
+            <h1
+              className={`w-[7rem] text-center text-xl cursor-pointer dark:text-white  ${
+                activeTab === "Teachers" ? "border-blue-500 border-b-2" : ""
+              }`}
+              onClick={() => setActiveTab("Teachers")}
+            >
+              Teachers
+            </h1>
+          </div>
+        </div>
+        <div className={`${activeTab === "Teachers" ? "block " : "hidden"}`}>
+          {teacher && (
+            <div>
+              <h1 className="text-2xl nunito mt-3">Teachers</h1>
+              <div className="grid grid-cols-3 gap-5 mt-3">
+                {teacher.map((teacher, index) => (
+                  <div key={index} className="border-[1px] rounded p-2">
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center">
+                        <img
+                          src={teacher.teacher.avatar}
+                          alt="teacher-avatar"
+                          className="h-16 w-16 rounded-full object-cover"
+                        />
+                        <div className="ml-2">
+                          <h1 className="text-xl">
+                            {teacher.teacher.firstName}{" "}
+                            {teacher.teacher.lastName}
+                          </h1>
+                          <h1 className="text-lg">{teacher.teacher.email}</h1>
                         </div>
                       </div>
-                      <div class="datepicker-calendar">
-                        <span class="day">Mo</span>
-                        <span class="day">Tu</span>
-                        <span class="day">We</span>
-                        <span class="day">Th</span>
-                        <span class="day">Fr</span>
-                        <span class="day">Sa</span>
-                        <span class="day">Su</span>
-                        <button class="date">1</button>
-                        <button class="date">2</button>
-                        <button class="date">3</button>
-                        <button class="date">4</button>
-                        <button class="date">5</button>
-                        <button class="date">6</button>
-                        <button class="date">7</button>
-                        <button class="date">8</button>
-                        <button class="date ">9</button>
-                        <button class="date">10</button>
-                        <button class="date">11</button>
-                        <button class="date">12</button>
-                        <button class="date">13</button>
-                        <button class="date">14</button>
-                        <button class="date">15</button>
-                        <button class="date">16</button>
-                        <button class="date">17</button>
-                        <button class="date">18</button>
-                        <button class="date">19</button>
-                        <button class="date">20</button>
-                        <button class="date">21</button>
-                        <button class="date">22</button>
-                        <button class="date">23</button>
-                        <button class="date">24</button>
-                        <button class="date">25</button>
-                        <button class="date">26</button>
-                        <button class="date">27</button>
-                        <button class="date">28</button>
-                        <button class="date">29</button>
-                        <button class="date">30</button>
-                        <button class="date">31</button>
-                      </div>
-</div> */}
+                      <Link
+                        to={`/prof/${teacher._id}`}
+                        className="btn btn-neutral btn-xs sm:btn-sm md:btn-md "
+                      >
+                        View Profile
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className={`  ${activeTab === "Progress" ? "block " : "hidden"}`}>
+          <div className="grid mt-3 grid-cols-4 gap-5">
+            <div className="border-[1px] rounded">
+              <h1 className="nunito text-2xl dark:text-white">Badges</h1>
+            </div>
+            <div className="border-[1px] rounded">
+              <h1 className="nunito text-2xl dark:text-white">Completed Lessons</h1>
+              {user && user.completedLessons.map((key,index) => (
+                <div key={index}>
+                  <h1>{key.quiz}</h1>
+
+
+                </div>
+
+              ))}
+                
+                
+            </div>
+            <div className="border-[1px] rounded">
+              <h1 className="nunito text-2xl dark:text-white">Missing Assignments</h1>
+            </div>
+            <div className="border-[1px] rounded">
+              <h1 className="nunito text-2xl dark:text-white">Time Spent</h1>
+            </div>
+          </div>
+        </div>
+        <div className={`${activeTab === "My Courses" ? "block" : "hidden"}`}>
+          <h1>asdasdasd</h1>
+        </div>
+      </div>
+      <Footer />
+      </div>
+    </>
+  );
+}
+

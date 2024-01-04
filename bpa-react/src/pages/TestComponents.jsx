@@ -11,12 +11,13 @@ export default function TestComponents() {
   const { topicName } = useParams();
   const { topicId, questionId,harderQuestionsId} = useParams();
   const [question, setQuestion] = useState(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setIndex] = useState(0);
   const [message, setMessage] = useState(false);
   const [questionsCorrect, setQuestionsCorrect] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [harder,setharderQuestion] = useState(null);
   const [loading,setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,17 +52,17 @@ export default function TestComponents() {
   const handleNext = (event) => {
     event.preventDefault();
     if (currentQuestionIndex >= question.questions.length - 1) {
-      setCurrentQuestionIndex(0);
+      setIndex(0);
     } else {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setIndex(currentQuestionIndex + 1);
     }
   };
   const handleBack = (event) => {
     event.preventDefault();
     if (currentQuestionIndex <= 0) {
-      setCurrentQuestionIndex(0);
+      setIndex(0);
     } else {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setIndex(currentQuestionIndex - 1);
     }
   };
   if (!question) {
@@ -93,6 +94,7 @@ export default function TestComponents() {
       selectedOption;
     setQuestion(updatedQuestion);
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     let correct = 0;
@@ -117,6 +119,8 @@ export default function TestComponents() {
     console.log(`${correct} / ${question.questions.length}`);
     setCorrectAnswers(correct);
     setQuestionsCorrect(true);
+    const percentageScore = (correct / question.questions.length) * 100;
+    setProgress(percentageScore);
   
     try {
       setLoading(true);
@@ -147,13 +151,31 @@ export default function TestComponents() {
     } finally {
       setLoading(false);
     }
+    try {
+     
+      const urlParts = window.location.pathname.split('/');
+      console.log(urlParts)
+      const part = urlParts[urlParts.length - 4];
+      const topicId = [urlParts.length - 3]
+      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+        method: 'POST',
+        credentials: 'include',
+      })
+      .then(response => response.json())
+      .then(data => console.log('awromse', data))
+      .catch(error => console.error('Error:', error));
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
 
     const updatedQuestion = { ...question };
     updatedQuestion.questions.forEach((q) => {
       q.selectedOption = undefined;
     });
     setQuestion(updatedQuestion);
-    setCurrentQuestionIndex(0);
+    setIndex(0);
   };
   
   const closePopup = () => {
@@ -170,12 +192,12 @@ export default function TestComponents() {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
         {questionsCorrect &&
     <div className='absolute opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
     </div>
     }
-      <div className="h-screen  flex flex-col justify-center items-center bg-slate-200">
+      <div className="h-screen  flex flex-col justify-center items-center bg-slate-200 dark:bg-slate-800">
       {message && 
       <div onClick={closePopup} role="alert" className="cursor-pointer animate__backInDown animate__animated fixed top-11 z-50 popup alert alert-error w-96 bg-yellow-100">
       <svg  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="cursor-pointer stroke-current shrink-0 w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -187,7 +209,7 @@ export default function TestComponents() {
           }
           {questionsCorrect && 
 
-<div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] rounded border-gray-200 h-48 outline'>
+<div className='popup p-3 z-50 bg-white w-[20rem] fixed top-60 border-[2px] rounded border-gray-200 h-48 '>
   <div className="flex w-full justify-between items-center">
 {(correctAnswers / question.questions.length) * 100 >= 70 ? 
     <img src={stars} className="w-8 h-8" alt="Stars" /> : 
@@ -197,30 +219,34 @@ export default function TestComponents() {
   {(correctAnswers / question.questions.length) * 100 >= 70 ? 
     <h1> Good Job! {correctAnswers} / {question.questions.length} </h1> : 
     <h1>Almost There! {correctAnswers} / {question.questions.length} </h1>}
-    <Progress progress={(correctAnswers / question.questions.length)} size="md"/>
+    <div className="w-full border-[1px] mt-3 h-4 flex items-center rounded-xl">
+      <div className="rounded-lg bg-green-500 h-3 " style={{ width: `${progress}%` , transition: 'width 4s' }}>
+
+      </div>
+    </div>
 
 </div>
 
           }
-        <h1 className="text-semibold text-3xl top-32 absolute">
+        <h1 className="text-semibold text-3xl top-32 absolute dark:text-white ">
           {question.topicName}
         </h1>
-        <button className="absolute top-32 right-4 main-color p-1 poppins text-white rounded">
+        <button className="absolute top-32 right-4 main-color p-1 poppins text-white rounded dark:bg-violet-700">
           Save & Exit
         </button>
         
         {question && question.questions[currentQuestionIndex] && (
-  <div className="w-questions bg-white rounded p-4">
+  <div className="w-questions bg-white rounded p-4 ">
     <div className="flex justify-between mb-3">
       <button
         onClick={handleBack}
-        className="main-color text-white rounded-md poppins w-16"
+        className="main-color text-white rounded-md poppins w-16 dark:bg-violet-700"
       >
         Back
       </button>
       <button
         onClick={handleNext}
-        className="main-color text-white rounded-md poppins w-16"
+        className="main-color text-white rounded-md poppins w-16 dark:bg-violet-700"
       >
         Next
       </button>
@@ -267,7 +293,7 @@ export default function TestComponents() {
       </>
     )}
     <div className="w-full flex justify-end">
-      <button className="main-color text-white rounded-md poppins p-1  w-16">
+      <button className="main-color text-white rounded-md poppins p-1  w-16 dark:bg-violet-700">
         Submit
       </button>
     </div>

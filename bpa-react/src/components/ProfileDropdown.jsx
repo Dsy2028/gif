@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOutUserSuccess, logOutUserStart, logOutUserFailure } from '../redux/user/userSlice';
 
@@ -10,7 +10,11 @@ export default function ProfileDropdown() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const dropdownRef = useRef(false);
+  const location = useLocation();
 
+  useEffect(() => {
+    setProfileDropdownOpen(false);
+  }, [location]);
   const toggleProfileDropdown = () => {
     setProfileDropdownOpen((prevOpen) => !prevOpen);
   };
@@ -61,7 +65,7 @@ export default function ProfileDropdown() {
           className="absolute h-44 w-28 mt-2 z-50 bg-white p-2 rounded-lg shadow"
         >
           <ul className="flex flex-col">
-            <Link to="/profile" >
+            <Link to={`/profile/${currentUser._id}` }>
               <li className="py-1 px-2 color-main font-normal hover:bg-gray-200 rounded">
                 Profile
               </li>

@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
         {
             quizId: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'topics', 
+              //  ref: 'topics', 
             },
             correctAnswers: {
                 type: Number,
@@ -50,11 +50,47 @@ const userSchema = new mongoose.Schema({
             },
         },
     ],
+    completed: [
+        {
+            _id: false,
+            assignment: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                },
+            ],
+            timestamp: {
+                type: Date,
+                default: Date.now,
+            },
+        },
+    ],
+    completedLessons: [
+        {
+          lessonId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'lessons',
+          },
+          intro: { type: Boolean, default: false },
+          recap: { type: Boolean, default: false },
+          practice: { type: Boolean, default: false },
+          review: { type: Boolean, default: false },
+          quiz: { type: Boolean, default: false },
+          completed: { type: Boolean, default: false },
+        },
+      ],
     ip: {
         type: String,
        // required: true,
     },
 },{timestamps: true});
+
+userSchema.methods.updateLessonCompletion = function(lessonId) {
+    const lesson = this.completedLessons.find(lesson => lesson.lessonId.toString() === lessonId);
+    if (lesson) {
+      lesson.completed = lesson.intro && lesson.recap && lesson.practice && lesson.review && lesson.quiz;
+      this.markModified('completedLessons');
+    }
+  };
 
 const User = mongoose.model('User', userSchema);
 

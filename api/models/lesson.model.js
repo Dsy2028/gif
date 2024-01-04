@@ -6,6 +6,8 @@ const lessonSchema = new mongoose.Schema({
       ref: 'topics', 
       required: true,
     },
+    image: String,
+    completion: String,
     courseName: {
         type: String
     },
@@ -24,6 +26,7 @@ const lessonSchema = new mongoose.Schema({
         position: String,
         backgroundColor: String,
         borderRadius: String,
+        completed: { type: Boolean, default: false }, 
       },
       recap: {
         title: String,
@@ -34,6 +37,7 @@ const lessonSchema = new mongoose.Schema({
         marginTop: String,
         backgroundColor: String,
         borderRadius: String,
+        completed: { type: Boolean, default: false }, 
       },
       practice: {
         questions: {
@@ -45,6 +49,7 @@ const lessonSchema = new mongoose.Schema({
           marginTop: String,
           backgroundColor: String,
           borderRadius: String,
+          completed: { type: Boolean, default: false }, 
         },
         'practice-questions2': {
           title: String,
@@ -55,6 +60,7 @@ const lessonSchema = new mongoose.Schema({
           marginTop: String,
           backgroundColor: String,
           borderRadius: String,
+          completed: { type: Boolean, default: false }, 
         },
       },
       review: {
@@ -66,6 +72,7 @@ const lessonSchema = new mongoose.Schema({
         marginTop: String,
         backgroundColor: String,
         borderRadius: String,
+        completed: { type: Boolean, default: false }, 
       },
       quiz: {
         title: String,
@@ -76,6 +83,7 @@ const lessonSchema = new mongoose.Schema({
         marginTop: String,
         backgroundColor: String,
         borderRadius: String,
+        completed: { type: Boolean, default: false }, 
       },
     },
   });

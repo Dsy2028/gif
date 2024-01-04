@@ -1,10 +1,10 @@
 import flashcards from "../models/flashcard.model.js";
 
 export const getFlashcardByTopic = async (req, res) => {
-    const { topicId } = req.params;
+    const { flashCardId } = req.params;
   
     try {
-      const topic = await flashcards.findById(topicId);
+      const topic = await flashcards.findById(flashCardId);
   
       if (!topic) {
         return res.status(404).json({ success: false, message: 'Topic not found.' });
