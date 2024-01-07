@@ -19,7 +19,7 @@ export default function HarderQuestions() {
   const [loading,setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const { currentUser, error } = useSelector((state) => state.user);
-  const [user, setUser] = useState({});
+  const { user } = fetchUser(currentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,36 +38,7 @@ export default function HarderQuestions() {
         console.error('Error fetching data: ', error);
       });
   }, [topicName]);
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = currentUser._id;
-  
-        const response = await fetch('/api/user/get', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(`Failed to join class: ${errorMessage}`);
-        }
-  
-        const got = await response.json();
-        setUser(got);
-        
-      } catch (error) {
-        console.error('Error joining class:', error);
-        // setError(error.message); // Uncomment this if you have setError defined
-        // setMessage(true); // Uncomment this if you have setMessage defined
-      }
-    };
-  
-    fetchUser();
-  },[]);
+
   const handleNext = (event) => {
     event.preventDefault();
     if (currentQuestionIndex >= harder.harderQuestions.length - 1) {

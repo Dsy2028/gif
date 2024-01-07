@@ -16,6 +16,7 @@ export default function LogIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [message, setMessage] = useState(false);
+  const [showPass, setPass] = useState(false);
   const { currentUser } = useSelector(state => {
     return state.user;
   });
@@ -92,13 +93,19 @@ export default function LogIn() {
               <label htmlFor="password" placeholder="password" className="nunito dark:text-white">
                 Password
               </label>
+              <div className="relative">
             <input
             className="border-[1px] rounded p-1 border-gray-200 bg-[] w-full"
-              type="password"
+              type={showPass ? "text":"password"}
               name="password"
               id="password"
               onChange={handleChange}
+              
             />
+            <div className="search-icon">
+            <i class="fa-solid fa-eye-slash cursor-pointer" onClick={() => setPass(!showPass)}></i>
+            </div>
+            </div>
           </div>
           <div className="mt-5 flex w-full justify-between ">
             <div className="flex items-center">

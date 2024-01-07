@@ -14,6 +14,7 @@ import dragon from "../imgs/dragon.png"
 import dark_flat from "../imgs/flat-mountains-dark.svg"
 import dark_snow from "../imgs/confetti-doodles-dark.svg"
 import { useSelector } from "react-redux";
+import fetchUser from "../components/fetchUser";
 
 export default function Topic() {
   const { courseName, lessonName } = useParams();
@@ -23,7 +24,7 @@ export default function Topic() {
   const { currentUser, loading, error } = useSelector((state) => state.user);
   const [progress, setProgress] = useState(0);
   const [act, setActionPerformed] = useState(false);
-  const [user, setUser] = useState({});
+  const { user } = fetchUser(currentUser);
   const [imageSrc, setImageSrc] = useState(null);
   const [award, setAward] = useState(null);
   const [complete, setComplete] = useState(false);
@@ -32,18 +33,6 @@ export default function Topic() {
   const [completionActionPerformed, setCompletionActionPerformed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(window.localStorage.getItem('darkMode') === 'true');
 
-  const pageNames = {
-    "/courses/Algebra%201": "Algebra 1",
-    "/courses/Geometry": "Geometry",
-    "/courses/Statistics": "Statistics",
-    "/courses/Calculus": "Calculus",
-    "/courses/Trigonometry": "Trigonometry",
-  };
-  const getPageName = () => {
-    const pathSegments = location.pathname.split('/');
-    const currentPath = `/${pathSegments[1]}/${pathSegments[2]}`;
-    return pageNames[currentPath] || '';
-  };
 
 
   
@@ -55,36 +44,7 @@ export default function Topic() {
     }
   }, [progress, firstCompletion]);*/
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const token = currentUser._id;
 
-      const response = await fetch('/api/user/get', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to join class: ${errorMessage}`);
-      }
-
-      const got = await response.json();
-      setUser(got);
-    
-    } catch (error) {
-      console.error('Error joining class:', error);
-      // setError(error.message); // Uncomment this if you have setError defined
-      // setMessage(true); // Uncomment this if you have setMessage defined
-    }
-  };
-
-  fetchUser();
-},[]);
 
 useEffect(() => {
   if (!user) return;
@@ -104,7 +64,7 @@ useEffect(() => {
          const completedItems = Object.values(lesson).filter(value => value === true).length;
          return (completedItems / totalItems) * 100;
        });
-     
+       console.log(name.topic_id)
    
        const totalCompletionPercentage = completionPercentages.reduce((a, b) => a + b, 0) / completionPercentages.length;
      
@@ -120,6 +80,54 @@ useEffect(() => {
        console.error("Error fetching data: ", error);
      });
  }, [lessonName, user]);
+
+ useEffect(() => {
+  if(progress === 100){
+    const lessonI = name.topic_id; // replace with the ID of the current lesson
+    const isLessonCompleted = user.completedLessons.find((lesson) => lesson.lessonId === lessonI)
+    console.log(isLessonCompleted)
+    const completePart = isLessonCompleted.completed
+    const splitter = award.split('/');
+    const path = splitter[splitter.length - 1];
+    const name1 = path.split('.')
+    const gname =  name1[name1.length - 2]
+    console.log(gname)
+    const hasReceivedAward = user.awards.some(award => award.lessonId === lessonI && award.award === gname);
+    console.log(hasReceivedAward)
+    if (completePart === true && !hasReceivedAward) {
+      const posAward = async ()  => {
+        try {
+          const token = currentUser._id;
+          const splitter = award.split('/');
+          const path = splitter[splitter.length - 1];
+          const name = path.split('.')
+          const gname =  name[name.length - 2]
+
+          const response = await fetch('/api/user/award ', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              lessonId: lessonI,
+              award: gname
+            })
+          });
+
+          if(response.ok){
+            console.log('sucess posting award')
+          }
+
+          const r = await response.json();
+        } catch (error) {
+          console.error('error posting award',error);
+        }
+      }
+      posAward();
+    }
+  }
+},[progress, user, name])
 
 const imageMapping = {
   math: math
@@ -138,7 +146,18 @@ const close = ( ) => {
 }
  
 
-
+const pageNames = {
+  "/courses/Algebra%201": "Algebra 1",
+  "/courses/Geometry": "Geometry",
+  "/courses/Statistics": "Statistics",
+  "/courses/Calculus": "Calculus",
+  "/courses/Trigonometry": "Trigonometry",
+};
+const getPageName = () => {
+  const pathSegments = location.pathname.split('/');
+  const currentPath = `/${pathSegments[1]}/${pathSegments[2]}`;
+  return pageNames[currentPath] || '';
+};
   
 
 

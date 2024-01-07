@@ -1,5 +1,5 @@
 import express from 'express';
-import {test, updateUser, deleteUser, updateQuizResults, completedAssignments, updateLessonCompletion, get} from '../controllers/user.controller.js';
+import {test, updateUser, deleteUser, updateQuizResults, completedAssignments, updateLessonCompletion, get, posAward} from '../controllers/user.controller.js';
 import { verifyToken } from '../utils/verify.js';
 //import UserResult from '../models/user.model.js';
 
@@ -13,5 +13,5 @@ router.post('/harderQuestions/:harderQuestionsId', verifyToken, completedAssignm
 router.post('/:topicId/:part' , verifyToken, updateLessonCompletion);
 router.put('/:topicId/:part' , verifyToken, updateLessonCompletion);
 router.get('/get' , verifyToken, get)
-
+router.post('/award', verifyToken, posAward)
 export default router;

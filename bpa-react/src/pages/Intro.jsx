@@ -5,40 +5,11 @@ import { useSelector } from "react-redux";
 import Footer from '../components/Footer'
 export default function Intro() {
     const { currentUser,  error } = useSelector((state) => state.user);
-    const [user, setUser] = useState({});
+    const { user } = fetchUser(currentUser);
     const [loading,setLoading] = useState(false);
     const {introId, topicId} = useParams();
     const [intro, setIntro] = useState(null);
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const token = currentUser._id;
 
-      const response = await fetch('/api/user/get', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`Failed to join class: ${errorMessage}`);
-      }
-
-      const got = await response.json();
-      setUser(got);
-      
-    } catch (error) {
-      console.error('Error joining class:', error);
-      // setError(error.message); // Uncomment this if you have setError defined
-      // setMessage(true); // Uncomment this if you have setMessage defined
-    }
-  };
-
-  fetchUser();
-},[]);
 
 useEffect(() => {
     try {
@@ -92,7 +63,7 @@ useEffect(() => {
 
     return (
         <>
-        <div className="mt-11">
+        <div className="dark:bg-slate-800 dark:text-white">
             <div className="pl-11 pr-11 mb-11">
             { intro && <h1 className="text-center text-3xl">{intro.title}</h1>}
         { intro && intro.sections.map((section, index) => (
@@ -102,7 +73,7 @@ useEffect(() => {
             <div className="flex gap-4">
             {section.content.map((paragraph, i) => (
                 <div className="flex  flex-row border-[2px] rounded p-1">
-                    <p key={i}>{paragraph}</p>
+                    <p className="dark:text-slate-300" key={i}>{paragraph}</p>
                 </div>
          ))}
             </div>

@@ -189,3 +189,26 @@ export const getComplete =  async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+
+export const posAward = async (req, res) => {
+  try {
+    const { lessonId, award } = req.body;
+    const se = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        $push: {
+          awards: { lessonId, award },
+        },
+      },
+      { new: true }
+    )
+    if(!se){
+      return res.status(404).json({ message: 'User not found cannot post award' });
+    }
+    res.status(200).json(se);
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Internal Server Error' });
+   
+  }
+}

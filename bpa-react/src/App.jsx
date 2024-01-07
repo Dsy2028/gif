@@ -25,6 +25,7 @@ import TeacherProfile from './components/TeacherProfile';
 import Intro from './pages/Intro';
 import Recap from './pages/Recap'
 import Privacy from './pages/Privacy'
+import TeachRoute from './components/TeachRoute';
 export default function App() {
 
   const paths = ['/dashboard', '/classes', '/calender', '/prof'];
@@ -52,7 +53,9 @@ export default function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:topicName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
+        <Route element={<TeachRoute/>} >
         <Route path="/dashboard/:teacherId" element={<Dashboard />} />
+        </Route>
         <Route path="/classes/:teacherId" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
         <Route path="/about" element ={<About />} />

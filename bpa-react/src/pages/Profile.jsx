@@ -16,6 +16,14 @@ import PropTypes from "prop-types";
 import Footer from "../components/Footer.jsx";
 import { useDispatch } from "react-redux";
 import { updateUserSuccess, deleteUserSuccess, deleteUserFailure, deleteUserStart, updateUserStart } from '../redux/user/userSlice.js';
+import straw from "../imgs/straw.png"
+import doffy from "../imgs/doffy.png"
+import ousen from "../imgs/ousen.webp"
+import jojo from "../imgs/jojo.png"
+import fishing from "../imgs/fishing.png"
+import dragon from "../imgs/dragon.png"
+import fetchUser from "../components/fetchUser.js";
+
 export default function Profile() {
   /*
         allow read;
@@ -29,11 +37,15 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const { currentUser, loading, error } = useSelector((state) => state.user);
+  const { currentUser, loading} = useSelector((state) => state.user);
   const [edit, setEdit] = useState(false);
   const [teacher, setTeacher] = useState(null);
-  const [user, setUser] = useState(null);
+  //const [user, setUser] = useState(null);
   const { studentId } = useParams();
+  const [awardCounts, setAwardCounts] = useState(null);
+  const [strawCount, setStrawCount] = useState(0);
+  const [doffyCount, setDoffyCount] = useState(0);
+  const { user, error } = fetchUser(currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
     if (file) {
@@ -41,36 +53,6 @@ export default function Profile() {
     }
   }, [file]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = currentUser._id;
-  
-        const response = await fetch('/api/user/get', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        if (!response.ok) {
-          const errorMessage = await response.text();
-          throw new Error(`Failed to join class: ${errorMessage}`);
-        }
-  
-        const got = await response.json();
-        setUser(got);
-      
-      } catch (error) {
-        console.error('Error joining class:', error);
-        // setError(error.message); // Uncomment this if you have setError defined
-        // setMessage(true); // Uncomment this if you have setMessage defined
-      }
-    };
-  
-    fetchUser();
-  },[]);
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -133,6 +115,18 @@ export default function Profile() {
       });
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      const strawCount = user.awards.filter(award => award.award === 'straw').length;
+      const doffyCount = user.awards.filter(award => award.award === 'doffy').length;
+     // setAwardCounts(counts.awardCounts);
+   //   console.log(counts.awardCounts);
+      setStrawCount(strawCount);
+      setDoffyCount(doffyCount);
+     
+     // console.log(awardCount);
+    }
+  }, [user]);
   // console.log(file);
 
   const openEdit = () => {
@@ -144,6 +138,10 @@ export default function Profile() {
     setEdit(false);
     document.body.style.overflow = "auto";
   };
+
+ 
+ 
+
 
   const deleteUser = async () => {
     const c = window.confirm(
@@ -191,6 +189,7 @@ export default function Profile() {
       closeEditProfilePopup();
     }
   };
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -408,6 +407,17 @@ export default function Profile() {
           <div className="grid mt-3 grid-cols-4 gap-5">
             <div className="border-[1px] rounded">
               <h1 className="nunito text-2xl dark:text-white">Badges</h1>
+              {user && <div className="grid   p-3">
+                <div className="grid grid-rows-4 ">
+                <div className=" flex items-center dark:text-white">
+                  <img className="h-9 " src={straw}/>: {strawCount}
+                  </div>
+    <div className=" flex items-center ml-2 dark:text-white"> <img className="h-9 " src={doffy}/>: {doffyCount}</div>
+    <div className=" flex items-center ml-2 dark:text-white"> <img className="h-9 " src={doffy}/>: {doffyCount}</div>
+    <div className=" flex items-center ml-2 dark:text-white"> <img className="h-9 " src={doffy}/>: {doffyCount}</div>
+    <div className=" flex items-center ml-2 dark:text-white"> <img className="h-9 " src={doffy}/>: {doffyCount}</div>
+                </div>
+                </div>}
             </div>
             <div className="border-[1px] rounded">
               <h1 className="nunito text-2xl dark:text-white">Completed Lessons</h1>

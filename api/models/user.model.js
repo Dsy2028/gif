@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
             _id: false,
             assignment: [
                 {
-                    type: mongoose.Schema.Types.ObjectId,
+                    type: mongoose.Schema.Types.ObjectId, ref: 'topics',
                 },
             ],
             timestamp: {
@@ -77,6 +77,12 @@ const userSchema = new mongoose.Schema({
           quiz: { type: Boolean, default: false },
           completed: { type: Boolean, default: false },
         },
+      ],
+      awards: [
+        {
+          lessonId: { type: mongoose.Schema.Types.ObjectId, ref: 'lessons' },
+          award: { type: String }
+        }
       ],
     ip: {
         type: String,
