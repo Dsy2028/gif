@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import fetchUser from "../components/fetchUser";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import stars from "../imgs/stars.svg";

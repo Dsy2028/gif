@@ -25,6 +25,7 @@ import TeacherProfile from './components/TeacherProfile';
 import Intro from './pages/Intro';
 import Recap from './pages/Recap'
 import Privacy from './pages/Privacy'
+import Userguide from './pages/Userguide';
 import TeachRoute from './components/TeachRoute';
 export default function App() {
 
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/Chat" element ={<Chat />} />
         <Route path ="/inbox" element ={<Inbox />}/>
         <Route path='privacy' element={<Privacy/>}/>
+        <Route path='/userguide' element={<Userguide/>}/>
       </Routes>
     </BrowserRouter>
   );
