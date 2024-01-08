@@ -62,11 +62,13 @@ export default function Classes() {
           setGetCode(data);
           setHasCode(true);
           console.log(data) // Update the condition
-          data.forEach(classItem => {
+          data.classToGet.forEach(classItem => {
+            console.log('students',classItem.students)
             classItem.students.forEach(student => {
-              console.log(student.firstName); // Log the email field of each student
+             // console.log('students',student);
             });
           });
+          console.log(data.classToGet.students)
         })
         .catch((error) => {
           console.error("Error fetching data: ", error);
@@ -93,7 +95,37 @@ const selectTopic =  (course) => {
   setTest(course.topics);
   setCourse(false);
 }
-
+const selCourse = async  () =>{
+  try {
+    if (!classId) {
+      console.error('Class ID is not defined');
+      return;
+    }
+    const response = await fetch('/api/classes/classCourse', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        classCourse: className,
+        classId: classId,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    setGetCode((prevGetCode) =>
+      prevGetCode.map((classItem) =>
+        classItem._id === classId ? { ...classItem, className: className } : classItem
+      )
+    );
+    setOpenClass(false);
+    setClassName(''); 
+  } catch (error) {
+    console.error('Error updating class name:', error);
+  }
+}
 const closeCourse = () => {
   setCourse(false);
 }

@@ -85,15 +85,14 @@ useEffect(() => {
   if(progress === 100){
     const lessonI = name.topic_id; // replace with the ID of the current lesson
     const isLessonCompleted = user.completedLessons.find((lesson) => lesson.lessonId === lessonI)
-    console.log(isLessonCompleted)
+    
     const completePart = isLessonCompleted.completed
     const splitter = award.split('/');
     const path = splitter[splitter.length - 1];
     const name1 = path.split('.')
     const gname =  name1[name1.length - 2]
-    console.log(gname)
     const hasReceivedAward = user.awards.some(award => award.lessonId === lessonI && award.award === gname);
-    console.log(hasReceivedAward)
+   
     if (completePart === true && !hasReceivedAward) {
       const posAward = async ()  => {
         try {
