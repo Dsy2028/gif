@@ -9,6 +9,6 @@ const CourseSchema = new mongoose.Schema({
     units: [{ type: mongoose.Schema.Types.ObjectId, ref: 'units'}]
   });
   
-  const otherTest = mongoose.model('test', CourseSchema);
+  const otherTest = mongoose.model('tests', CourseSchema);
   
   export default otherTest;
