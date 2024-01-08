@@ -107,13 +107,13 @@
 
     .sidebar {
       flex: 1;
-      background-color: #414cb6;
+      background-color: #4763c0;
       position: relative;
 
       .navbar {
         display: flex;
         align-items: center;
-        background-color: #4b56f3;
+        background-color: #4763c0;
         height: 50px;
         padding: 10px;
         justify-content: space-between;
@@ -139,7 +139,7 @@
           }
 
           button {
-            background-color: #2753e6;
+            background-color: #6da4e4;
             color: #ddddf7;
             font-size: 12px;
             padding: 7px;
@@ -181,7 +181,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: #5761eb;
+          background-color: #6da4e4;
         }
 
         img {
@@ -211,7 +211,7 @@
 
       .chatInfo {
         height: 50px;
-        background-color: #5d5b8d;
+        background-color: #6da4e4;
         display: flex;
         align-items: centFer;
         justify-content: space-between;
