@@ -13,6 +13,8 @@ import classRouter from './routes/class.route.js';
 import lessonRouter from './routes/lesson.route.js';
 import introRouter from './routes/intro.route.js';
 import recapRouter from './routes/recap.route.js'
+import unitRouter from './routes/unit.route.js';
+import testRouter from './routes/test.route.js'
 
 
 dotenv.config();
@@ -45,6 +47,8 @@ app.use('/api/classes', classRouter);
 app.use('/api/lessons', lessonRouter);
 app.use('/api/intros', introRouter);
 app.use('/api/recap' ,recapRouter);
+app.use('/api/units', unitRouter);
+app.use('/api/test', testRouter);
 //app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);

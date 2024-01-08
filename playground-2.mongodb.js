@@ -151,31 +151,38 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 //db.intro.find();
 const data = [
   {
-    "name": "Systems of Equations and Inequalities",
+    "name": "Radicals and Exponents",
     "course": "65641442e17b033e4ac90558",
     "topics": [
-      "656634fad3172fb0cc9c6a69",
-      "659b6b7df4ec653b96a43465",
-      "659b6bb7f4ec653b96a43466",
-      "659b6bd3f4ec653b96a43467"
+      "659c30b92869fb8663b2b47b",
+      "659c30e62869fb8663b2b47c",
+      "659c310e2869fb8663b2b47e"
     ]
   },
   {
-    "name": "Polynomials and Factoring",
+    "name": "Functions",
     "course": "65641442e17b033e4ac90558",
     "topics": [
-      "659b6c16f4ec653b96a43469",
-      "659b6c42f4ec653b96a4346a",
-      "659b6c5cf4ec653b96a4346b"
+      "659c312e2869fb8663b2b47f",
+      "659c31562869fb8663b2b480",
+      "659c316e2869fb8663b2b481"
     ]
   },
   {
-    "name": "Rational Expressions and Equations",
+    "name": "Quadratic Functions",
     "course": "65641442e17b033e4ac90558",
     "topics": [
-      "659b6c88f4ec653b96a4346c",
-      "659b6cb2f4ec653b96a4346d",
-      "659b6cd2f4ec653b96a4346e"
+      "659c31872869fb8663b2b482",
+      "659c319d2869fb8663b2b483",
+      "659c31b32869fb8663b2b484"
+    ]
+  },
+  {
+    "name": "Data Analysis and Probability",
+    "course": "65641442e17b033e4ac90558",
+    "topics": [
+      "659c31d12869fb8663b2b485",
+      "659c31ee2869fb8663b2b486",
     ]
   }
 
@@ -223,4 +230,6 @@ const data = [
 .then(docs => console.log(docs))
 .catch(err => console.error(err));*/
 
-db.units.insertMany(data)
+//db.units.insertMany(data)
+//db.courses.findOne({ "_id": ObjectId("65641442e17b033e4ac90558") })
+db.units.find()
