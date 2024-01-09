@@ -99,7 +99,7 @@ export default function Classes() {
   /* useEffect(() => {
       if (getCode && getCode.length > 0) {
         getCode.forEach(classItem => {
-          console.log(classItem.students.firstName); // Log the email field of each
+          console.log(classItem.students.firstName); 
         });
       }
     }, [getCode]);

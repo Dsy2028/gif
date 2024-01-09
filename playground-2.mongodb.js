@@ -60,7 +60,33 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
         }
       }
     }
+  )
+  db.courseheader.updateOne(
+    { "_id": ObjectId("659d59e5a3b0fa9e20136cd8") },
+    {
+      $set: {
+        courses: [
+          "659d7ef31a42fa5c06a74140",
+          "659d7ef31a42fa5c06a74141"
+      ]
+          
+      }
+    }
   )*/
+
+  db.tests.updateOne(
+    { "_id": ObjectId("659d5eb7a3b0fa9e20136cda") },
+    {
+      $set: {
+        units: [
+          "659d7ef31a42fa5c06a74140",
+         
+      ]
+          
+      }
+    }
+  )
+
 
  /* db.topics.update(
     { "_id": ObjectId("656604348bc2ccb633300115") },
@@ -149,44 +175,17 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 
 //db.intro.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 //db.intro.find();
-const data = [
+/*const data = [
   {
-    "name": "Radicals and Exponents",
-    "course": "65641442e17b033e4ac90558",
-    "topics": [
-      "659c30b92869fb8663b2b47b",
-      "659c30e62869fb8663b2b47c",
-      "659c310e2869fb8663b2b47e"
-    ]
+    "courseName": "ACT",
+    "units": []
   },
   {
-    "name": "Functions",
-    "course": "65641442e17b033e4ac90558",
-    "topics": [
-      "659c312e2869fb8663b2b47f",
-      "659c31562869fb8663b2b480",
-      "659c316e2869fb8663b2b481"
-    ]
-  },
-  {
-    "name": "Quadratic Functions",
-    "course": "65641442e17b033e4ac90558",
-    "topics": [
-      "659c31872869fb8663b2b482",
-      "659c319d2869fb8663b2b483",
-      "659c31b32869fb8663b2b484"
-    ]
-  },
-  {
-    "name": "Data Analysis and Probability",
-    "course": "65641442e17b033e4ac90558",
-    "topics": [
-      "659c31d12869fb8663b2b485",
-      "659c31ee2869fb8663b2b486",
-    ]
+    "courseName": "SAT",
+    "units": []
   }
 
-];
+];*/
 
 /**
  *   {
@@ -230,6 +229,9 @@ const data = [
 .then(docs => console.log(docs))
 .catch(err => console.error(err));*/
 
-//db.units.insertMany(data)
+//db.tests.insertMany(data)
 //db.courses.findOne({ "_id": ObjectId("65641442e17b033e4ac90558") })
-db.units.find()
+//db.units.find()
+//db.tests.find()
+
+//db.courseheader.find()

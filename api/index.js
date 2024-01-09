@@ -14,7 +14,8 @@ import lessonRouter from './routes/lesson.route.js';
 import introRouter from './routes/intro.route.js';
 import recapRouter from './routes/recap.route.js'
 import unitRouter from './routes/unit.route.js';
-import testRouter from './routes/test.route.js'
+import testRouter from './routes/test.route.js';
+import courseheaderRouter from './routes/courseheader.route.js'
 
 
 dotenv.config();
@@ -49,6 +50,7 @@ app.use('/api/intros', introRouter);
 app.use('/api/recap' ,recapRouter);
 app.use('/api/units', unitRouter);
 app.use('/api/test', testRouter);
+app.use('/api/courseheader', courseheaderRouter );
 //app.use('/api/teacher-user', teacherUserRouter);
 //app.use('/api/topics', topicsRouter);
 //app.use('/api/topics/topic', topicRouter);
