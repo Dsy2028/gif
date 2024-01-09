@@ -52,7 +52,7 @@ export default function App() {
         <Route path="/:topicId/quiz" element={<Quiz />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:topicName" element={<TopicSkills/>}/>
+        <Route path="/courses/:courseName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
         <Route element={<TeachRoute/>} >
         <Route path="/dashboard/:teacherId" element={<Dashboard />} />

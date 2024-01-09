@@ -47,7 +47,7 @@ export default function Topic() {
 
 
 useEffect(() => {
-  if (!user) return;
+  //if (!user) return;
    fetch(`http://localhost:3000/api/lessons/courses/${courseName}/${lessonName}`)
      .then((response) => {
        if (!response.ok) {
