@@ -4,9 +4,11 @@ import Footer from './Footer';
 
 function TopicSkills() {
   const {  topicName } = useParams();
+  const {courseName} = useParams();
   const [courseDetails, setCourseDetails] = useState(null);
+  console.log(courseName)
   useEffect(() => {
-    fetch(`http://localhost:3000/api/courses/${topicName}`)
+    fetch(`http://localhost:3000/api/test/${courseName}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -21,7 +23,8 @@ function TopicSkills() {
       .catch(error => {
         console.error('Error fetching data: ', error);
       });
-  }, [topicName]);
+  }, [courseName]);
+  console.log('Course details:', courseDetails);
 
   if (!courseDetails) {
     return (
@@ -47,20 +50,27 @@ function TopicSkills() {
     <>
      <div className="dark:bg-slate-800">
     <div className="pl-[12rem] pr-[12rem]">
-    <h1 className='font-semibold text-3xl text-center nunito mb-11 dark:text-white'>{courseDetails.courseName}</h1>
-    <div className='grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 '>
-    {courseDetails.units.map((unit, index) => (
-  <div className='border-[2px] p-4 shadow-md rounded hover:shadow-lg animate__animated animate__fadeInDown' key={index}>
-    <h2 className='font-semibold text-xl mb-2 dark:text-slate-300'>{unit.unitName}</h2>
-    <ul className='list-none p-0'>
-      {unit.topics.map((topic, index) => (
-        <li key={index} className='mb-2'>
-          <Link to={`/courses/${topicName}/${topic}`} className='text-normal text-lg text-blue-700  hover:underline'>
-            {topic}
-          </Link>
-        </li>
+      {courseDetails.map((unit, index) => (
+        <h1 className='font-semibold text-3xl text-center nunito mb-11 dark:text-white '>{unit.courseName}</h1>
+
       ))}
-    </ul>
+    <div className=''>
+    {courseDetails && courseDetails.map((course, index) => (
+  <div className=' grid grid-cols-3 grid-rows-3 gap-5 mt-3 pr-4 pl-8 ' key={index}>
+    {course.units.map((unit, index) => (
+      <div key={index} className="border-[2px] p-4 shadow-md rounded hover:shadow-lg animate__animated animate__fadeInDown">
+        <h2 className='font-semibold text-xl mb-2 dark:text-slate-300'>{unit.name}</h2>
+        {unit.topics && unit.topics.map((topic, index) => (
+          <ul className='list-none p-0' key={index}>
+            <li className='mb-2'>
+              <Link to={`/courses/${courseName}/${topic.topicName}`} className='text-normal text-lg text-blue-700  hover:underline'>
+                {topic.topicName}
+              </Link>
+            </li>
+          </ul>
+        ))}
+      </div>
+    ))}
   </div>
 ))}
     </div>

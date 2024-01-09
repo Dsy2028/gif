@@ -24,6 +24,7 @@ export default function Classes() {
       return state.user;
     });
     const {teacherId} = useParams();
+    const [courseDetails, setCourseDetails] = useState(null);
     const handleChange = (e) => {
       setClassName(e.target.value);
     };
@@ -49,6 +50,25 @@ export default function Classes() {
       const data = await response.json();
       
     };
+   
+    
+    useEffect(() => {
+      fetch(`http://localhost:3000/api/test/courses/find`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Fetched data:', data);
+          setCourseDetails(data);
+          console.log('Course details:', courseDetails);
+        })
+        .catch(error => {
+          console.error('Error fetching data: ', error);
+        });
+    }, []);
 
     useEffect(() => {
       fetch(`http://localhost:3000/api/classes/${teacherId}`)
@@ -61,9 +81,9 @@ export default function Classes() {
         .then((data) => {
           setGetCode(data);
           setHasCode(true);
-          console.log(data) // Update the condition
+        //  console.log(data) // Update the condition
           data.classToGet.forEach(classItem => {
-            console.log('students',classItem.students)
+          //  console.log('students',classItem.students)
             classItem.students.forEach(student => {
              // console.log('students',student);
             });
@@ -95,7 +115,7 @@ const selectTopic =  (course) => {
   setTest(course.topics);
   setCourse(false);
 }
-const selCourse = async  () =>{
+const selCourse = async  (courseId) =>{
   try {
     if (!classId) {
       console.error('Class ID is not defined');
@@ -108,7 +128,7 @@ const selCourse = async  () =>{
       },
       credentials: 'include',
       body: JSON.stringify({
-        classCourse: className,
+        classCourse: classCourse,
         classId: classId,
       }),
     });
@@ -296,6 +316,7 @@ const closeCourse = () => {
           },
         
       ];
+    
       
   return (
 

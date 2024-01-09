@@ -146,6 +146,7 @@ router.get('/:teacherId',  async (req, res) => {
       }
   
       res.status(200).json(updatedClass);
+      
     } catch (error) {
       console.error('Error updating class name:', error);
       res.status(500).json({ message: 'Internal Server Error' });
