@@ -74,19 +74,24 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
     }
   )*/
 
-  db.tests.updateOne(
+  /*db.tests.updateOne(
     { "_id": ObjectId("659d5eb7a3b0fa9e20136cda") },
     {
       $set: {
         units: [
-          "659d7ef31a42fa5c06a74140",
-         
+          "659da923e64fbbe736cc79b7",
+          "659da923e64fbbe736cc79b8",
+          "659da923e64fbbe736cc79b9",
+          "659da923e64fbbe736cc79ba",
+          "659da923e64fbbe736cc79bb",
+          "659da923e64fbbe736cc79bc",
+          "659da923e64fbbe736cc79bd"
       ]
           
       }
     }
   )
-
+*/
 
  /* db.topics.update(
     { "_id": ObjectId("656604348bc2ccb633300115") },
@@ -175,17 +180,72 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 
 //db.intro.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 //db.intro.find();
-/*const data = [
+const data = [
   {
-    "courseName": "ACT",
-    "units": []
+    "name": "Limits and Continuity",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015d5",
+    "659d8d7de431b9ef36b015d6",
+      "659d8d7de431b9ef36b015d7"
+    ]
   },
   {
-    "courseName": "SAT",
-    "units": []
-  }
+    "name": "Differentiation",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015d8",
+    "659d8d7de431b9ef36b015d9",
+      "659d8d7de431b9ef36b015da"
+    ]
+  },
+  {
+    "name": "Integration",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015db",
+    "659d8d7de431b9ef36b015dc",
+      "659d8d7de431b9ef36b015dd"
+    ]
+  },
+  {
+    "name": "Multivariable Calculus",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015de",
+    "659d8d7de431b9ef36b015df",
+      "659d8d7de431b9ef36b015e0"
+    ]
+  },
+  {
+    "name": "Differential Equations",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e1",
+    "659d8d7de431b9ef36b015e2",
+      "659d8d7de431b9ef36b015e3"
+    ]
+  },
+  {
+    "name": "Sequences and Series",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e4",
+    "659d8d7de431b9ef36b015e5",
+      "659d8d7de431b9ef36b015e6"
+    ]
+  },
+  {
+    "name": "Calculus Applications",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e7",
+    "659d8d7de431b9ef36b015e8",
+      "659d8d7de431b9ef36b015e9"
+    ]
+  },
 
-];*/
+];
 
 /**
  *   {
@@ -229,7 +289,7 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 .then(docs => console.log(docs))
 .catch(err => console.error(err));*/
 
-//db.tests.insertMany(data)
+//db.units.insertMany(data)
 //db.courses.findOne({ "_id": ObjectId("65641442e17b033e4ac90558") })
 //db.units.find()
 //db.tests.find()

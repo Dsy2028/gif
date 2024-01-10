@@ -2,6 +2,7 @@ import express from 'express';
 import Class from '../models/class.model.js';
 import { verifyToken } from '../utils/verify.js';
 import mongoose from 'mongoose';
+import User from '../models/user.model.js';
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -42,6 +43,12 @@ router.post('/join', verifyToken, async (req, res) => {
     }
     classToJoin.students.push(userId);
     await classToJoin.save();
+
+    // Update the student document
+    const student = await User.findById(userId);
+    student.classes.push(classToJoin._id);
+    await student.save();
+
     const populatedClass = await Class.findById(classToJoin._id).populate({
       path: 'students',
       select: 'email firstName lastName avatar',
@@ -84,8 +91,8 @@ router.get('/students', async (req, res) => {
 router.get('/:teacherId',  async (req, res) => {
   try {
     const id = req.params.teacherId;
-    const classToGet = await Class.find({ teacher: id }).populate('students');
-    const classes = await Class.find({ students: { $in: [id] } }).populate('students', ' avatar firstName lastName  email');
+    const classToGet = await Class.find({ teacher: id }).populate('students').populate('courses', 'courseName');
+    const classes = await Class.find({ students: { $in: [id] } }).populate('students', ' avatar firstName lastName  email').populate('courses', 'courseName');
     if (!classToGet && classes ) {
       return res.status(404).json({ message: 'Class not found' });
     }
@@ -139,7 +146,7 @@ router.get('/:teacherId',  async (req, res) => {
   
     try {
       
-      const updatedClass = await Class.updateOne({ _id: classId }, { $push: { courses: { $each: classCourse } } });
+      const updatedClass = await Class.updateOne({ _id: classId }, { $push: { courses: classCourse } });
   
       if (updatedClass.nModified === 0) {
         return res.status(404).json({ message: 'Class not found or not modified' });

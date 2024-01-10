@@ -20,6 +20,7 @@ export default function Classes() {
     const [course, setCourse] = useState(false);
     const[topic, setTopic] = useState(false);
     const [test, setTest] = useState(null);
+    const [courses, setCourses] = useState(null);
     const { currentUser } = useSelector(state => {
       return state.user;
     });
@@ -52,8 +53,9 @@ export default function Classes() {
     };
    
     
+   
     useEffect(() => {
-      fetch(`http://localhost:3000/api/test/courses/find`)
+      fetch(`http://localhost:3000/api/courseheader/courses`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -61,9 +63,9 @@ export default function Classes() {
           return response.json();
         })
         .then(data => {
-          console.log('Fetched data:', data);
-          setCourseDetails(data);
-          console.log('Course details:', courseDetails);
+         // console.log('Fetched data:', data);
+          setCourses(data);
+     
         })
         .catch(error => {
           console.error('Error fetching data: ', error);
@@ -105,18 +107,24 @@ export default function Classes() {
     }, [getCode]);
 */
 
-const selectCourse = () =>{
+const selectCourse = (id) =>{
+  
   setCourse(true);
   setTopic(false);
+  setClassId(id);
+  console.log(id)
 }
 
 const selectTopic =  (course) => {
+  
   setTopic(true);
-  setTest(course.topics);
+  setTest(course.courses);
   setCourse(false);
 }
+
 const selCourse = async  (courseId) =>{
-  try {
+ 
+ try {
     if (!classId) {
       console.error('Class ID is not defined');
       return;
@@ -128,20 +136,16 @@ const selCourse = async  (courseId) =>{
       },
       credentials: 'include',
       body: JSON.stringify({
-        classCourse: classCourse,
+        classCourse: courseId,
         classId: classId,
       }),
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    setGetCode((prevGetCode) =>
-      prevGetCode.map((classItem) =>
-        classItem._id === classId ? { ...classItem, className: className } : classItem
-      )
-    );
-    setOpenClass(false);
-    setClassName(''); 
+    setCourse(false);
+    setTopic(false);
+    window.location.reload();
   } catch (error) {
     console.error('Error updating class name:', error);
   }
@@ -226,96 +230,7 @@ const closeCourse = () => {
         }
       };
 
-      const courses = [
-        { 
-          name: 'Math: Pre-K - 8th Grade',
-          topics: [
-            { name: 'Pre-K', skills: 10 },
-            { name: 'Early-Math', skills: 8 },
-            { name: "2nd Grade", skills: 8 },
-            { name: '3rd Grade', skills: 8 },
-            { name: '4th Grade', skills: 8 },
-            { name: '5th Grade', skills: 8 },
-            { name: '6th Grade', skills: 8 },
-            { name: '7th Grade', skills: 8 },
-            { name: '8th Grade', skills: 8 },
-          ]
-        },
-        { 
-            name: "Math: High school+",
-            topics: [
-              { name: "Algebra 1", skills: 32 },
-              { name: "Calculus", skills:21 },
-              { name: "Geometry", skills: 28 },
-              { name: "Statistics", skills: 18 },
-              { name: "Trigonometry", skills: 25 },
-              { name: "Pre-Calculus", skills: 24},
-              { name: "AP Calculus AB", skills: 8 },
-              { name: "AP Calculus BC", skills: 8 },
-              { name: "AP Statistics", skills: 8 },
-              { name: "Algebra 2", skills: 22 },
-              { name: "Differntial Equations", skills: 8 },
-          
-            ]
-          },
-          { 
-            name: "Science",
-            topics: [
-              { name: "Elementery Science", skills: 10 },
-              { name: "Middle School Science", skills: 8 },
-              { name: "Biology", skills: 8 },
-              { name: "Chemistry", skills: 8 },
-              {name: "Physics", skills: 32},
-              {name: "Environmental Science", skills: 8},
-              {name: 'Anatomy & Physiology', skills: 8},
-              {name: 'Health & Medicine', skills: 8},
-              
-            ]
-          },
-          { 
-            name: "English & Language Arts",
-            topics: [
-              { name: 'Pre-K', skills: 10 },
-              { name: '2nd Grade', skills: 8 },
-              {name: '3rd Grade', skills: 8},
-              {name: '4th Grade', skills: 8},
-              {name: '5th Grade', skills: 8},
-              {name: '6th Grade', skills: 8},
-              {name: '7th Grade', skills: 8},
-              {name: '8th Grade', skills: 8},
-              {name: 'High School', skills: 8},
-        
-            ]
-          },
-          { 
-            name: "Social Studies",
-            topics: [
-              { name: 'World History', skills: 10 },
-              { name: 'US History', skills: 8 },
-              { name: 'Economics', skills: 8 },
-              { name: 'Ancient History', skills: 8 },
-              { name: 'US Gov & Civics', skills: 8 },
-       
-            ]
-          },
-          { 
-            name: "Computer Science",
-            topics: [
-              { name: 'Data Structures & Algorithims', skills: 10 },
-              { name: 'Intro to Object Oriented Programming', skills: 8 },
-             
-            ]
-          },
-          { 
-            name: "Test Prep",
-            topics: [
-              { name: 'ACT', skills: 10 },
-              { name: 'SAT', skills: 8 },
-              
-            ]
-          },
-        
-      ];
+    
     
       
   return (
@@ -393,7 +308,7 @@ const closeCourse = () => {
           {courses.map((course, index) => (
           <div key={index} className="">
             <div className="grid grid-cols-1  grid-rows-2 ">
-            <button className=" main-color rounded text-white text-xl font-medium uppercase dark:bg-violet-700" onClick={() => selectTopic(course)}>{course.name}</button>
+            <button className=" main-color rounded text-white text-xl font-medium uppercase dark:bg-violet-700" onClick={() => selectTopic(course)}>{course.courseHeader}</button>
             </div>
           </div>
         ))}
@@ -411,7 +326,7 @@ const closeCourse = () => {
             <div className="grid grid-cols-3 gap-5 mt-5">
             {test.map((topic, index) => (
               <div key={index}>
-               <button className=" main-color rounded text-white text-xl font-medium uppercase px-3 dark:bg-violet-700"> {topic.name}</button>
+               <button className=" main-color rounded text-white text-xl font-medium uppercase px-3 dark:bg-violet-700"onClick={() => selCourse(topic._id)}> {topic.courseName}</button>
               </div>
             ))}
             </div>
@@ -427,13 +342,18 @@ const closeCourse = () => {
              <button className="btn btn-neutral btn-xs sm:btn-sm md:btn-md dark:text-white " onClick={() => openClass(classItem._id)}> {classItem.className ? 'Change Class Name' : 'Add Class Name'}</button>
              </div>
              <h1 className="text-xl mb-2 dark:text-white">{classItem.className}</h1>
-             <div className="flex items-center">
-             <h1 className="text-xl mb-2 dark:text-white">Courses</h1>
-             <h1></h1>
+             <div className="flex items-center mb-2">
+             <h1 className="text-xl  dark:text-white">Courses: </h1>
+             {classItem.courses.map((course, index) => (
+               <div key={index} className="flex ml-2 items-center">
+                <h1 className="text-xl dark:text-white">{course.courseName } </h1>
+                </div>
+              ))}
+           
              </div>
              <div className="flex justify-between">
               <h1 className='text-lg dark:text-white'>Students</h1>
-              <button className='main-color rounded text-white w-[8rem] dark:bg-violet-700' onClick={selectCourse}>Select Course</button>
+              <button className='main-color rounded text-white w-[8rem] dark:bg-violet-700' onClick={() => selectCourse(classItem._id)}>Select Course</button>
               </div>
               <div className="grid grid-cols-5 w-5/6 p-2 gap-3  mb-3">
               {classItem.students &&
