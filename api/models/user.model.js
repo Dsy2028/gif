@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        enum: ["student", "teacher"],
+        enum: ["student", "teacher", "admin"],
         default: "student",
     },
     quizResults: [
@@ -68,7 +68,7 @@ const userSchema = new mongoose.Schema({
         {
           lessonId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'lessons',
+            ref: 'topics',
           },
           intro: { type: Boolean, default: false },
           recap: { type: Boolean, default: false },
@@ -88,6 +88,7 @@ const userSchema = new mongoose.Schema({
         type: String,
        // required: true,
     },
+    classes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'class' }],
 },{timestamps: true});
 
 userSchema.methods.updateLessonCompletion = function(lessonId) {

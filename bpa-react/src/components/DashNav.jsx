@@ -145,6 +145,9 @@ export default function DashNav() {
         </div>
         <i class="fa-solid fa-moon fa-xl ml-2 text-violet-700"></i>
           </div>
+          <div className="flex flex-col mt-3">
+            <h1 className="text-center text-xl">Toggle Layout</h1>
+          </div>
         </div>
       }
     </div>

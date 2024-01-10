@@ -10,6 +10,7 @@ import GoogleAuth from "../components/GoogleAuth";
 import background from "../imgs/background.svg";
 import background1 from "../imgs/background1.svg";
 import { Checkbox, Label } from 'flowbite-react';
+import { resetError } from "../redux/user/userSlice";
 export default function LogIn() {
   const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user);

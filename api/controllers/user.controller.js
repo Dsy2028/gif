@@ -32,7 +32,34 @@ export const get = async (req, res, next) => {
   const userId = req.user.id;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      path: 'classes',
+      populate: [
+        {
+          path: 'teacher',
+          select: 'firstName email lastName avatar'
+        },
+        {
+          path: 'courses',
+
+          select: 'courseName units',
+          populate: {
+            path: 'units', 
+           select: 'name topics',
+           populate:{
+            path: 'topics'
+           }
+          }
+
+        }
+      ]
+    }).populate({
+      path: 'completedLessons',
+      populate:{ 
+        path: 'lessonId',
+        select: 'topicName'
+      }
+    })
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

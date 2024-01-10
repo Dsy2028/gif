@@ -60,7 +60,38 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
         }
       }
     }
+  )
+  db.courseheader.updateOne(
+    { "_id": ObjectId("659d59e5a3b0fa9e20136cd8") },
+    {
+      $set: {
+        courses: [
+          "659d7ef31a42fa5c06a74140",
+          "659d7ef31a42fa5c06a74141"
+      ]
+          
+      }
+    }
   )*/
+
+  /*db.tests.updateOne(
+    { "_id": ObjectId("659d5eb7a3b0fa9e20136cda") },
+    {
+      $set: {
+        units: [
+          "659da923e64fbbe736cc79b7",
+          "659da923e64fbbe736cc79b8",
+          "659da923e64fbbe736cc79b9",
+          "659da923e64fbbe736cc79ba",
+          "659da923e64fbbe736cc79bb",
+          "659da923e64fbbe736cc79bc",
+          "659da923e64fbbe736cc79bd"
+      ]
+          
+      }
+    }
+  )
+*/
 
  /* db.topics.update(
     { "_id": ObjectId("656604348bc2ccb633300115") },
@@ -149,44 +180,72 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 
 //db.intro.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 //db.intro.find();
-// const data = [
-//   {
-//     "name": "Radicals and Exponents",
-//     "course": "65641442e17b033e4ac90558",
-//     "topics": [
-//       "659c30b92869fb8663b2b47b",
-//       "659c30e62869fb8663b2b47c",
-//       "659c310e2869fb8663b2b47e"
-//     ]
-//   },
-//   {
-//     "name": "Functions",
-//     "course": "65641442e17b033e4ac90558",
-//     "topics": [
-//       "659c312e2869fb8663b2b47f",
-//       "659c31562869fb8663b2b480",
-//       "659c316e2869fb8663b2b481"
-//     ]
-//   },
-//   {
-//     "name": "Quadratic Functions",
-//     "course": "65641442e17b033e4ac90558",
-//     "topics": [
-//       "659c31872869fb8663b2b482",
-//       "659c319d2869fb8663b2b483",
-//       "659c31b32869fb8663b2b484"
-//     ]
-//   },
-//   {
-//     "name": "Data Analysis and Probability",
-//     "course": "65641442e17b033e4ac90558",
-//     "topics": [
-//       "659c31d12869fb8663b2b485",
-//       "659c31ee2869fb8663b2b486",
-//     ]
-//   }
+const data = [
+  {
+    "name": "Limits and Continuity",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015d5",
+    "659d8d7de431b9ef36b015d6",
+      "659d8d7de431b9ef36b015d7"
+    ]
+  },
+  {
+    "name": "Differentiation",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015d8",
+    "659d8d7de431b9ef36b015d9",
+      "659d8d7de431b9ef36b015da"
+    ]
+  },
+  {
+    "name": "Integration",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015db",
+    "659d8d7de431b9ef36b015dc",
+      "659d8d7de431b9ef36b015dd"
+    ]
+  },
+  {
+    "name": "Multivariable Calculus",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015de",
+    "659d8d7de431b9ef36b015df",
+      "659d8d7de431b9ef36b015e0"
+    ]
+  },
+  {
+    "name": "Differential Equations",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e1",
+    "659d8d7de431b9ef36b015e2",
+      "659d8d7de431b9ef36b015e3"
+    ]
+  },
+  {
+    "name": "Sequences and Series",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e4",
+    "659d8d7de431b9ef36b015e5",
+      "659d8d7de431b9ef36b015e6"
+    ]
+  },
+  {
+    "name": "Calculus Applications",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+  "659d8d7de431b9ef36b015e7",
+    "659d8d7de431b9ef36b015e8",
+      "659d8d7de431b9ef36b015e9"
+    ]
+  },
 
-// ];
+];
 
 /**
  *   {
@@ -232,4 +291,7 @@ db.questions.findOne({ "_id": ObjectId("658f71fc7229c6f6b320219d") })
 
 //db.units.insertMany(data)
 //db.courses.findOne({ "_id": ObjectId("65641442e17b033e4ac90558") })
-db.units.find()
+//db.units.find()
+//db.tests.find()
+
+//db.courseheader.find()
