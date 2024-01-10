@@ -1,6 +1,21 @@
 import React from 'react'
+import GoogleAuth from "../components/GoogleAuth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { logOutUserSuccess, logOutUserStart, logOutUserFailure } from '../redux/user/userSlice';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { app } from '../firebase';
+import { updateUserSuccess, deleteUserSuccess, deleteUserFailure, deleteUserStart, updateUserStart } from '../redux/user/userSlice.js';
 
 const Message = () => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
+
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+  
   return (
     <div className='message owner'>    
       <div className="messageInfo">
@@ -13,7 +28,6 @@ const Message = () => {
 
       </div>
     </div>
-
   )
 }
 
