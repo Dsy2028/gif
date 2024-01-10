@@ -7,6 +7,7 @@ import FunPicture from "../imgs/two-kids-ipad.jpg"
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
+
 export default function index() {
   const [active, setActive] = useState(0);
   const cards = [
@@ -102,7 +103,7 @@ export default function index() {
         <div className="potential-container">
           <img src={SecondPicture} />
           <div className="mainContent">
-        {/* Your main content goes here */}
+     
         <p>This is the main content of the card.</p>
       </div>
       <div className="placeholderContent">
@@ -125,9 +126,9 @@ export default function index() {
 
         return (
     <section className='slider'>
-      <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
-      <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />
-      {SliderData.map((slide, index) => {
+   {/*   <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
+      <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />*/}
+      {/*SliderData.map((slide, index) => {
         return (
           <div
             className={index === current ? 'slide active' : 'slide'}
@@ -138,7 +139,7 @@ export default function index() {
             )}
           </div>
         );
-      })}
+      })*/}
     </section>
   );
       </div>

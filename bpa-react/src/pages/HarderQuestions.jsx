@@ -34,11 +34,15 @@ export default function HarderQuestions() {
       .then(data => {
         console.log('Fetched data:', data);
         setharderQuestions(data);
+        //console.log(data)
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
       });
-  }, [topicName]);
+  }, []);
+  console.log(topicName)
+  //console.log(harder.harderQuestions.length)
+
 
   const handleNext = (event) => {
     event.preventDefault();
@@ -56,6 +60,7 @@ export default function HarderQuestions() {
       setIndex(currentQuestionIndex - 1);
     }
   };
+  
   if (!harder) {
     return (
       <div
@@ -216,7 +221,7 @@ try {
     setIndex(0);
   };
 
-  const save = async () => {
+  /*const save = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/user/saveQuizState', {
         method: 'POST',
@@ -239,7 +244,7 @@ try {
       console.error('Error:', error);
     }
   };
-
+*/
 
   
 
@@ -254,10 +259,10 @@ try {
     setQuestionsCorrect(false);
     navigate(`/courses/${harder.course.courseName}/${harder.topicName}`);
   }
-
+  console.log(harder.harderQuestions[currentQuestionIndex])
   return (
     <>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={''}>
     {message &&
     <div className='absolute opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
     </div>
@@ -280,14 +285,14 @@ try {
 
 <div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] w-[20rem] rounded border-gray-200 h-48 '>
   <div className="flex w-full justify-between items-center">
-{(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
+{/*(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <img src={stars} className="w-8 h-8" alt="Stars" /> : 
-    <img src={running} className="w-8 h-8"  alt="Almost There" />}
+          <img src={running} className="w-8 h-8"  alt="Almost There" />*/}
     <i class="fa-solid fa-xmark fa-xl cursor-pointer" onClick={closeQuestions}></i>
     </div>
-  {(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
+  { /*(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <h1> Good Job! {correctAnswers} / {harder.harderQuestions.length} </h1> : 
-    <h1>Almost There! {correctAnswers} / {harder.harderQuestions.length} </h1>}
+          <h1>Almost There! {correctAnswers} / {harder.harderQuestions.length} </h1>*/}
     <div className="w-full border-[1px] mt-3 h-4 flex items-center rounded-xl">
       <div className="rounded-lg bg-green-500 h-3 " style={{ width: `${progress}%` , transition: 'width 2s' }}>
 
@@ -298,13 +303,13 @@ try {
 
           }
         <h1 className="text-semibold text-3xl top-32 absolute">
-          {harder.topicName}
+          {}
         </h1>
         <button className="absolute top-32 right-4 main-color p-1 poppins text-white rounded">
           Save & Exit
         </button>
         
-        {harder && harder.harderQuestions[currentQuestionIndex] && (
+        { harder && harder.harderQuestions[currentQuestionIndex] && (
   <div className="w-questions bg-white rounded p-4">
     <div className="flex justify-between mb-3">
       <button
@@ -339,7 +344,7 @@ try {
       </div>
     ) : (
       <>
-        {harder.harderQuestions[currentQuestionIndex].options.map(
+        {/*harder.harderQuestions[currentQuestionIndex].options.map(
           (option, index) => (
             <div key={index}>
               <input
@@ -358,16 +363,27 @@ try {
               </label>
             </div>
           )
-        )}
+              )*/}
       </>
-    )}
+              )}
     <div className="w-full flex justify-end">
       <button className="main-color text-white rounded-md poppins p-1  w-16">
         Submit
       </button>
     </div>
   </div>
-)}
+              )}
+              {
+                <div>
+                  {harder && harder.harderQuestions.map((key, index) =>(
+                    <div key={index}>
+                      <h1>{key[currentQuestionIndex]}</h1>
+
+                    </div>
+                  ))}
+
+                </div>
+              }
       </div>
       </form>
     </>

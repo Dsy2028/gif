@@ -73,6 +73,21 @@ export const get = async (req, res, next) => {
   }
 };
 
+export const getAllUsers = async (req, res, next) =>{
+  try {
+    const allUsers = await User.find();
+  if (!allUsers) {
+    return res.status(404).json({ message: 'No Users Found' });
+  }
+
+ 
+  //const { password, ...userWithoutPassword } = allUsers._doc;
+
+  res.status(200).json(allUsers);
+  } catch (error) {
+    next(error)
+  }
+}
 
 
 export const updateQuizResults = async (req, res,next) => {

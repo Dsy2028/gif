@@ -295,3 +295,30 @@ const data = [
 //db.tests.find()
 
 //db.courseheader.find()
+
+db.questions.updateOne(
+  { "_id": ObjectId("656771044af3a930d3398e93") },
+  {
+    $set: {
+      options: [
+        "2",
+        "3",
+        "4",
+        "5"
+    ]
+        
+    }
+  }
+)
+
+/**
+ *   {
+    "name": "Differentiation",
+    "course": "659d5eb7a3b0fa9e20136cda",
+    "topics": [
+      "659d8d7de431b9ef36b015d8",
+      "659d8d7de431b9ef36b015d9",
+      "659d8d7de431b9ef36b015da"
+    ]
+  },
+ */

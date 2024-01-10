@@ -31,8 +31,7 @@ export const getHarderQuestion = async (req, res) => {
 
     const result = await topics.findOne({
       _id: topicId,
-      'harderQuestions._id': harderQuestionsId,
-    }).lean();
+    }).populate('harderQuestions', 'questionText options correctOption')
 
     if (!result) {
       return res.status(404).json({ message: 'Harder question not found' });
