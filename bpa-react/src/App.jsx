@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route ,useLocation} from 'react-router-dom';
-import Index from './pages/index';
+import Index from '../pages/index';
 import Signup from './pages/signup';
 import LogIn from './pages/LogIn';
 import Nav from './components/Nav';
@@ -27,7 +27,16 @@ import Recap from './pages/Recap'
 import Privacy from './pages/Privacy'
 import Userguide from './pages/Userguide';
 import TeachRoute from './components/TeachRoute';
+import './App.css';
+import ImageSlider from './components/ImageSlider';
+import { SliderData } from './components/SliderData';
+
+function App() {
+  return <ImageSlider slides={SliderData} />;
+}
 export default function App() {
+
+  
 
   const paths = ['/dashboard', '/classes', '/calender', '/prof'];
 
