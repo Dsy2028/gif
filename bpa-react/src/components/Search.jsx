@@ -15,7 +15,7 @@ const Search = () => {
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
-      where("displayName", "==", username)
+      where("displayName", "==", currentUser.firstName + currentUser.lastName)
     );
 
     try {
@@ -36,8 +36,8 @@ const Search = () => {
     //check whether the group(chats in firestore) exists, if not create
     const combinedId =
       currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+        ? currentUser._id + user._id
+        : user._id + currentUser._id;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -49,8 +49,8 @@ const Search = () => {
         await updateDoc(doc(db, "userChats", currentUser.uid), {
           [combinedId + ".userInfo"]: {
             uid: user.uid,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
+            displayName: user.F,
+            photoURL: user.Avatar,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
@@ -75,7 +75,7 @@ const Search = () => {
         <input type="text" placeholder='Find a user...' />
       </div>
       <div className="userChat">
-        <img src="https://retratosbarcelona.com/wp-content/uploads/2022/09/Retratos-Barcelona-Linkedin-Photography-Alejandra.jpg" alt="" />
+        <img src="{user.Avatar}" alt="" />
         <div className="userChatInfo">
           <span>person</span>
         </div>
