@@ -58,17 +58,31 @@ useEffect(() => {
      .then((data) => {
        setLessons(data.lessons);    
        setName(data);    
+       const lessonIds = user.completedLessons.map(lesson => lesson.lessonId._id);
+
+// Find the lesson ID that matches the current page's topic_id
+const lessonId = lessonIds.find(id => id === name.topic_id);
+const lesson1 = user.completedLessons.find(lesson => lesson.lessonId._id === name.topic_id);
+let i;
        const completionPercentages = user.completedLessons.map(lesson => {
-        
-         const totalItems = Object.keys(lesson).length - 2;
-         const completedItems = Object.values(lesson).filter(value => value === true).length;
-         return (completedItems / totalItems) * 100;
-       });
-       console.log(name.topic_id)
-   
-       const totalCompletionPercentage = completionPercentages.reduce((a, b) => a + b, 0) / completionPercentages.length;
-     
-       setProgress(totalCompletionPercentage);
+     //  console.log(lesson)
+        // Check if the lessonId of the current lesson is equal to topic_id
+       if (lessonId === name.topic_id) {
+          const totalItems = Object.keys(lesson).length - 2;
+     //     console.log(totalItems)
+        const completedItems = Object.values(lesson1).filter(value => value === true).length;
+        console.log(completedItems / totalItems  ) 
+       i = (completedItems / totalItems) * 100;
+       } 
+      });
+      console.log(i)
+      // Filter out the 0s (the lessons that didn't match topic_id)
+     // const filteredCompletionPercentages = completionPercentages.filter(percentage => percentage !== 0);
+      
+      // Calculate the total completion percentage
+      //const totalCompletionPercentage = filteredCompletionPercentages.reduce((a, b) => a + b, 0) / filteredCompletionPercentages.length;
+      
+     // setProgress(i);
        if(progress === 100){
          setComplete(true);
        } 

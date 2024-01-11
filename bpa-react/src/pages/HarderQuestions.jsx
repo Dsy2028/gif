@@ -40,7 +40,7 @@ export default function HarderQuestions() {
         console.error('Error fetching data: ', error);
       });
   }, []);
-  console.log(topicName)
+  //console.log(topicName)
   //console.log(harder.harderQuestions.length)
 
 
@@ -262,7 +262,7 @@ try {
   console.log(harder.harderQuestions[currentQuestionIndex])
   return (
     <>
-    <form onSubmit={''}>
+    <form onSubmit={handleSubmit}>
     {message &&
     <div className='absolute opacity-100  w-screen z-10 h-screen bg-black bg-opacity-50'>
     </div>
@@ -285,14 +285,14 @@ try {
 
 <div className='popup p-3 z-50 bg-white fixed top-60 border-[2px] w-[20rem] rounded border-gray-200 h-48 '>
   <div className="flex w-full justify-between items-center">
-{/*(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
+{(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <img src={stars} className="w-8 h-8" alt="Stars" /> : 
-          <img src={running} className="w-8 h-8"  alt="Almost There" />*/}
+          <img src={running} className="w-8 h-8"  alt="Almost There" />}
     <i class="fa-solid fa-xmark fa-xl cursor-pointer" onClick={closeQuestions}></i>
     </div>
-  { /*(correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
+  { (correctAnswers / harder.harderQuestions.length) * 100 >= 70 ? 
     <h1> Good Job! {correctAnswers} / {harder.harderQuestions.length} </h1> : 
-          <h1>Almost There! {correctAnswers} / {harder.harderQuestions.length} </h1>*/}
+          <h1>Almost There! {correctAnswers} / {harder.harderQuestions.length} </h1>}
     <div className="w-full border-[1px] mt-3 h-4 flex items-center rounded-xl">
       <div className="rounded-lg bg-green-500 h-3 " style={{ width: `${progress}%` , transition: 'width 2s' }}>
 
@@ -344,7 +344,7 @@ try {
       </div>
     ) : (
       <>
-        {/*harder.harderQuestions[currentQuestionIndex].options.map(
+        {harder.harderQuestions[currentQuestionIndex].options.map(
           (option, index) => (
             <div key={index}>
               <input
@@ -363,7 +363,7 @@ try {
               </label>
             </div>
           )
-              )*/}
+              )}
       </>
               )}
     <div className="w-full flex justify-end">
@@ -373,17 +373,6 @@ try {
     </div>
   </div>
               )}
-              {
-                <div>
-                  {harder && harder.harderQuestions.map((key, index) =>(
-                    <div key={index}>
-                      <h1>{key[currentQuestionIndex]}</h1>
-
-                    </div>
-                  ))}
-
-                </div>
-              }
       </div>
       </form>
     </>

@@ -423,6 +423,7 @@ export default function Profile() {
               <h1 className="nunito text-2xl dark:text-white">Completed Lessons</h1>
               {user && user.completedLessons.map((key,index) => (
                 <div key={index}>
+                  
                   <h1>{key.lessonId.topicName}</h1>
                   {/*key.lessonId.map((lesson, index) => (
                     <div key={index}>
