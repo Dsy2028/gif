@@ -29,5 +29,6 @@ router.get('/:topicId/quiz', async (req, res) => {
     }
   });
 
+  router.post('')
 
 export default router;

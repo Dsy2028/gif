@@ -31,8 +31,7 @@ export const getHarderQuestion = async (req, res) => {
 
     const result = await topics.findOne({
       _id: topicId,
-      'harderQuestions._id': harderQuestionsId,
-    }).lean();
+    }).populate('harderQuestions', 'questionText options correctOption')
 
     if (!result) {
       return res.status(404).json({ message: 'Harder question not found' });
@@ -44,3 +43,13 @@ export const getHarderQuestion = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+export const addTopic = async (req, res) => {
+  try {
+    const { topicName, questions , course, harderQuestions, quiz } = req.body;
+    const topic = await topics.create({ topicName, questions, course, harderQuestions, quiz });
+  } catch (error) {
+    console.error('error creating topic', error)
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+}

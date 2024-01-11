@@ -32,7 +32,34 @@ export const get = async (req, res, next) => {
   const userId = req.user.id;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      path: 'classes',
+      populate: [
+        {
+          path: 'teacher',
+          select: 'firstName email lastName avatar'
+        },
+        {
+          path: 'courses',
+
+          select: 'courseName units',
+          populate: {
+            path: 'units', 
+           select: 'name topics',
+           populate:{
+            path: 'topics'
+           }
+          }
+
+        }
+      ]
+    }).populate({
+      path: 'completedLessons',
+      populate:{ 
+        path: 'lessonId',
+        select: 'topicName'
+      }
+    })
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -46,6 +73,21 @@ export const get = async (req, res, next) => {
   }
 };
 
+export const getAllUsers = async (req, res, next) =>{
+  try {
+    const allUsers = await User.find();
+  if (!allUsers) {
+    return res.status(404).json({ message: 'No Users Found' });
+  }
+
+ 
+  //const { password, ...userWithoutPassword } = allUsers._doc;
+
+  res.status(200).json(allUsers);
+  } catch (error) {
+    next(error)
+  }
+}
 
 
 export const updateQuizResults = async (req, res,next) => {
@@ -93,6 +135,19 @@ export const deleteUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUsers = async (req, res) => {
+  try {
+    const user = req.body;
+    await User.findByIdAndDelete(user._id);
+    res.status(200).json('User has been deleted!');
+  } catch (error) {
+    console.error('error deleteing user', error)
+    res.status(500).json({message: 'Internal Server Error'})
+  }
+}
+
+
 
 export const getUserResults =  async (req, res) => {
   try{

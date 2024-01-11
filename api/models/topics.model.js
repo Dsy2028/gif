@@ -22,6 +22,7 @@ const TopicSchema = new mongoose.Schema({
   topicName: {
     type: String,
     required: true,
+  
   },
   course:{
     _id: mongoose.Schema.Types.ObjectId,
@@ -30,8 +31,8 @@ const TopicSchema = new mongoose.Schema({
       required: true,
     },
   },
-  questions: [QuestionSchema],
-  harderQuestions: [QuestionSchema],
+  questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'questions' }],
+  harderQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'questions' }],
   quiz: { 
     quizQuestions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'questions' }],
   },

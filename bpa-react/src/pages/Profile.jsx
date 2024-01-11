@@ -114,7 +114,7 @@ export default function Profile() {
         console.error("Error fetching data: ", error);
       });
   }, []);
-
+  //user.completedLessons.map(lesson => console.log(lesson.lessonId));
   useEffect(() => {
     if (user) {
       const strawCount = user.awards.filter(award => award.award === 'straw').length;
@@ -369,12 +369,12 @@ export default function Profile() {
           </div>
         </div>
         <div className={`${activeTab === "Teachers" ? "block " : "hidden"}`}>
-          {teacher && (
+          { user && (
             <div>
               <h1 className="text-2xl nunito mt-3">Teachers</h1>
               <div className="grid grid-cols-3 gap-5 mt-3">
-                {teacher.map((teacher, index) => (
-                  <div key={index} className="border-[1px] rounded p-2">
+                {user.classes.map((teacher, index) => (
+                  <div key={index} className="border-[1px] rounded p-2 dark:bg-slate-700 dark:border-none">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center">
                         <img
@@ -387,7 +387,7 @@ export default function Profile() {
                             {teacher.teacher.firstName}{" "}
                             {teacher.teacher.lastName}
                           </h1>
-                          <h1 className="text-lg">{teacher.teacher.email}</h1>
+                          <h1 className="text-lg">{teacher.email}</h1>
                         </div>
                       </div>
                       <Link
@@ -405,7 +405,7 @@ export default function Profile() {
         </div>
         <div className={`  ${activeTab === "Progress" ? "block " : "hidden"}`}>
           <div className="grid mt-3 grid-cols-4 gap-5">
-            <div className="border-[1px] rounded">
+            <div className="border-[1px] rounded dark:bg-slate-700 dark:border-none">
               <h1 className="nunito text-2xl dark:text-white">Badges</h1>
               {user && <div className="grid   p-3">
                 <div className="grid grid-rows-4 ">
@@ -419,11 +419,16 @@ export default function Profile() {
                 </div>
                 </div>}
             </div>
-            <div className="border-[1px] rounded">
+            <div className="border-[1px] rounded dark:bg-slate-700 dark:border-none">
               <h1 className="nunito text-2xl dark:text-white">Completed Lessons</h1>
               {user && user.completedLessons.map((key,index) => (
                 <div key={index}>
-                  <h1>{key.quiz}</h1>
+                  <h1>{key.lessonId.topicName}</h1>
+                  {/*key.lessonId.map((lesson, index) => (
+                    <div key={index}>
+
+                    </div>
+                  ))*/}
 
 
                 </div>
@@ -432,16 +437,40 @@ export default function Profile() {
                 
                 
             </div>
-            <div className="border-[1px] rounded">
-              <h1 className="nunito text-2xl dark:text-white">Missing Assignments</h1>
+            <div className="border-[1px] rounded dark:bg-slate-700 dark:border-none">
+              <h1 className="nunito text-2xl dark:text-white">Non-Completed Lessons</h1>
             </div>
-            <div className="border-[1px] rounded">
+            <div className="border-[1px] rounded dark:bg-slate-700 dark:border-none">
               <h1 className="nunito text-2xl dark:text-white">Time Spent</h1>
             </div>
           </div>
         </div>
         <div className={`${activeTab === "My Courses" ? "block" : "hidden"}`}>
-          <h1>asdasdasd</h1>
+          {user && 
+          <div className="">
+            {user.classes.map((course, index) => (
+              <div key={index} className="">
+                <div className="flex gap-9 mt-2 flex-wrap">
+                  {course.courses.map((topic, index) => (
+                    <div key={index} className="">
+                      <h1 className="text-xl nunito font-semibold dark:text-white ">{topic.courseName}</h1>
+                    <div>
+                     {topic.units.map((unit, index) => (
+                        <div key={index} className="">
+                          <Link className="nunito dark:text-slate-300" to={`/courses/${topic.courseName}`}>{unit.name}</Link>
+                        </div>
+                     ))}
+                      
+                    </div>
+                    </div>
+                  ))}
+                  </div>
+
+                </div>
+
+            ))}
+          </div> 
+          }
         </div>
       </div>
       <Footer />
