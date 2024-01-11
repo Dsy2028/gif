@@ -3,12 +3,12 @@ import ChatNavBar from "./ChatNavBar";
 import Search from "./Search";
 import Chats from "./Chats";
 
-const Sidebar = () =>{
-    return(
+const Sidebar = () => {
+    return (
         <div className='sidebar'>
-            <ChatNavBar/>
-            <Search/>
-            <Chats/>
+            <ChatNavBar />
+            <Search />
+            <Chats />
         </div>
     )
 }
