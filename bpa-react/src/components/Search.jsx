@@ -77,7 +77,7 @@ const Search = () => {
       <div className="userChat">
         <img src="{user.Avatar}" alt="" />
         <div className="userChatInfo">
-          <span>person</span>
+          <span>?</span>
         </div>
       </div>
     </div>
