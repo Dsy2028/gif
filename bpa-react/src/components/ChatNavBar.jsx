@@ -31,12 +31,12 @@ const ChatNavBar = () => {
   const location = useLocation();
   return (
     <div className='navbar'>
-        <span className='logo'>Chat</span>
-        <div className="user">
-            <img src={currentUser.Avatar} alt="" />
-            <span>{currentUser.firstName}</span>
-            <button onClick={handleLogout}>Log Out</button>
-        </div>
+      <span className='logo'>Chat</span>
+      <div className="user">
+        <img src={currentUser.Avatar} alt="" />
+        <span>{currentUser.firstName}</span>
+        <button onClick={handleLogout}>Log Out</button>
+      </div>
     </div>
   )
 }
