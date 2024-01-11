@@ -46,20 +46,20 @@ const Search = () => {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
 
         //create user chats
-        await updateDoc(doc(db, "userChats", currentUser.uid), {
+        await updateDoc(doc(db, "userChats", currentUser._id), {
           [combinedId + ".userInfo"]: {
-            uid: user.uid,
-            displayName: user.F,
-            photoURL: user.Avatar,
+            _id: user.uid,
+            firstName: user.F,
+            Avatar: user.Avatar,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
 
         await updateDoc(doc(db, "userChats", user.uid), {
           [combinedId + ".userInfo"]: {
-            uid: currentUser.uid,
-            displayName: currentUser.firstName,
-            photoURL: currentUser.Avatar,
+            _id: currentUser._id,
+            firstName: currentUser.firstName,
+            Avatar: currentUser.Avatar,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
