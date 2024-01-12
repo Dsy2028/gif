@@ -75,7 +75,7 @@ const Search = () => {
         <input type="text" placeholder='Find a user...' />
       </div>
       <div className="userChat">
-        <img src="{user.Avatar}" alt="" />
+        <img src={currentUser.Avatar} alt="" />
         <div className="userChatInfo">
           <span>?</span>
         </div>
