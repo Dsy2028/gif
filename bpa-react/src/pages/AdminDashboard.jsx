@@ -10,7 +10,7 @@ import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
 import { registerables } from 'chart.js';
-import 'chartjs-adapter-date-fns';
+
 import moment from 'moment';
 
 
@@ -80,11 +80,11 @@ export default function AdminDashboard() {
         console.error('Error fetching data: ', error);
       });
   }, []);
-  console.log(chartData);
+ // console.log(chartData);
   const deleteUser = async (userId) => {
     
     const c = window.confirm(
-      "Are you sure you want to delete your account? This action cannot be undone."
+      "Are you sure you want to delete this account? This action cannot be undone."
     );
 
     if (!c) {
@@ -104,7 +104,7 @@ export default function AdminDashboard() {
         dispatch(deleteUserFailure(data.message));
         return;
       }*/
-      window.location.reload();
+     window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -159,7 +159,22 @@ export default function AdminDashboard() {
       </div>
       <div className="grid grid-cols-1 mt-7 mb-7">
         <h1 className="nunito text-2xl font-semibold text-white">New Users</h1>
-        {allUsers && chartData && <Line data={chartData}/>}
+        <div style={{ height: '500px', width: '100%' }}>
+       {allUsers && chartData && <Line data={chartData} options={{
+  scales: {
+    x: {
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      grid: {
+        display: false
+      }
+    }
+  }
+}}/>}
+</div>
         
       </div>
       <div className="">

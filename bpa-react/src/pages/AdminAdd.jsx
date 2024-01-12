@@ -11,6 +11,8 @@ export default function AdminAdd() {
     const { currentUser, loading} = useSelector((state) => state.user);
     const { user, error } = fetchUser(currentUser);
     const [course, setCourse] = useState(null);
+    const [editCourses, setEditCourse] = useState(null);
+    const [getCourse, setGetCourse] = useState(null);
     useEffect(() => {
       fetch(`http://localhost:3000/api/courseheader/courses`)
         .then(response => {
@@ -28,6 +30,10 @@ export default function AdminAdd() {
           console.error('Error fetching data: ', error);
         });
     }, []);
+    const editCourse = (course) => {
+        setEditCourse(true);
+        setGetCourse(course);
+    }
   return (
     <>
     <div className="p-1 bg-slate-800 min-h-screen">
@@ -37,17 +43,22 @@ export default function AdminAdd() {
     </div>
     <div className="flex mt-3">
     <AdminDashboardNav/>
+    {editCourses && getCourse && 
+    <div>
+      
+    </div>
+    }
     <div className="grid grid-cols-4  pl-[4rem] pr-[5rem] gap-4 mt-3">
         {course && course.map((course,index) => (
             <div key={index}>
-            <div className="bg-slate-700 rounded px-1 text-white nunito font-semibold flex justify-between items-center">
+            <div className="bg-slate-700 rounded px-2 text-white nunito font-semibold flex justify-between items-center">
             <h2 className="text-xl font-medium uppercase dark:text-white">{course.courseHeader}</h2>
-            <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+            <i class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer" onClick={() => editCourse(course)}></i>
             </div>
             </div>
         ))}
         
-        <div className="flex items-center justify-between bg-slate-700 rounded h-fit">
+        <div className="flex items-center justify-between bg-slate-700 rounded h-fit px-2">
             <h1 className="nunito font-semibold text-xl text-white">Add New Course</h1>
         <i class="fa-solid fa-plus fa-xl text-white cursor-pointer" onClick={''}></i>
         </div>
