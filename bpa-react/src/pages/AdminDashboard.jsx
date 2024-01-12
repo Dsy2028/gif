@@ -157,8 +157,8 @@ export default function AdminDashboard() {
         </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 mt-7 mb-7">
-        <h1 className="nunito text-2xl font-semibold text-white">New Users</h1>
+      <div className="grid grid-cols-1 mt-11 mb-11">
+        <h1 className="nunito text-2xl font-semibold text-white mb-4">New Users</h1>
         <div style={{ height: '500px', width: '100%' }}>
        {allUsers && chartData && <Line data={chartData} options={{
   scales: {

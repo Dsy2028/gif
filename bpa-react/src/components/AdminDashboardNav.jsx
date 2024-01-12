@@ -31,6 +31,9 @@ export default function AdminDashboardNav() {
       <div className=" grid place-items-center p-3 mt-4">
       <Link to={'/admin-courses'}><i class="fa-solid fa-book cursor-pointer fa-xl hover:text-purple-500"></i></Link>
       </div>
+      <div className=" grid place-items-center p-3 mt-4">
+      <Link to={'/admin-users'}><i class="fa-solid fa-user  cursor-pointer fa-xl hover:text-purple-500"></i></Link>
+      </div>
       </div>
     </div>
     </>
