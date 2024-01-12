@@ -7,6 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import TeacherDropdown from '../components/TeacherDropdown';
 import AdminDashboardNav from '../components/AdminDashboardNav';
 import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Line } from 'react-chartjs-2';
+import { registerables } from 'chart.js';
+import 'chartjs-adapter-date-fns';
+import moment from 'moment';
 
 
 
@@ -17,7 +22,9 @@ export default function AdminDashboard() {
   const [roleCounts, setRoleCounts] = useState({});
   const [chartData, setChartData] = useState({});
   const dispatch = useDispatch();
+ 
   useEffect(() => {
+   ChartJS.register(...registerables);
     fetch(`http://localhost:3000/api/user/getUsers`)
       .then(response => {
         if (!response.ok) {
@@ -51,9 +58,21 @@ export default function AdminDashboard() {
 
         const dates = Object.keys(countsByDate).sort();
         const counts = dates.map(date => countsByDate[date]);
+       
         
 
-        setChartData(counts);
+        setChartData({
+          labels: dates, // array of dates
+          datasets: [
+            {
+              label: 'New Users',
+              data: counts, // array of counts
+              fill: false,
+              backgroundColor: 'rgb(75, 192, 192)',
+              borderColor: 'rgba(75, 192, 192, 0.2)',
+            },
+          ],
+        });
         
         setRoleCounts(roleCounts);
       })
@@ -61,6 +80,7 @@ export default function AdminDashboard() {
         console.error('Error fetching data: ', error);
       });
   }, []);
+  console.log(chartData);
   const deleteUser = async (userId) => {
     
     const c = window.confirm(
@@ -91,7 +111,7 @@ export default function AdminDashboard() {
   };
   return (
    <>
-   <div className="p-1 bg-slate-800 min-h-full">
+   <div className="p-1 bg-slate-800 min-h-screen">
    <div className="flex justify-end mr-4 mt-3">
       <TeacherDropdown/>
     </div>
@@ -137,9 +157,9 @@ export default function AdminDashboard() {
         </div>
         </div>
       </div>
-      <div className="grid grid-cols-1">
+      <div className="grid grid-cols-1 mt-7 mb-7">
         <h1 className="nunito text-2xl font-semibold text-white">New Users</h1>
-
+        {allUsers && chartData && <Line data={chartData}/>}
         
       </div>
       <div className="">

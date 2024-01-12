@@ -30,7 +30,7 @@ export default function AdminAdd() {
     }, []);
   return (
     <>
-    <div className="p-1 bg-slate-800 min-h-full">
+    <div className="p-1 bg-slate-800 min-h-screen">
     <div className="flex justify-between mr-4 mt-3">
         <h1 className="text-white nunito font-semibold ml-[10rem] text-xl">Add Or Edit Courses</h1>
       <TeacherDropdown/>
