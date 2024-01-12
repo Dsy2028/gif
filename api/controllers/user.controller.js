@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import { errorHandler } from '../utils/error.js';
+import mongoose from 'mongoose';
 export const test = (req,res)=>{
     res.send('hello node api')
 }
@@ -138,8 +139,9 @@ export const deleteUser = async (req, res, next) => {
 
 export const deleteUsers = async (req, res) => {
   try {
-    const user = req.body;
-    await User.findByIdAndDelete(user._id);
+    const {userId} = req.body;
+    console.log(userId)
+    await User.deleteOne({ _id: userId});
     res.status(200).json('User has been deleted!');
   } catch (error) {
     console.error('error deleteing user', error)

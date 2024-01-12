@@ -48,7 +48,10 @@ export default function LogIn() {
       dispatch(signInSuccess(data));
       if (data.role === 'teacher') {
         navigate(`/dashboard/${currentUser._id}`);
-      } else {
+      }if(data.role === 'admin'){
+        navigate('/admin-dashboard');
+      }
+       else {
         navigate('/');
       }
     } catch (error) {
