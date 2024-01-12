@@ -1,37 +1,26 @@
 import React from 'react'
-import GoogleAuth from "../components/GoogleAuth";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { logOutUserSuccess, logOutUserStart, logOutUserFailure } from '../redux/user/userSlice';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { app } from '../firebase';
-import { updateUserSuccess, deleteUserSuccess, deleteUserFailure, deleteUserStart, updateUserStart } from '../redux/user/userSlice.js';
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
+import { current } from '@reduxjs/toolkit';
+import { Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 //all of this is text code I have not yet tested them yet
-const handleLogout = async () => {
-  try {
-    dispatch(logOutUserStart());
-    const res = await fetch('/api/auth/logout');
-    const data = await res.json();
-    if (data.success === false) {
-      dispatch(logOutUserFailure(data.message));
-      return;
-    }
-    dispatch(logOutUserSuccess(data));
-    navigate('/');
-  } catch (error) {
-    dispatch(logOutUserFailure(data.message));
-  }
-};
 
 const ChatNavBar = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div className='navbar'>
-        <span className='logo'>Chat</span>
-        <div className="user">
-            <img src={result.user.photoURL} alt="" />
-            <span>{currentUser._id}</span>
-            <button>onClick={handleLogout}</button>
-        </div>
+      <span className='logo'>Chat</span>
+      <div className="user">
+        <img src={currentUser.Avatar} alt="" />
+        <span>{currentUser.firstName}</span>
+      </div>
     </div>
   )
 }

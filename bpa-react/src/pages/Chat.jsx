@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import Sidebar from '../components/Sidebar';
 import Chat1 from '../components/Chat1';
-import style from '../style.scss'
+import style from '../style.scss';
 
 const Chat = () => {
     return(

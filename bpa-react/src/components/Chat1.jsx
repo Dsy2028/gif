@@ -3,13 +3,6 @@ import Add from "../imgs/add.png";
 import More from "../imgs/more.png";
 import Messages from './Messages';
 import Input from './Input';
-//import { Input } from 'postcss';
-import GoogleAuth from "../components/GoogleAuth";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
-import { logOutUserSuccess, logOutUserStart, logOutUserFailure } from '../redux/user/userSlice';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { app } from '../firebase';
-import { updateUserSuccess, deleteUserSuccess, deleteUserFailure, deleteUserStart, updateUserStart } from '../redux/user/userSlice.js';
 
 const Chat1 = () => {
   return (
@@ -21,8 +14,8 @@ const Chat1 = () => {
           <img src={More} alt="" />
         </div>
       </div>
-      <Messages/>
-      <Input/>
+      <Messages />
+      <Input />
     </div>
   )
 }
