@@ -15,5 +15,5 @@ router.put('/:topicId/:part' , verifyToken, updateLessonCompletion);
 router.get('/get' , verifyToken, get)
 router.post('/award', verifyToken, posAward)
 router.get('/getUsers', getAllUsers)
-router.delete('/delete', deleteUsers )
+router.delete('/delete/users/user', deleteUsers )
 export default router;
