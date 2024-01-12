@@ -56,7 +56,7 @@ export default function AdminAdd() {
       </div>
     </div>
     }
-    <div className="grid grid-cols-4  pl-[4rem] pr-[5rem] gap-4 mt-3">
+    <div className="grid grid-cols-4  pl-[8rem] pr-[5rem] gap-4 mt-3 ">
         {course && course.map((course,index) => (
             <div key={index}>
             <div className="bg-slate-700 rounded px-2 text-white nunito font-semibold flex justify-between items-center">

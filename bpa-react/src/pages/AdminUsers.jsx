@@ -144,7 +144,7 @@ const numbersPerPage = 10;
           {editUsers && use && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
               <div className="bg-white rounded p-4 ">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <h1 className="nunito font-semibold text-xl">
                     Edit: {use.email}
                   </h1>
@@ -152,6 +152,24 @@ const numbersPerPage = 10;
                     class="fa-solid fa-x cursor-pointer"
                     onClick={closeEdit}
                   ></i>
+                </div>
+                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                  <h1 className="nunito text-xl">First Name</h1>
+                  <input
+                    id="email"
+                    type="text"
+                    onChange={handleChange}
+                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                  />
+                </div>
+                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                  <h1 className="nunito text-xl">Last Name</h1>
+                  <input
+                    id="email"
+                    type="text"
+                    onChange={handleChange}
+                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                  />
                 </div>
                 <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
                   <h1 className="nunito text-xl">Email</h1>
@@ -162,25 +180,34 @@ const numbersPerPage = 10;
                     className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
                   />
                 </div>
-                <div className="flex justify-between">
+                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                  <h1 className="nunito text-xl">Password</h1>
+                  <input
+                    id="email"
+                    type="text"
+                    onChange={handleChange}
+                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                  />
+                </div>
+                <div className="flex justify-between mt-3">
                   <button
-                    className="bg-red-500 rounded px-2 ml-3"
+                    className="bg-red-500 rounded px-2 w-[7rem]  "
                     onClick={() => deleteUser(use._id)}
                   >
-                    Delete
+                    Delete User
                   </button>
-                  <button className="bg-fuchsia-600 rounded px-2 ml-3">
+                  <button className="bg-fuchsia-600 rounded px-2 w-[7rem] text-white" onClick={''}>
                     Edit
                   </button>
                 </div>
               </div>
             </div>
           )}
-          <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full pl-[6rem]">
             <div className="w-full pl-5 pr-5 mb-4">
               <table className="w-full text-center ">
                 <tr className="font-semibold text-gray-400 border-b-[2px] text-lg dark:text-slate-300">
-                  <th>Id</th>
+                  <th>User ID</th>
                   <th>Avatar</th>
                   <th>Email</th>
                   <th>First Name</th>

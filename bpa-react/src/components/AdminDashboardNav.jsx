@@ -11,7 +11,7 @@ export default function AdminDashboardNav() {
    
   return (
     <>
-    <div className="bg-fuchsia-600 h-[35rem] flex flex-col w-[4rem] p-3 rounded text-white ml-[2rem] items-center">
+    <div className="fixed bg-fuchsia-600 h-[35rem] flex flex-col w-[4rem] p-3 rounded text-white ml-[2rem] items-center">
       <div className="grid place-items-center  border-b-[1px] border-gray-200 ">
       <h1 className="text-2xl">LX</h1>
       </div>

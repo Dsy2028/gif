@@ -117,7 +117,7 @@ export default function AdminDashboard() {
     </div>
     <div className="flex mt-3">
     <AdminDashboardNav/>
-    <div className="grid  w-full ml-4 px-3">
+    <div className="grid  w-full ml-4 px-3 pl-[6rem]">
       <div className=" grid grid-cols-4 gap-3 h-fit">
         <div className="bg-slate-700 flex p-3">
         <div className="rounded-full grid place-items-center bg-fuchsia-600 w-12 h-12">
