@@ -10,7 +10,6 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "../firebase";
-import { XYPlot, RadialChart } from "react-vis";
 import Calender from "./Calender.jsx";
 import PropTypes from "prop-types";
 import Footer from "../components/Footer.jsx";
