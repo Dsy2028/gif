@@ -23,6 +23,8 @@ export default function AdminUsers() {
   const [use, setUse] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentGroup, setCurrentGroup] = useState(1);
+  const [formData, setFormData] = useState({});
+  const [searchTerm, setSearchTerm] = useState("");
 const itemsPerPage = 25;
 const numbersPerPage = 10;
   const dispatch = useDispatch();
@@ -46,6 +48,28 @@ const numbersPerPage = 10;
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+  const update = async (userId) => {
+    console.log('update', userId)
+    try {
+      const res = await fetch(`/api/user/update/users/user`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: userId, ...formData }),
+      });
+      const data = await res.json();
+      closeEdit();
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  const handleOverlayClick = (e) => {
+    if (e.target.className === "overlay") {
+      closeEditProfilePopup();
+    }
+  };
+  
 
   const editUser = (user) => {
     setEditUsers(true);
@@ -54,12 +78,16 @@ const numbersPerPage = 10;
   const closeEdit = () => {
     setEditUsers(false);
     setUse(null);
+    setFormData(null)
   };
   //console.log(use);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = allUsers && allUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = allUsers && (searchTerm
+    ? allUsers.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()))
+    : allUsers)
+    .slice(indexOfFirstItem, indexOfLastItem);
   const pageNumbers = [];
   const numberOfGroups = Math.ceil(allUsers && allUsers.length / (itemsPerPage * numbersPerPage));
   const handlePageChange = (pageNumber) => {
@@ -76,7 +104,7 @@ const numbersPerPage = 10;
     }
   }
   const deleteUser = async (userId) => {
-    console.log(userId);
+    //console.log(userId);
     const c = window.confirm(
       "Are you sure you want to delete this account? This action cannot be undone."
     );
@@ -130,6 +158,9 @@ const numbersPerPage = 10;
       </div>
     );
   });
+
+  
+ // console.log(formData)
   return (
     <>
       <div className="p-1 bg-slate-800 min-h-screen">
@@ -154,7 +185,25 @@ const numbersPerPage = 10;
                   ></i>
                 </div>
                 <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
-                  <h1 className="nunito text-xl">First Name</h1>
+                  <h1 className="nunito text-lg">First Name</h1>
+                  <input
+                    id="firstName"
+                    type="text"
+                    onChange={handleChange}
+                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                  />
+                </div>
+                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                  <h1 className="nunito text-lg">Last Name</h1>
+                  <input
+                    id="lastName"
+                    type="text"
+                    onChange={handleChange}
+                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                  />
+                </div>
+                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
+                  <h1 className="nunito text-lg">Email</h1>
                   <input
                     id="email"
                     type="text"
@@ -163,30 +212,12 @@ const numbersPerPage = 10;
                   />
                 </div>
                 <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
-                  <h1 className="nunito text-xl">Last Name</h1>
+                  <h1 className="nunito text-lg">Password</h1>
                   <input
-                    id="email"
+                    id="password"
                     type="text"
                     onChange={handleChange}
-                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
-                  />
-                </div>
-                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
-                  <h1 className="nunito text-xl">Email</h1>
-                  <input
-                    id="email"
-                    type="text"
-                    onChange={handleChange}
-                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
-                  />
-                </div>
-                <div className="mt-3 flex border-b-[1px] border-gray-200 p-1">
-                  <h1 className="nunito text-xl">Password</h1>
-                  <input
-                    id="email"
-                    type="text"
-                    onChange={handleChange}
-                    className="border-[1px] border-gray-200 rounded ml-8 w-full p-1"
+                    className="border-[1px] border-gray-200 rounded ml-1 w-full p-1"
                   />
                 </div>
                 <div className="flex justify-between mt-3">
@@ -196,7 +227,7 @@ const numbersPerPage = 10;
                   >
                     Delete User
                   </button>
-                  <button className="bg-fuchsia-600 rounded px-2 w-[7rem] text-white" onClick={''}>
+                  <button className="bg-fuchsia-600 rounded px-2 w-[7rem] text-white" onClick={() => update(use._id)}>
                     Edit
                   </button>
                 </div>
@@ -204,6 +235,9 @@ const numbersPerPage = 10;
             </div>
           )}
           <div className="flex flex-col w-full pl-[6rem]">
+            <div className="pl-5 mb-2">
+            <input id="search" className="rounded p-2" placeholder='Search For Users' onChange={(e) => setSearchTerm(e.target.value)} ></input>
+            </div>
             <div className="w-full pl-5 pr-5 mb-4">
               <table className="w-full text-center ">
                 <tr className="font-semibold text-gray-400 border-b-[2px] text-lg dark:text-slate-300">

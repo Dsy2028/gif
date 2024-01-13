@@ -29,6 +29,32 @@ export const updateUser = async (req,res, next)=> {
     }
 }
 
+export const updateUsers = async (req, res, next) => {
+  try {
+    if (req.body.password) {
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
+    }
+    const { userId } = req.body;
+    const updateUser = await User.findOneAndUpdate(
+      { _id: userId }, 
+      {
+        $set: {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          password: req.body.password,
+          avatar: req.body.avatar,
+        },
+      },
+      { new: true }
+    );
+    const { password, ...rest } = updateUser._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const get = async (req, res, next) => {
   const userId = req.user.id;
 
