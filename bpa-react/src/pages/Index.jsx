@@ -103,12 +103,9 @@ export default function index() {
         <div className="potential-container">
           <img src={SecondPicture} />
           <div className="mainContent">
-     
-        <p>This is the main content of the card.</p>
       </div>
       <div className="placeholderContent">
         {/* Placeholder text */}
-        <p>Placeholder Text</p>
       </div>
           <div className="content-holder ">
             <h1 className="font-semibold text-3xl mb-4"></h1>
@@ -123,24 +120,6 @@ export default function index() {
             </p>
           </div>
         </div>
-
-        return (
-    <section className='slider'>
-   {/*   <FaArrowAltCircleLeft className='left-arrow' onClick={prevSlide} />
-      <FaArrowAltCircleRight className='right-arrow' onClick={nextSlide} />*/}
-      {/*SliderData.map((slide, index) => {
-        return (
-          <div
-            className={index === current ? 'slide active' : 'slide'}
-            key={index}
-          >
-            {index === current && (
-              <img src={slide.image} alt='travel image' className='image' />
-            )}
-          </div>
-        );
-      })*/}
-    </section>
   );
       </div>
 
