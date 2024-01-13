@@ -16,6 +16,15 @@ export default function AdminAdd() {
   const [add_course, setAddCourse] = useState(false);
   const [addCourses, setaddCourses] = useState([]);
   const [formData, setFormData] = useState({});
+  const [units, setUnits] = useState(null);
+  const [lessons, setLessons] = useState(null);
+  const [topics, setTopics] = useState(null);
+  const [editLesson, setEditLessons] = useState(false);
+  const [getLesson, setGetLesson] = useState(null);
+  const [editUnit, setEditUnits] = useState(false);
+  const [getUnit, setGetUnit] = useState(null);
+  const [getTopic, setGetTopic] = useState(null);
+  const [editTopic, setEditTopics] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/courseheader/courses`)
@@ -33,13 +42,71 @@ export default function AdminAdd() {
         console.error("Error fetching data: ", error);
       });
   }, []);
+
   useEffect(() => {
-    //console.log(addCourses);
-  }, [addCourses]);
+    fetch(`http://localhost:3000/api/units/unit/getUnits`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setUnits(data);
+     // console.log(data)
+    })
+    .catch((error) => {
+      console.error('error' ,error);
+    });
+  }, [])
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/lessons/getAllLessons`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setLessons(data);
+      //console.log(data)
+    })
+    .catch((error) => {
+      console.error('error' ,error);
+    });
+  }, [])
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/topics/getAllTopics`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setTopics(data)
+     // console.log(data)
+    })
+    .catch((error) => {
+      console.error('error' ,error);
+    })
+  }, []);
   const editCourse = (course) => {
     setEditCourse(true);
     setGetCourse(course);
   };
+  const editLessons = (lesson) => {
+    setEditLessons(true);
+    setGetLesson(lesson);
+  }
+  const editUnits = (unit) => {
+    setEditUnits(true);
+    setGetUnit(unit);
+  }
+  const editTopics = (topic) => {
+    setEditTopics(true);
+    setGetTopic(topic);
+  }
   const closeEditCourse = () => {
     setEditCourse(false);
     setGetCourse(null);
@@ -312,30 +379,59 @@ export default function AdminAdd() {
             )}
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold mt-3 text-xl">
-            <h1>Edit Units</h1>
-            { course && course.map((course,index) => (
-              <div key={index}>
-               {course.courses.map((course,index) =>(
-                <div key={index}>
-                 
-                {course.units.map((unit,index) => (
-                  <div key={index} className="flex bg-slate-700 rounded px-2 py-1 w-full justify-between items-center mt-3">
-                  <h1>{unit}</h1>
-                  </div>
-                  ))}
+            <h1 className="mb-2">Edit Units</h1>
+            <div className="grid grid-cols-4 gap-4">
+            { units && units.map((unit,index) => (
+              <div key={index} className=" ">
+                <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+                  <h1>{unit.name}</h1>
+                  <i
+                        class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
+                       
+                      ></i>
                 </div>
-               ))}
               </div>
+            
             ))}
+            </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold mt-3 text-xl">
             <h1>Edit Lessons</h1>
+            <span className="text-sm">*these are going to be the same as the topics</span>
+            <div className="grid grid-cols-4 gap-4">
+            { lessons && lessons.map((lesson,index) => (
+              <div key={index} className=" ">
+                <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+                  <h1>{lesson.lessonName}</h1>
+                  <i
+                        class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
+                       
+                      ></i>
+                </div>
+              </div>
+            
+            ))}
+          </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold mt-3 text-xl">
-            <h1>Edit Topics</h1>
+            <h1 className="text-2xl">Edit Topics</h1>
+            <div className="grid grid-cols-4 gap-4">
+            { topics && topics.map((topic,index) => (
+              <div key={index} className=" ">
+                <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+                  <h1>{topic.topicName}</h1>
+                  <i
+                        class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
+                       
+                      ></i>
+                </div>
+              </div>
+            
+            ))}
+          </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold  mt-3 text-xl">
-            <h1>Edit Units</h1>
+            <h1>Edit Questions</h1>
           </div>
         </div>
       </div>

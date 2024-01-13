@@ -29,6 +29,23 @@ router.get('/:topicId/quiz', async (req, res) => {
     }
   });
 
+  router.get('/getAllTopics', async (req, res) => {
+    try {
+      const getAllTopics = await topics.find().populate({
+        path: 'quiz.quizQuestions',
+        model: 'questions', 
+        select: 'questionText options correctOption',
+      }).select('course quiz topicName').lean();
+      if(!getAllTopics){
+        return res.status(404).json({ message: 'No topics found' });
+      }
+      res.status(200).json(getAllTopics);
+    } catch (error) {
+      console.error('Error fetching lesson data:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  })
+
   router.post('')
 
 export default router;
