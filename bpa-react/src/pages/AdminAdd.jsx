@@ -34,6 +34,7 @@ export default function AdminAdd() {
         setEditCourse(true);
         setGetCourse(course);
     }
+   // console.log(getCourse)
   return (
     <>
     <div className="p-1 bg-slate-800 min-h-screen">
@@ -44,11 +45,18 @@ export default function AdminAdd() {
     <div className="flex mt-3">
     <AdminDashboardNav/>
     {editCourses && getCourse && 
-    <div>
-      
+    <div className="fixed z-50 inset-0 flex items-center justify-center ">
+      <div className="bg-white">
+        <h1>{getCourse.courseHeader}</h1>
+  <form onSubmit={handleUpdate}>
+    <input type="text" defaultValue={editingCourse.courseHeader} ref={courseHeaderRef} />
+    <input type="text" defaultValue={editingCourse.courses.courseName} ref={courseNameRef} />
+    <button type="submit">Update Course</button>
+  </form>
+      </div>
     </div>
     }
-    <div className="grid grid-cols-4  pl-[4rem] pr-[5rem] gap-4 mt-3">
+    <div className="grid grid-cols-4  pl-[8rem] pr-[5rem] gap-4 mt-3 ">
         {course && course.map((course,index) => (
             <div key={index}>
             <div className="bg-slate-700 rounded px-2 text-white nunito font-semibold flex justify-between items-center">

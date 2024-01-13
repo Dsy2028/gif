@@ -1,13 +1,12 @@
 import React,{ useEffect,useRef , useState} from "react";
 import DashboardNav from "../components/DashboardNav";
 import TeacherFooter from "../components/TeacherFooter";
-import { XYPlot, RadialChart } from "react-vis";
+
 import TeacherDropdown from "../components/TeacherDropdown.jsx";
 import  {Doughnut } from 'react-chartjs-2';
 import DashNav from "../components/DashNav.jsx";
-import ApexCharts from 'apexcharts'
+
 import { json } from "react-router-dom";
-import Chart from "react-apexcharts";
 import { useParams } from "react-router-dom";
 export default function Dashboard() {
     const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];

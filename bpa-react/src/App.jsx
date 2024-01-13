@@ -29,6 +29,7 @@ import Userguide from './pages/Userguide';
 import TeachRoute from './components/TeachRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminAdd from './pages/AdminAdd';
+import AdminUsers from './pages/AdminUsers';
 //import './App.css';
 //import ImageSlider from './components/ImageSlider';
 //import { SliderData } from './components/SliderData';
@@ -40,7 +41,7 @@ export default function App() {
 
   
 
-  const paths = ['/dashboard', '/classes', '/calender', '/prof', '/admin-dashboard', '/admin-add'];
+  const paths = ['/dashboard', '/classes', '/calender', '/prof', '/admin-dashboard', '/admin-add', '/admin-users'];
 
   return (
     <BrowserRouter>
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/practice/:topicId/questions/:questionId" element={<TestComponents />} />
         <Route path="/practice/:topicId/harderQuestions/:harderQuestionsId" element={<HarderQuestions />} />
         <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
+        <Route path="/admin-users" element={<AdminUsers />} />
         <Route path="/:topicId/quiz" element={<Quiz />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />

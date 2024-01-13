@@ -117,7 +117,7 @@ export default function AdminDashboard() {
     </div>
     <div className="flex mt-3">
     <AdminDashboardNav/>
-    <div className="grid  w-full ml-4 px-3">
+    <div className="grid  w-full ml-4 px-3 pl-[6rem]">
       <div className=" grid grid-cols-4 gap-3 h-fit">
         <div className="bg-slate-700 flex p-3">
         <div className="rounded-full grid place-items-center bg-fuchsia-600 w-12 h-12">
@@ -157,8 +157,8 @@ export default function AdminDashboard() {
         </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 mt-7 mb-7">
-        <h1 className="nunito text-2xl font-semibold text-white">New Users</h1>
+      <div className="grid grid-cols-1 mt-11 mb-11">
+        <h1 className="nunito text-2xl font-semibold text-white mb-4">New Users</h1>
         <div style={{ height: '500px', width: '100%' }}>
        {allUsers && chartData && <Line data={chartData} options={{
   scales: {
