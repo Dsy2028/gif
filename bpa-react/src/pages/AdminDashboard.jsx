@@ -11,7 +11,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Line } from 'react-chartjs-2';
 import { registerables } from 'chart.js';
 
-import moment from 'moment';
+// import moment from 'moment';
 
 
 

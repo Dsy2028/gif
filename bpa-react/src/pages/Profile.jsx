@@ -36,7 +36,6 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const { currentUser, loading} = useSelector((state) => state.user);
   const [edit, setEdit] = useState(false);
   const [teacher, setTeacher] = useState(null);
   //const [user, setUser] = useState(null);
@@ -44,6 +43,7 @@ export default function Profile() {
   const [awardCounts, setAwardCounts] = useState(null);
   const [strawCount, setStrawCount] = useState(0);
   const [doffyCount, setDoffyCount] = useState(0);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const { user, error } = fetchUser(currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
