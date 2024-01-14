@@ -26,6 +26,7 @@ import Intro from './pages/Intro';
 import Recap from './pages/Recap'
 import Privacy from './pages/Privacy'
 import Userguide from './pages/Userguide';
+import Workcited from './pages/Workcited';
 import TeachRoute from './components/TeachRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminAdd from './pages/AdminAdd';
@@ -80,6 +81,7 @@ export default function App() {
         <Route path ="/inbox" element ={<Inbox />}/>
         <Route path='privacy' element={<Privacy/>}/>
         <Route path='/userguide' element={<Userguide/>}/>
+        <Route path ='/workcited' element = {<Workcited/>}/>
         <Route path="/admin-courses" element={<AdminCourses />} />
       </Routes>
     </BrowserRouter>
