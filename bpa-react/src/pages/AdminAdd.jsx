@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import TeacherDropdown from "../components/TeacherDropdown";
 import AdminDashboardNav from "../components/AdminDashboardNav";
+import { useFetch ,createEditFunction,fetchData,  createCloseFunction } from "../functions/add.js";
 
 export default function AdminAdd() {
   const { currentUser, loading } = useSelector((state) => state.user);
@@ -25,98 +26,22 @@ export default function AdminAdd() {
   const [getUnit, setGetUnit] = useState(null);
   const [getTopic, setGetTopic] = useState(null);
   const [editTopic, setEditTopics] = useState(false);
-
-  useEffect(() => {
-    fetch(`http://localhost:3000/api/courseheader/courses`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // console.log('Fetched data:', data);
-        setCourse(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch(`http://localhost:3000/api/units/unit/getUnits`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setUnits(data);
-     // console.log(data)
-    })
-    .catch((error) => {
-      console.error('error' ,error);
-    });
-  }, [])
-  useEffect(() => {
-    fetch(`http://localhost:3000/api/lessons/getAllLessons`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setLessons(data);
-      //console.log(data)
-    })
-    .catch((error) => {
-      console.error('error' ,error);
-    });
-  }, [])
-  useEffect(() => {
-    fetch(`http://localhost:3000/api/topics/getAllTopics`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setTopics(data)
-     // console.log(data)
-    })
-    .catch((error) => {
-      console.error('error' ,error);
-    })
-  }, []);
-  const editCourse = (course) => {
-    setEditCourse(true);
-    setGetCourse(course);
-  };
-  const editLessons = (lesson) => {
-    setEditLessons(true);
-    setGetLesson(lesson);
-  }
-  const editUnits = (unit) => {
-    setEditUnits(true);
-    setGetUnit(unit);
-  }
-  const editTopics = (topic) => {
-    setEditTopics(true);
-    setGetTopic(topic);
-  }
-  const closeEditCourse = () => {
-    setEditCourse(false);
-    setGetCourse(null);
-    setFormData("");
-  };
+  const [addCour, setAddCour] = useState(false);
+  useFetch(`http://localhost:3000/api/courseheader/courses`, setCourse);
+  useFetch(`http://localhost:3000/api/units/unit/getUnits`, setUnits);
+  useFetch(`http://localhost:3000/api/lessons/getAllLessons`, setLessons);
+  useFetch(`http://localhost:3000/api/topics/getAllTopics`, setTopics);
+  const editCourse = createEditFunction(setEditCourse, setGetCourse);
+  const closeEditCourse = createCloseFunction(setEditCourse, setGetCourse, setFormData);
+  const editLessons =  createEditFunction(setEditLessons,setGetLesson)
+  const editUnits =  createEditFunction(setEditUnits,setGetUnit)
+  const editTopics =  createEditFunction(setEditTopics,setGetTopic)
   const addCourse = () => {
     setAddCourse(true);
   };
   const closeCourse = () => {
     setAddCourse(false);
+    setAddCour(false);
     setaddCourses([]);
     setFormData("");
   };
@@ -127,73 +52,29 @@ export default function AdminAdd() {
       e.target.value = "";
     }
   };
+
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  const add_course_function = async () => {
-    try {
-      const res = await fetch(`/api/courseheader/courses/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          courseHeader: formData.courseHeader,
-          courses: addCourses,
-        }),
-      });
-      const data = await res.json();
-      setFormData("");
-      closeCourse();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const updateCourse = async (courseId) => {
-    console.log(courseId);
-    try {
-      const res = await fetch(`/api/courseheader/courses/edit`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          courseId: courseId,
+  const add_course_header_function = () => fetchData(`/api/courseheader/courses/add`, "POST", {
+    courseHeader: formData.courseHeader,
+    courses: addCourses,
+  });
+  const add_course__function = () => fetchData(`/api/test/courses/add`, "POST", setFormData, closeCourse, {
+    courseName: formData.courseName,
+    units:addCourses
+  });
+  const updateCourse = (courseId) => fetchData(`/api/courseheader/courses/edit`, "POST", {
+    courseId: courseId,
           courseHeader: formData.courseHead,
-          courses: addCourses,
-        }),
-      });
-      const data = await res.json();
-      setFormData("");
-      closeCourse();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-  const deleteCourses = async (courseId, coursesId) => {
-    try {
-      const res = await fetch(`/api/courseheader/courses/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ courseId: courseId, course: coursesId }),
-      });
-      const data = await res.json();
-      closeCourse();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-  const handleOverlayClick = (e) => {
-    if (e.target.className === "overlay") {
-      closeEditProfilePopup();
-    }
-  };
-
-  //console.log(formData.courseHead)
-  //console.log(addCourses)
+          courses: addCourses
+  });
+ 
+  const deleteCourses = (courseId, coursesId) => fetchData(`/api/courseheader/courses/delete`, "DELETE", {
+    courseId: courseId, course: coursesId
+  });
+ 
   return (
     <>
       <div className="p-1 bg-slate-800 min-h-screen">
@@ -277,6 +158,57 @@ export default function AdminAdd() {
               </div>
             </div>
           )}
+          {addCour && course && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+              <div className="bg-white rounded p-2 ">
+                <div className="flex items-center justify-between mb-4">
+                  <h1 className="nunito font-semibold text-xl">Add A Course</h1>
+                  <i class="fa-solid fa-xmark fa-xl" onClick={closeCourse}></i>
+                </div>
+                <div className="flex gap-4">
+                  <input
+                    type="text"
+                    id="courseName"
+                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Course Name"
+                    onChange={handleChange}
+                  ></input>
+                  <input
+                    type="text"
+                    className="border-[1px] p-2  focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Units"
+                    onKeyDown={handleInputChange}
+                  />
+                </div>
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl">
+                    {addCourses && addCourses.length >= 1
+                      ? `Units Being Added`
+                      : ""}
+                  </h1>
+                  <div className="flex w-full flex-wrap gap-3">
+                    {addCourses &&
+                      addCourses.map((course, index) => (
+                        <div key={index}>
+                          <span className="bg-fuchsia-600 text-white px-2 rounded">
+                            {course}{" "}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    className="w-fit bg-fuchsia-600 text-white px-5 rounded"
+                    onClick={() => add_course__function()}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          )}
           {add_course && course && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
               <div className="bg-white rounded p-2">
@@ -319,7 +251,7 @@ export default function AdminAdd() {
                 <div className="flex justify-end">
                   <button
                     className="w-fit bg-fuchsia-600 text-white px-5 rounded"
-                    onClick={() => add_course_function()}
+                    onClick={() => add_course_header_function()}
                   >
                     Add
                   </button>
@@ -356,7 +288,7 @@ export default function AdminAdd() {
           <div className="pl-[8rem]  text-white nunito font-semibold mt-3 text-xl">
             <h1>Edit Courses</h1>
             {course && (
-              <div className="  grid grid-cols-6">
+              <div className="  grid grid-cols-6 ">
                 {course.map((course, index) => (
                   <div key={index} className=" ">
                     <div className=" rounded px-2 text-white nunito font-semibold flex justify-between items-center">
@@ -370,11 +302,21 @@ export default function AdminAdd() {
                       ></i>
                           </div>
                           
-                        ))}
-                      </div>
+                        ))} 
+                      </div> 
                     </div>
                   </div>
                 ))}
+                <div className=" flex bg-slate-700 rounded px-2 py-1 justify-between items-center mt-3 w-full">
+                  <h1 className="nunito font-semibold text-xl text-white">
+                    Add New Course
+                  </h1>
+                  <i
+                    class="fa-solid fa-plus fa-xl text-white cursor-pointer"
+                    onClick={() => setAddCour(true)}
+                  ></i>
+                  
+                </div>
               </div>
             )}
           </div>

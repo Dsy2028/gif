@@ -62,6 +62,54 @@ router.get('/:courseName', async (req, res) => {
     }
   })
 
+  router.post('/courses/add', async (req, res) => {
+    try {
+      const { courseName, units } = req.body;
+      console.log(courseName)
+      console.log(units)
+      const addCourse = await otherTest.create({ courseName: courseName , units: units });
+      res.status(200).json(addCourse)
+    } catch (error) {
+      console.error('error creating courses', error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  })
+  
+  router.post('/courses/edit', async (req, res) => {
+    try {
+      const {courseHeader, courseId, courses} = req.body;
+      console.log(courseHeader)
+      console.log(courseId)
+      console.log(courses)
+      const editHeader = await otherTest.updateOne(
+        { _id: courseId }, 
+        { 
+          $set: { courseHeader: courseHeader},
+          $push: { courses: courses }
+        }
+      );
+      console.log(editHeader);
+      res.status(200).json(editHeader)
+    } catch (error) {
+      console.error('error editing courses', error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  })
+  
+  router.delete('/courses/delete', async (req, res) => {
+    try {
+      const {course, courseId} = req.body;
+  
+      const deleteCourse = await otherTest.updateOne({ _id: courseId }, { $pull: { courses: course } });
+      res.status(200).json(deleteCourse);
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  
+  }
+  )
+
   router.post('')
 
   export default router;

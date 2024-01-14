@@ -126,7 +126,7 @@ export default function Dashboard() {
               </div>
               <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Completed Assignments</h1>
               </div>
-              <RadialChart data={data} height={200} width={200} />
+              
             </div>
             <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg dark:bg-slate-600 dark:border-none">
               <div className='flex items-center'>
@@ -147,10 +147,10 @@ export default function Dashboard() {
           </div>
           <div className="grid grid-cols-3 gap-4 mt-4 p-5 ">
             <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
-            <RadialChart data={data} height={300} width={200} />
+        
             </div>
             <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
-            <RadialChart data={data} height={300} width={200} />
+
             </div>
             <div className="border-[2px] rounded border-gray-200 grid place-items-center dark:bg-slate-600 dark:border-none">
            

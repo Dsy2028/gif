@@ -17,11 +17,10 @@ router.get('/intro/:topicId/:introId', async (req, res) => {
     }
 })
 
-router.get('/test', async (req, res) => {
+router.get('/getAllIntros', async (req, res) => {
     try {
-      const docs = await intro.find({});
-      console.log('Received documents:', docs);
-      return res.status(200).json(docs);
+      const allIntros = await intro.find();
+      return res.status(200).json(allIntros);
     } catch (err) {
       console.log('Error:', err);
       return res.status(500).json({ message: 'Error fetching intros' });
