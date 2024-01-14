@@ -44,6 +44,7 @@ export default function Profile() {
   const [awardCounts, setAwardCounts] = useState(null);
   const [strawCount, setStrawCount] = useState(0);
   const [doffyCount, setDoffyCount] = useState(0);
+  const { currentUser, loading } = useSelector((state) => state.user);
   const { user, error } = fetchUser(currentUser);
   const dispatch = useDispatch();
   useEffect(() => {
