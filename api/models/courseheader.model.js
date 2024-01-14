@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 
 const courseheaderSchema = new mongoose.Schema({
-    courseheader: {
+    courseHeader: {
       type: String,
-      required: true
+     // required: true
     },
     courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tests'}]
   });

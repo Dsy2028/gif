@@ -36,7 +36,7 @@ export default function Profile() {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-
+  const { currentUser, loading} = useSelector((state) => state.user);
   const [edit, setEdit] = useState(false);
   const [teacher, setTeacher] = useState(null);
   //const [user, setUser] = useState(null);
