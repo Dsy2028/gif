@@ -65,7 +65,15 @@ router.get('/students', async (req, res) => {
     const { classId } = req.query;
     const students = await Class.find({ _id: classId }).populate({
       path: 'students',
-      select: 'quizResults',
+      select: 'quizResults completed',
+      populate: {
+        path: 'completedLessons',
+        select: 'lessonId',
+        populate:{ 
+          path: 'lessonId',
+          select: 'topicName'
+        }
+      }
     });
     
     res.status(200).json(students);
@@ -75,16 +83,17 @@ router.get('/students', async (req, res) => {
   }
 })
 
-/*router.get('/:studentId', async (req, res) => {
+router.get('/student/:studentId', async (req, res) => {
   try {
     const { studentId } = req.params;
-    const classes = await Class.find({ students: { $in: [studentId] } }).populate('students', ' avatar firstName lastName  email');
+    const classes = await Class.find({ students: { $in: [studentId] } }).populate('students', ' avatar firstName lastName  email completed');
+ //   console.log(classes)
     res.status(200).json(classes);
   } catch (error) {
     console.error('Error getting classes by student:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});*/
+});
 
 
 

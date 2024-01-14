@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
             _id: false,
             assignment: [
                 {
-                    type: mongoose.Schema.Types.ObjectId, ref: 'topics',
+                    type: mongoose.Schema.Types.ObjectId, ref: 'questions',
                 },
             ],
             timestamp: {
