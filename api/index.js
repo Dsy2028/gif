@@ -40,7 +40,7 @@ app.use(cors({
 }));
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
-app.use('/api', questionsRouter);
+app.use('/api/questions', questionsRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/topics', topicsRouter);
 app.use('/api/flashcards', flashRouter);
