@@ -5,11 +5,13 @@ import TeacherFooter from "../components/TeacherFooter";
 import TeacherDropdown from "../components/TeacherDropdown.jsx";
 import  {Doughnut } from 'react-chartjs-2';
 import DashNav from "../components/DashNav.jsx";
-
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Line } from 'react-chartjs-2';
+import { registerables } from 'chart.js';
 import { json } from "react-router-dom";
 import { useParams } from "react-router-dom";
 export default function Dashboard() {
-    const data = [{ angle: 1 }, { angle: 5 }, { angle: 2 }];
+
     const [open_Table, setisOpenTable] = useState(false);
     const [settingDropdownOpen, setSettingDropdownOpen] = useState(false);
     const [notiDropdownOpen, setNotiDropdownOpen] = useState(false);
@@ -18,6 +20,7 @@ export default function Dashboard() {
     const {teacherId} = useParams();
     const dropdownRef = useRef(false);
     const [getCode, setGetCode] = useState(0);
+    const [chartData, setChartData] = useState({});
     useEffect(() => {
       fetch("")
       .then(res => res.json())
@@ -52,7 +55,7 @@ export default function Dashboard() {
     }, []);
     useEffect(() => {
       // Fetch all classes
-      fetch(`http://localhost:3000/api/classes/${teacherId}`)
+      fetch(`http://localhost:3000/api/classes/student/${teacherId}`)
         .then(response => response.json())
         .then(classes => {
           // For each class, fetch its students
@@ -66,6 +69,7 @@ export default function Dashboard() {
         })
         .then(allStudents => {
           setGetStudents(allStudents);
+          console.log(allStudents);
         })
         .catch(error => console.error('Error:', error));
     }, []);
@@ -79,7 +83,17 @@ export default function Dashboard() {
       }
     }, [getCode]);
  
+    {getStudents && getStudents.map((classItem, index) => (
+      classItem.map((classItem, index) =>(
+       classItem.students.map((student, index) => (
+        console.log(student.completed),
+        student.completedLessons.map((assignments, index) =>(
+          console.log(assignments.lessonId)
+       ))
+     ))
     
+   ))
+    ))}
   /** <Chart type='donut' options={chartOptions} series={chartSeries}/> */
     const notiDropdown = () => {
       setNotiDropdownOpen((prevOpen) => !prevOpen);
@@ -171,14 +185,17 @@ export default function Dashboard() {
     <th>Assignments</th>
     <th>Due</th>
   </tr>
-  {Array.isArray(getCode) && [...getCode.classes, ...getCode.classToGet].map((classItem, index) => (
+  {getStudents && getStudents.map((classItem, index) => (
+    classItem.map((classItem, index) =>(
     <tr className='border-b-[2px] p-5 dark:text-white' key={index}>
       <td>{classItem.className}</td>
       <td>{classItem.students ? classItem.students.length : 0}</td>
       <td>{classItem.assignments ? classItem.assignments.length : 0}</td>
       <td>{classItem.due ? classItem.due.length : 0}</td>
     </tr>
+    ))
   ))}
+
 </table>
             </div>
           </div>
