@@ -16,7 +16,7 @@ useEffect(() => {
     try {
       const token = currentUser._id;
 
-      const response = await fetch('/api/user/get', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/user/get', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -41,32 +41,32 @@ useEffect(() => {
 
   fetchUser();
 },[]);
-console.log(user);
+
 
 useEffect(() => {
     try {
       const urlParts = window.location.pathname.split('/');
       const part = urlParts[urlParts.length - 1];
-      console.log(part)
+
       const completedLessons = user.completedLessons;
-      console.log(completedLessons)
+
       let lesson;
       let method = 'POST'; 
       if (completedLessons) {
         lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
-        console.log('Lesson:', lesson);
+     
         if (lesson) {
           method = 'PUT';
         }
       }
       
-      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+      fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
         method: method, 
         credentials: 'include',
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Response:', data)
+   
         // dispatch(updateUserSuccess(data)) 
       })
       .catch(error => console.error('Error:', error));
@@ -78,7 +78,7 @@ useEffect(() => {
   }, [user]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/recap/${recapId}/recap`)
+    fetch(`https://bpa-api1.onrender.com/api/recap/${recapId}/recap`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -87,7 +87,7 @@ useEffect(() => {
       })
       .then((data) => {
         setRecap(data);
-        console.log(data);
+
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);

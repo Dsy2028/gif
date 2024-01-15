@@ -75,7 +75,7 @@ export default function Profile() {
           setFile(undefined);
           setFilePerc(0);
 
-          fetch(`http://localhost:3000/api/user/update/${studentId}`, {
+          fetch(`https://bpa-api1.onrender.com/api/user/update/${studentId}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -96,7 +96,7 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/classes/${studentId}`)
+    fetch(`https://bpa-api1.onrender.com/api/classes/${studentId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -113,20 +113,18 @@ export default function Profile() {
         console.error("Error fetching data: ", error);
       });
   }, []);
-  //user.completedLessons.map(lesson => console.log(lesson.lessonId));
+
   useEffect(() => {
     if (user) {
       const strawCount = user.awards.filter(award => award.award === 'straw').length;
       const doffyCount = user.awards.filter(award => award.award === 'doffy').length;
-     // setAwardCounts(counts.awardCounts);
-   //   console.log(counts.awardCounts);
+
       setStrawCount(strawCount);
       setDoffyCount(doffyCount);
      
-     // console.log(awardCount);
     }
   }, [user]);
-  // console.log(file);
+
 
   const openEdit = () => {
     setEdit(true);
@@ -152,7 +150,7 @@ export default function Profile() {
     }
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`https://bpa-api1.onrender.com/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -168,7 +166,7 @@ export default function Profile() {
   const update = async () => {
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`https://bpa-api1.onrender.com/api/user/update/${currentUser._id}`, {
         method: 'POST',
         credentials: 'include',
         headers: {

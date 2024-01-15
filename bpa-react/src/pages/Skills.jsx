@@ -7,13 +7,13 @@ export default function Skills() {
     const {topicName } = useParams();
 
     useEffect(() => {
-      fetch(`/api/topics/${topicName}/questions/${questionId}`)
+      fetch(`https://bpa-api1.onrender.com/api/topics/${topicName}/questions/${questionId}`)
         .then((response) => response.json())
         .then(
           (data) => setQuestion(data)
     
         )
-        .then(console.log(data))
+  
         .catch((error) => console.error('Error fetching question:', error));
     }, []);
 

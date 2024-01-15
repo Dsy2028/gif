@@ -67,7 +67,7 @@ export default function Classes() {
           return response.json();
         })
         .then(data => {
-         // console.log('Fetched data:', data);
+      
           setCourses(data);
      
         })
@@ -87,14 +87,14 @@ export default function Classes() {
         .then((data) => {
           setGetCode(data);
           setHasCode(true);
-        //  console.log(data) // Update the condition
+
           data.classToGet.forEach(classItem => {
-          //  console.log('students',classItem.students)
+
             classItem.students.forEach(student => {
-             // console.log('students',student);
+
             });
           });
-          console.log(data.classToGet.students)
+
         })
         .catch((error) => {
           console.error("Error fetching data: ", error);
@@ -102,21 +102,13 @@ export default function Classes() {
     }, []);
     
     
-  /* useEffect(() => {
-      if (getCode && getCode.length > 0) {
-        getCode.forEach(classItem => {
-          console.log(classItem.students.firstName); 
-        });
-      }
-    }, [getCode]);
-*/
+
 
 const selectCourse = (id) =>{
   
   setCourse(true);
   setTopic(false);
   setClassId(id);
-  console.log(id)
 }
 
 const selectTopic =  (course) => {
@@ -158,7 +150,7 @@ const closeCourse = () => {
   setCourse(false);
 }
     
-console.log(getCode)
+
   
     
     const closePopup = () => {

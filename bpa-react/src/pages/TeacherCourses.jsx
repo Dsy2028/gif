@@ -14,7 +14,7 @@ import { useFetch } from "../functions/add.js";
 
 export default function TeacherCourses() {
     const [course, setCourse] = useState(null);
-    useFetch(`http://localhost:3000/api/courseheader/courses`, setCourse);
+    useFetch(`https://bpa-api1.onrender.com/api/courseheader/courses`, setCourse);
   return (
     <>
     <div className="flex min-h-screen dark:bg-slate-700">

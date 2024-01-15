@@ -15,7 +15,7 @@ export default function Nav() {
   // const {currentUser} = useSelector(state => state.user)
   const [formData, setFormData] = useState({});
   const { currentUser } = useSelector(state => {
-     console.log(state.user.currentUser); // Log the currentUser
+  // Log the currentUser
     return state.user;
   });
   const [join, setJoin] = useState(false);
@@ -29,7 +29,7 @@ export default function Nav() {
   if (currentUser && currentUser._id) {
     localStorage.setItem('userId', currentUser._id);
   }
-//console.log(currentUser._id)
+
   useEffect(() => {
     const handleResize = () => {
       setBars(window.innerWidth <= 768);
@@ -94,7 +94,7 @@ export default function Nav() {
       }
 
       const joinedClass = await response.json();
-      console.log('Successfully joined class:', joinedClass);
+   
       setJoinMessage('Successfully Joined Class');
     } catch (error) {
       console.error('Error joining class:', error);
@@ -132,11 +132,8 @@ export default function Nav() {
   const onChange = (event) => {
     setValue(event.target.value);
   }
-  //console.log(value)
   const onSearch = (searchTerm) => {
     setValue(searchTerm);
-    //api to fetch the search result
-    console.log("search ", searchTerm)
   }
 
   return (

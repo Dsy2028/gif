@@ -46,6 +46,65 @@ router.get('/:topicId/quiz', async (req, res) => {
     }
   })
 
-  router.post('')
+  router.post('/topics/add', async (req, res) => {
+    try {
+      const { topicName, questions, course, harderQuestions, quiz } = req.body;
+      const addTopics = await topics.create({ topicName: topicName , questions: questions ,course: course, harderQuestions: harderQuestions, quiz: quiz });
+      res.status(200).json(addTopics)
+    } catch (error) {
+      console.error('error creating courses', error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  })
+  
+  router.post('/topics/edit', async (req, res) => {
+    try {
+      const { topicId,topicName, questions, course, harderQuestions, quiz } = req.body;
+      const editTopic = await unit.updateOne(
+        { _id: topicId }, 
+        { 
+          $set: { topicName: topicName},
+          $set: { course: course},
+          $push: { questions: questions },
+          $push: { harderQuestions: harderQuestions },
+          $push: { quiz: quiz }
+        }
+      );
+     
+      res.status(200).json(editTopic)
+    } catch (error) {
+      console.error('error editing courses', error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  })
+  
+  router.delete('/topics/delete', async (req, res) => {
+    try {
+      const {topicId, questions, harderQuestions, quiz} = req.body;
+  
+      const deleteUnit = await otherTest.updateOne({ _id: topicId }, { $pull: { questions: questions } },{ $pull: { harderQuestions: harderQuestions } }, { $pull: { quiz: quiz } });
+      res.status(200).json(deleteUnit);
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  
+  }
+  )
+  router.delete('/delete', async (req, res) => {
+    try {
+      const { topicId} = req.body;
+    
+  
+      const deleteUnit = await unit.deleteOne({ _id: topicId })
+
+      res.status(200).json(deleteUnit);
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  
+  }
+  )
 
 export default router;

@@ -4,7 +4,7 @@ export const addCourses = async (req, res) => {
     try {
       const {  courses } = req.body;
       const addHeader = await courseheader.create({ courseHeader: req.body.courseHeader , courses: courses });
-      console.log(addHeader)
+  
       res.status(200).json(addHeader)
     } catch (error) {
       console.error('error creating topic', error)

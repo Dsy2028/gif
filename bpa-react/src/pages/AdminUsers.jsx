@@ -54,7 +54,7 @@ const numbersPerPage = 10;
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
   const update = async (userId) => {
-    console.log('update', userId)
+
     try {
       const res = await fetch(`https://bpa-api1.onrender.com/api/user/update/users/user`, {
         method: 'POST',
@@ -85,7 +85,7 @@ const numbersPerPage = 10;
     setUse(null);
     setFormData(null)
   };
-  //console.log(use);
+
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -109,7 +109,7 @@ const numbersPerPage = 10;
     }
   }
   const deleteUser = async (userId) => {
-    //console.log(userId);
+
     const c = window.confirm(
       "Are you sure you want to delete this account? This action cannot be undone."
     );
@@ -165,7 +165,7 @@ const numbersPerPage = 10;
   });
 
   
- // console.log(formData)
+
   return (
     <>
       <div className="p-1 bg-slate-800 min-h-screen">

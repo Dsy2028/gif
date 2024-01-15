@@ -14,7 +14,7 @@ export default function FlashCard() {
       try {
         const token = currentUser._id;
   
-        const response = await fetch('/api/user/get', {
+        const response = await fetch('https://bpa-api1.onrender.com/api/user/get', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export default function FlashCard() {
         return response.json();
       })
       .then((data) => {
-        console.log("Fetched data:", data);
+
 
         if (data && data.topic && data.topic.flashCards && data.topic.flashCards.length > 0) {
           setFlashCardData(data.topic);
@@ -62,14 +62,14 @@ export default function FlashCard() {
         console.error("Error fetching data: ", error);
       });
   }, [topicName,_id]);
-  console.log(user);
+
   useEffect(() => {
     try {
       const urlParts = window.location.pathname.split('/');
       const part = urlParts[urlParts.length - 1];
-      console.log(part);
+
       const completedLessons = user.completedLessons;
-      console.log('CompletedLessons:', completedLessons);
+
     
       let lesson;
       let method = 'POST'; // Default to 'POST'
@@ -78,7 +78,7 @@ export default function FlashCard() {
       if (completedLessons) {
         // Find the lesson object with the matching lessonId
         lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
-        console.log('Lesson:', lesson);
+  
     
         // If the lesson exists, use 'PUT' method
         if (lesson) {
@@ -86,15 +86,15 @@ export default function FlashCard() {
         }
       }
     
-      console.log('HTTP method:', method);
+
     
       fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
-        method: method, // Use the method determined above
+        method: method, 
         credentials: 'include',
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Response:', data)
+
         // dispatch(updateUserSuccess(data)) // Dispatch the action with the response data
       })
       .catch(error => console.error('Error:', error));

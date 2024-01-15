@@ -5,8 +5,7 @@ import intro from '../models/intro.model.js';
       const { _id } = req.params;
 
       const Intro = await intro.findById({_id});
-      console.log(Intro);
-
+   
       if (!Intro) {
         return res.status(404).json({ message: 'Lesson for intro not found' });
       }

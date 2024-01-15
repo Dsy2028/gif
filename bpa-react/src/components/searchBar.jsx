@@ -13,10 +13,8 @@ const onChange = (event) => {
 }
 const onSearch = (searchTerm) => {
   setValue(searchTerm);
-  //api to fetch the search result
-  console.log("search ", searchTerm)
 }
-console.log(data)
+
 return(
      <>
 //      <div className="searchBar">
