@@ -35,7 +35,7 @@ export default function signup() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+
       if(data.success === false) {
         setError(data.message);
         setMessage(true);
@@ -57,7 +57,7 @@ export default function signup() {
       ...formData,
       role: e.target.value,
     });
-    console.log(e.target.value)
+
   };
 
   const closePopup = () => {

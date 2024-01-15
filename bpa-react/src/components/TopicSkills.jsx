@@ -6,7 +6,7 @@ function TopicSkills() {
   const {  topicName } = useParams();
   const {courseName} = useParams();
   const [courseDetails, setCourseDetails] = useState(null);
-  console.log(courseName)
+ 
   useEffect(() => {
     fetch(`https://bpa-api1.onrender.com/api/test/${courseName}`)
       .then(response => {
@@ -16,15 +16,13 @@ function TopicSkills() {
         return response.json();
       })
       .then(data => {
-        console.log('Fetched data:', data);
         setCourseDetails(data);
-        console.log('Course details:', courseDetails);
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
       });
   }, [courseName]);
-  console.log('Course details:', courseDetails);
+
 
   if (!courseDetails) {
     return (

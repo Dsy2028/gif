@@ -33,7 +33,6 @@ const dispatch = useDispatch();
         return response.json();
       })
       .then(data => {
-        console.log('Fetched data:', data);
         setQuiz(data.quiz);
         setHeader(data);
       })
@@ -113,7 +112,6 @@ const dispatch = useDispatch();
       return q.selectedOption;
     });
   
-    console.log(`${correct} / ${quiz.quizQuestions.length}`);
     setCorrectAnswers(correct);
     setQuestionsCorrect(true);
   
@@ -160,7 +158,6 @@ const dispatch = useDispatch();
       if (completedLessons) {
         // Find the lesson object with the matching lessonId
         lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
-        console.log('Lesson:', lesson);
     
         // If the lesson exists, use 'PUT' method
         if (lesson) {
@@ -168,7 +165,6 @@ const dispatch = useDispatch();
         }
       }
     
-      console.log('HTTP method:', method);
     
       fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
         method: method, // Use the method determined above
@@ -176,7 +172,6 @@ const dispatch = useDispatch();
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Response:', data)
       })
       .catch(error => console.error('Error:', error));
     } catch (error) {

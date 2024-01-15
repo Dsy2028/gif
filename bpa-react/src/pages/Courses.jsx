@@ -13,7 +13,6 @@ export default function Courses() {
         return response.json();
       })
       .then(data => {
-       // console.log('Fetched data:', data);
         setCourse(data);
    
       })

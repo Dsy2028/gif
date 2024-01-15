@@ -128,7 +128,7 @@ export default function AdminCourses() {
           </div>
         );
       });
-      //console.log(course && course.courseHeader)
+  
   return (
     <>
     <div className="p-1 bg-slate-800 min-h-screen">

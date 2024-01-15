@@ -33,11 +33,9 @@ export default function AdminDashboard() {
         return response.json();
       })
       .then(data => {
-       // console.log('Fetched data:', data);
+
         setAllUsers(data);
-     //   console.log(data.map((user, index) => {
-       //   return user.email
-        //}))
+
         let roleCounts = data.reduce((acc, user) => {
           if (acc[user.role]) {
             acc[user.role]++;
@@ -80,7 +78,7 @@ export default function AdminDashboard() {
         console.error('Error fetching data: ', error);
       });
   }, []);
- // console.log(chartData);
+
   const deleteUser = async (userId) => {
     
     const c = window.confirm(
@@ -90,7 +88,7 @@ export default function AdminDashboard() {
     if (!c) {
       return;
     }
-    console.log(userId)
+  
     try {
       const res = await fetch(`https://bpa-api1.onrender.com/api/user/delete/users/user`, {
         method: "DELETE",

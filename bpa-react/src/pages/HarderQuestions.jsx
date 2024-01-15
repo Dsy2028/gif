@@ -32,16 +32,15 @@ export default function HarderQuestions() {
         return response.json();
       })
       .then(data => {
-        console.log('Fetched data:', data);
+  
         setharderQuestions(data);
-        //console.log(data)
+   
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
       });
   }, []);
-  //console.log(topicName)
-  //console.log(harder.harderQuestions.length)
+
 
 
   const handleNext = (event) => {
@@ -137,7 +136,7 @@ export default function HarderQuestions() {
       }
   
       const data = await response.json();
-      console.log('Success:', data);
+   
       
     } catch (error) {
       console.error('Error:', error);
@@ -167,7 +166,7 @@ if (percentageScore >= 70) {
     }
 
     const data = await res.json();
-    console.log('Success:', data);
+
     
   } catch (error) {
     console.error('Error:', error);
@@ -179,7 +178,7 @@ try {
   const urlParts = window.location.pathname.split('/');
   const part = urlParts[urlParts.length - 4];
   const completedLessons = user.completedLessons;
-  console.log('CompletedLessons:', completedLessons);
+
 
   let lesson;
   let method = 'POST'; // Default to 'POST'
@@ -188,7 +187,7 @@ try {
   if (completedLessons) {
     // Find the lesson object with the matching lessonId
     lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
-    console.log('Lesson:', lesson);
+   
 
     // If the lesson exists, use 'PUT' method
     if (lesson) {
@@ -196,7 +195,7 @@ try {
     }
   }
 //http://localhost:5173/courses/Algebra%201/Order%20of%20Operations
-  console.log('HTTP method:', method);
+
 
   fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
     method: method, // Use the method determined above
@@ -204,7 +203,7 @@ try {
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Response:', data)
+
     // dispatch(updateUserSuccess(data)) // Dispatch the action with the response data
   })
   .catch(error => console.error('Error:', error));
@@ -221,30 +220,6 @@ try {
     setIndex(0);
   };
 
-  /*const save = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/user/saveQuizState', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          quizId: `${topicId}`, 
-          quizState: harder,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-  
-      
-      navigate(`/courses/${harder.course.courseName}/${harder.topicName}`);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-*/
 
   
 
@@ -259,7 +234,6 @@ try {
     setQuestionsCorrect(false);
     navigate(`/courses/${harder.course.courseName}/${harder.topicName}`);
   }
-  //console.log(harder.harderQuestions[currentQuestionIndex])
   return (
     <>
     <form onSubmit={handleSubmit}>

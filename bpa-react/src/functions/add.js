@@ -30,7 +30,7 @@ export const useFetch = (url, setter) => {
   };
 
 
-  export const fetchData = async (url, method, setFormData, closeCourse, body) => {
+  export const fetchData = async (url, method, setFormData, close, body) => {
     try {
       const res = await fetch(url, {
         method,
@@ -41,7 +41,7 @@ export const useFetch = (url, setter) => {
       });
       const data = await res.json();
       setFormData("");
-      closeCourse();
+      close();
       window.location.reload();
     } catch (error) {
       console.error("Error:", error);
@@ -63,7 +63,7 @@ export const useFetch = (url, setter) => {
             try {
               const token = currentUser._id;
   
-              const response = await fetch('/api/user/award ', {
+              const response = await fetch('https://bpa-api1.onrender.com/api/user/award ', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export const useFetch = (url, setter) => {
               });
   
               if(response.ok){
-                console.log('sucess posting award')
+      
               }
   
               const r = await response.json();

@@ -49,7 +49,6 @@ export default function Dashboard() {
         .then((data) => {
           if (data && data.length > 0) {
             setGetCode(data);
-            console.log(data)
           
             
           } else {
@@ -76,7 +75,6 @@ export default function Dashboard() {
         })
         .then(allStudents => {
           setGetStudents(allStudents);
-          console.log(allStudents);
         })
         .catch(error => console.error('Error:', error));
     }, []);
@@ -136,7 +134,6 @@ export default function Dashboard() {
     getStudents && getStudents.forEach(classItem => {
       classItem.forEach(classItem => {
         classItem.students.forEach(student => {
-         // console.log(student)
           student.completedLessons.forEach(() => {
             completedLessonsCount++;
           });
@@ -160,12 +157,8 @@ export default function Dashboard() {
     };
   
     
-    /*console.log(classWithMostCompleted.map((key,index) => (
-      console.log(c)
-    )))*/
     const notiDropdown = () => {
       setNotiDropdownOpen((prevOpen) => !prevOpen);
-      console.log('noti opened')
     };
   
     const closeNotiDropdown = () => {

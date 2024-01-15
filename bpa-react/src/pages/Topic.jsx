@@ -65,17 +65,17 @@ const lessonId = lessonIds.find(id => id === name.topic_id);
 const lesson1 = user.completedLessons.find(lesson => lesson.lessonId._id === name.topic_id);
 let i;
        const completionPercentages = user.completedLessons.map(lesson => {
-     //  console.log(lesson)
+   
         // Check if the lessonId of the current lesson is equal to topic_id
        if (lessonId === name.topic_id) {
           const totalItems = Object.keys(lesson).length - 2;
-     //     console.log(totalItems)
+
         const completedItems = Object.values(lesson1).filter(value => value === true).length;
-        console.log(completedItems / totalItems  ) 
+     
        i = (completedItems / totalItems) * 100;
        } 
       });
-      console.log(i)
+  
       // Filter out the 0s (the lessons that didn't match topic_id)
      // const filteredCompletionPercentages = completionPercentages.filter(percentage => percentage !== 0);
       
@@ -129,7 +129,7 @@ let i;
           });
 
           if(response.ok){
-            console.log('sucess posting award')
+      
           }
 
           const r = await response.json();
@@ -149,7 +149,9 @@ const imageMapping = {
 const awardmap = {
   straw: straw,
   doffy: doffy,
-  dragon: dragon
+  dragon: dragon,
+  jojo: jojo,
+  fishing: fishing
 
 };
 

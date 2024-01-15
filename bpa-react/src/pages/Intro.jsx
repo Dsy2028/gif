@@ -21,7 +21,7 @@ useEffect(() => {
       let method = 'POST'; 
       if (completedLessons) {
         lesson = completedLessons.find((lesson) => lesson.lessonId === topicId);
-        console.log('Lesson:', lesson);
+  
         if (lesson) {
           method = 'PUT';
         }
@@ -33,7 +33,7 @@ useEffect(() => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log('Response:', data)
+
         // dispatch(updateUserSuccess(data)) 
       })
       .catch(error => console.error('Error:', error));
@@ -54,7 +54,7 @@ useEffect(() => {
       })
       .then((data) => {
         setIntro(data);
-        console.log(data);
+  
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);

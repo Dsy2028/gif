@@ -90,11 +90,11 @@ export default function AdminAdd() {
     courseHeader: formData.courseHeader,
     courses: addItem,
   });
-  const add_course__function = () => fetchData(`https://bpa-api1.onrender.com/api/test/courses/add`, "POST", setFormData(""), close, {
+  const add_course__function = () => fetchData(`https://bpa-api1.onrender.com/api/test/courses/add`, "POST", setFormData, close, {
     courseName: formData.courseName,
     units:addItem
   });
-  const add_unit__function = () => fetchData(`https://bpa-api1.onrender.com/api/units/unit/add`, "POST", setFormData(""), close, {
+  const add_unit__function = () => fetchData(`https://bpa-api1.onrender.com/api/units/unit/add`, "POST", setFormData, close, {
     name: formData.name,
     course: formData.course,
     topics: addItem
@@ -128,7 +128,6 @@ export default function AdminAdd() {
     setAddItem(addItem.filter((item) => item !== course));
   }
  
- //.console.log(formData.courseName)
   return (
     <>
       <div className="p-1 bg-slate-800 min-h-screen">

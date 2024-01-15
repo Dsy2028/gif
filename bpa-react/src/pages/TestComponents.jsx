@@ -21,7 +21,7 @@ export default function TestComponents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/topics/${topicId}/questions/${questionId}`)
+    fetch(`https://bpa-api1.onrender.com/api/topics/${topicId}/questions/${questionId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,9 +29,9 @@ export default function TestComponents() {
         return response.json();
       })
       .then(data => {
-        console.log('Fetched data:', data);
+     
         setQuestion(data);
-        //console.log(data)
+    
       })
       .catch(error => {
         console.error('Error fetching data: ', error);
@@ -109,7 +109,7 @@ export default function TestComponents() {
       return q.selectedOption;
     });
   
-    console.log(`${correct} / ${question.questions.length}`);
+
     setCorrectAnswers(correct);
     setQuestionsCorrect(true);
     const percentageScore = (correct / question.questions.length) * 100;
@@ -136,7 +136,7 @@ export default function TestComponents() {
       }
   
       const data = await response.json();
-      console.log('Success:', data);
+ 
       
     //  navigate(`/courses/${question.course.courseName}/${question.topicName}`);
     } catch (error) {
@@ -147,7 +147,7 @@ export default function TestComponents() {
     try {
      
       const urlParts = window.location.pathname.split('/');
-      console.log(urlParts)
+  
       const part = urlParts[urlParts.length - 4];
       const topicId = [urlParts.length - 3]
       fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
