@@ -48,7 +48,7 @@ export default function Topic() {
 
 useEffect(() => {
   //if (!user) return;
-   fetch(`http://localhost:3000/api/lessons/courses/${courseName}/${lessonName}`)
+   fetch(`https://bpa-api1.onrender.com/api/lessons/courses/${courseName}/${lessonName}`)
      .then((response) => {
        if (!response.ok) {
          throw new Error(`HTTP error! status: ${response.status}`);

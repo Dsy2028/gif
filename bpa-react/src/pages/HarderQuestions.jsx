@@ -198,7 +198,7 @@ try {
 //http://localhost:5173/courses/Algebra%201/Order%20of%20Operations
   console.log('HTTP method:', method);
 
-  fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+  fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
     method: method, // Use the method determined above
     credentials: 'include',
   })

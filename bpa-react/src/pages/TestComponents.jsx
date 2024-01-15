@@ -25,8 +25,8 @@ export default function TestComponents() {
       setLoading(true);
 
       const url = harderQuestionsId
-        ? `http://localhost:3000/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`
-        : `http://localhost:3000/api/topics/${topicId}/questions/${questionId}`;
+        ? `https://bpa-api1.onrender.com/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`
+        : `https://bpa-api1.onrender.com/api/topics/${topicId}/questions/${questionId}`;
 
       try {
         const response = await fetch(url);
