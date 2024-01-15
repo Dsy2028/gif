@@ -54,18 +54,10 @@ export default function DashboardNav() {
       </div>
         </div>
       }
-      <div className='flex flex-col items-start justify-center gap-4 border-b-[2px] border-gray-200 '>
+      <div className='flex flex-col items-start justify-center gap-8 '>
         <Link to={`/dashboard/${currentUser._id}`} className='text-xl font-bold w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
           <i class="fa-solid fa-house mr-2"></i>
           Home
-        </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
-          <i class="fa-solid fa-inbox mr-2"></i>
-          Inbox
-        </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
-          <i class="fa-solid fa-chart-line mr-2"></i>
-          Dashboards
         </Link>
         <Link to={`/classes/${currentUser._id}`} className='text-xl font-bold  w-full cursor-pointer  flex items-center rounded  hover:bg-gray-200 dark:text-white'>
           <i class="fa-solid fa-users mr-2"></i>
@@ -75,21 +67,11 @@ export default function DashboardNav() {
           <i class="fa-regular fa-calendar mr-2"></i>
           Calendar
         </Link>
-      </div>
-      <div className='gap-4 grid'>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
-          <i class="fa-solid fa-book mr-2"></i>
-          Library
-        </Link>
         <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white' to={'/teacher-courses'}>
           <i class="fa-solid fa-book-reader mr-2"></i>
           Courses
         </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
-          <i class="fa-solid fa-clipboard-list mr-2"></i>
-          Chat
-        </Link>
-      </div>
+        </div>
       <div className="border-t-[2px] border-gray-200  w-full justify-between flex items-center">
         <div className='flex items-center hover:bg-gray-200 cursor-pointer' onClick={openInvite}>
           <i class="fa-solid fa-user-plus fa-lg cursor-pointer dark:text-white"></i>

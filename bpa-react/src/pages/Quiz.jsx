@@ -25,7 +25,7 @@ const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/topics/${topicId}/quiz`)
+    fetch(`https://bpa-api1.onrender.com/api/topics/${topicId}/quiz`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -121,7 +121,7 @@ const dispatch = useDispatch();
     //  dispatch(updateUserStart());
       setLoading(true);
       // Send the answers to the server
-      const response = await fetch('http://localhost:3000/api/user/updateQuizResults', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/user/updateQuizResults', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ const dispatch = useDispatch();
     
       console.log('HTTP method:', method);
     
-      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+      fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
         method: method, // Use the method determined above
         credentials: 'include',
       })

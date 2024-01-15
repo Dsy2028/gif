@@ -14,7 +14,7 @@ router.get('/:topicId/quiz', async (req, res) => {
         path: 'quiz.quizQuestions',
         model: 'questions', 
         select: 'questionText options correctOption',
-      }).select('course quiz topicName').lean();
+      }).select('course quiz topicName harderQuestions questions').lean();
   
   
       

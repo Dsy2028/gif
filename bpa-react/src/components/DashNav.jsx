@@ -97,59 +97,11 @@ export default function DashNav() {
     }
     <div className="flex w-full h-14 justify-between items-center p-5 ">
     <h1 className='poppins dark:text-white'>{getPageName()}</h1>
-    <div className="flex items-center  justify-evenly w-400">
-      <div className="search w-48 ">
-        <input
-          id="search"
-          autoCapitalize="none"
-          autoComplete="off"
-          autoCorrect="off"
-          type="text"
-          spellCheck="false"
-          placeholder="Search"
-          className="w-48"
-        />
-        <div className="search-icon">
-          <button>
-            <i className="fa-solid fa-magnifying-glass " />
-          </button>
-        </div>
+    <div className="flex items-center  justify-evenly w-[10rem] ">
+      <div className='flex '>
+        <Switch onChange={handleDarkModeToggle} checked={darkMode} offColor="#bbbbbb" onHandleColor="#6c28d9" offHandleColor="#FFBF00" height={20} width={48} handleDiameter={18} onColor="#1f1b24" uncheckedIcon={false} checkedIcon={false} />
       </div>
-        <div className="relative ">
-      <i className="fa-regular fa-bell ml-4 fa-xl cursor-pointer dark:text-white" onClick={notiDropdown}></i>
-      {notiDropdownOpen && (
-        <div
-          className="absolute h-44 w-28 mt-2 z-50 bg-black p-2 rounded-lg shadow"
-        >
-          <ul className="flex flex-col">
-            <li className="text-gray-400 text-sm">Notifications</li>
-            <li className="text-gray-400 text-sm">Messages</li>
-            <li className="text-gray-400 text-sm">Events</li>
-            <li className="text-gray-400 text-sm">Help</li>
-          </ul>
-        </div>
-      )}
-      </div>
-      <i class="fa-solid fa-gear fa-xl cursor-pointer dark:text-white" onClick={openSetting}></i>
       <TeacherDropdown/>
-      {settingDropdownOpen && 
-      <div className="fixed setting  h-screen w-48 bg-white border-[2px]  border-gray-200  right-0 z-50 top-0 p-2">
-        <div className="flex justify-end  h-8 items-center">
-        <i class="fa-solid fa-x cursor-pointer fa-xl" onClick={closedSetting}></i>
-        </div>
-        <h1 className='text-center mt-3 mb-3 text-xl'>Toggle Mode</h1>
-        <div className='flex items-center justify-center'>
-        <i class="fa-solid fa-sun fa-xl mr-2 text-amber-300"></i>
-        <div className='flex '>
-        <Switch onChange={handleDarkModeToggle} checked={darkMode} offColor="#bbbbbb" onHandleColor="#121212" offHandleColor="#FFBF00"  height={20} width={48} handleDiameter={18}  onColor="#1f1b24"  uncheckedIcon={false}  checkedIcon={false} />
-        </div>
-        <i class="fa-solid fa-moon fa-xl ml-2 text-violet-700"></i>
-          </div>
-          <div className="flex flex-col mt-3">
-            <h1 className="text-center text-xl">Toggle Layout</h1>
-          </div>
-        </div>
-      }
     </div>
   </div>
   </>

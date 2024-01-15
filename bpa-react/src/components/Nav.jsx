@@ -15,7 +15,7 @@ export default function Nav() {
   // const {currentUser} = useSelector(state => state.user)
   const [formData, setFormData] = useState({});
   const { currentUser } = useSelector(state => {
-    //  console.log(state.user.currentUser); // Log the currentUser
+     console.log(state.user.currentUser); // Log the currentUser
     return state.user;
   });
   const [join, setJoin] = useState(false);
@@ -270,7 +270,6 @@ export default function Nav() {
             <Link to={"/"}><img src={logo} className="logo" alt="Logo" /></Link>
             <ul className="nav-links nav-links2">
               <Link to={"/courses"}><li className='nav-li'>Courses</li></Link>
-              <li className='nav-li'>Teachers</li>
               <Link to={"/sign-up"}><li className='nav-li'>Sign Up</li></Link>
             </ul>
             <Link className="" to={'/log-in'}>

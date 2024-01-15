@@ -24,7 +24,7 @@ export default function HarderQuestions() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch(`https://bpa-api1.onrender.com/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`)
+    fetch(`/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -259,7 +259,7 @@ try {
     setQuestionsCorrect(false);
     navigate(`/courses/${harder.course.courseName}/${harder.topicName}`);
   }
-  console.log(harder.harderQuestions[currentQuestionIndex])
+  //console.log(harder.harderQuestions[currentQuestionIndex])
   return (
     <>
     <form onSubmit={handleSubmit}>

@@ -15,7 +15,6 @@ import dark_flat from "../imgs/flat-mountains-dark.svg"
 import dark_snow from "../imgs/confetti-doodles-dark.svg"
 import { useSelector } from "react-redux";
 import fetchUser from "../components/fetchUser";
-import { useAward } from "../functions/add";
 
 export default function Topic() {
   const { courseName, lessonName } = useParams();
@@ -34,16 +33,6 @@ export default function Topic() {
   const [completionActionPerformed, setCompletionActionPerformed] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(window.localStorage.getItem('darkMode') === 'true');
 
-  const lessonI = name.topic_id; // replace with the ID of the current lesson
-  const isLessonCompleted = user.completedLessons.find((lesson) => lesson.lessonId === lessonI)
-  
-  const completePart = isLessonCompleted.completed
-  const splitter = award.split('/');
-  const path = splitter[splitter.length - 1];
-  const name1 = path.split('.')
-  const gname =  name1[name1.length - 2]
-
-  useAward(progress, user, name, award, currentUser, gname);
 
 
   
@@ -106,6 +95,52 @@ let i;
      });
  }, [lessonName, user]);
 
+ useEffect(() => {
+  if(progress === 100){
+    const lessonI = name.topic_id; // replace with the ID of the current lesson
+    const isLessonCompleted = user.completedLessons.find((lesson) => lesson.lessonId === lessonI)
+    
+    const completePart = isLessonCompleted.completed
+    const splitter = award.split('/');
+    const path = splitter[splitter.length - 1];
+    const name1 = path.split('.')
+    const gname =  name1[name1.length - 2]
+    const hasReceivedAward = user.awards.some(award => award.lessonId === lessonI && award.award === gname);
+   
+    if (completePart === true && !hasReceivedAward) {
+      const posAward = async ()  => {
+        try {
+          const token = currentUser._id;
+          const splitter = award.split('/');
+          const path = splitter[splitter.length - 1];
+          const name = path.split('.')
+          const gname =  name[name.length - 2]
+
+          const response = await fetch('https://bpa-api1.onrender.com/api/user/award ', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              lessonId: lessonI,
+              award: gname
+            })
+          });
+
+          if(response.ok){
+            console.log('sucess posting award')
+          }
+
+          const r = await response.json();
+        } catch (error) {
+          console.error('error posting award',error);
+        }
+      }
+      posAward();
+    }
+  }
+},[progress, user, name])
 
 const imageMapping = {
   math: math

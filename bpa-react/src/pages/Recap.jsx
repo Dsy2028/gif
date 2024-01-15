@@ -3,6 +3,7 @@ import fetchUser from "../components/fetchUser";
 import { useState, useEffect} from 'react'
 import { useParams, useLocation, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import construction from '../imgs/construction.png';
 
 export default function Recap() {
     const { currentUser,  error } = useSelector((state) => state.user);
@@ -93,6 +94,8 @@ useEffect(() => {
       });
   }, []);
   return (
-    <div>Recap</div>
+    <div className="flex items-center justify-center">
+      <img src={construction} className="w-[35rem]"></img>
+    </div>
   )
 }

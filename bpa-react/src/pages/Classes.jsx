@@ -129,7 +129,7 @@ const selCourse = async  (courseId) =>{
       console.error('Class ID is not defined');
       return;
     }
-    const response = await fetch('/api/classes/classCourse', {
+    const response = await fetch('https://bpa-api1.onrender.com/api/classes/classCourse', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ console.log(getCode)
             console.error('Class ID is not defined');
             return;
           }
-          const response = await fetch('/api/classes/className', {
+          const response = await fetch('https://bpa-api1.onrender.com/api/classes/className', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -212,7 +212,7 @@ console.log(getCode)
 
       const deleteClassName = async (classCodeToDelete) => {
         try {
-          const response = await fetch('/api/classes/delete', {
+          const response = await fetch('https://bpa-api1.onrender.com/api/classes/delete', {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

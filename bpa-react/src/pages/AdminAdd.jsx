@@ -62,6 +62,7 @@ export default function AdminAdd() {
     setAddCourse(false);
     setAddCour(false);
     setAddUnit(false);
+    setAddLesson(false);
     setAddItem([]);
     setFormData("");
   };
@@ -572,34 +573,63 @@ export default function AdminAdd() {
           </div>
           )
           }
-          {addUnit && units && (
+          {addLesson && lessons && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
-              <div className="bg-white rounded p-2 ">
+              <div className="bg-white rounded p-2  " style={{ maxHeight: '600px', overflowY: 'auto' }}>
                 <div className="flex items-center justify-between mb-4">
-                  <h1 className="nunito font-semibold text-xl">Add A Unit</h1>
+                  <h1 className="nunito font-semibold text-xl">Add A Lesson</h1>
                   <i class="fa-solid fa-xmark fa-xl" onClick={close}></i>
                 </div>
-                <div className="flex gap-4">
-                  <input
-                    type="text"
-                    id="name"
-                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
-                    placeholder="Course Name"
-                    onChange={handleChange}
-                  ></input>
-                  <input
-                    type="text"
-                    id="course"
-                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
-                    placeholder="Course"
-                    onChange={handleChange}
-                  ></input>
-                  <input
-                    type="text"
-                    className="border-[1px] p-2  focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
-                    placeholder="topics"
-                    onKeyDown={handleInputChange}
-                  />
+                <div className="flex flex-col gap-4">
+                <h1>Edit Name </h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonName"
+                  onChange={handleChange}
+                />
+                <h1>Edit Course Name</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonCourseName"
+                  onChange={handleChange}
+                />
+                 <h1>Edit Description</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonCourseName"
+                  onChange={handleChange}
+                />
+                <h1>Image</h1>
+                <label className="flex gap-2">
+                <input type="radio" name="math" value="math"></input>
+                Math
+                </label>
+                <label className="flex gap-2">
+                <input type="radio" name="math" value="math"></input>
+                Straw
+                </label>
+                <label className="flex gap-2">
+                <input type="radio" name="math" value="math"></input>
+                Dragon
+                </label>
+                <label className="flex gap-2">
+                <input type="radio" name="math" value="math"></input>
+                Fishing Rod
+                </label>
+                <h1>Completion</h1>
+                <input type="radio"></input>
+                <input type="radio"></input>
+                <input type="radio"></input>
+                <input type="radio"></input>
+                <h1>Add Units</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
                 </div>
                 <div className="mt-4 flex flex-col ">
                   <h1 className="text-xl">
@@ -898,7 +928,7 @@ export default function AdminAdd() {
               <h1>Add Lesson</h1>
               <i
                     class="fa-solid fa-plus fa-xl text-white cursor-pointer"
-                    onClick={() => addLesson(true)}
+                    onClick={() => setAddLesson(true)}
                   ></i>
             </div>
           </div>
@@ -922,7 +952,7 @@ export default function AdminAdd() {
               <h1>Add Topic</h1>
               <i
                     class="fa-solid fa-plus fa-xl text-white cursor-pointer"
-                    onClick={() => addLesson(true)}
+                    onClick={() => addTopic(true)}
                   ></i>
             </div>
           </div>

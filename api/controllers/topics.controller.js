@@ -5,21 +5,25 @@ import mongoose from 'mongoose';
 
 export const getTopicWithQuestion = async (req, res) => {
   try {
-    const { topicId, questionId } = req.params;
+    const { topicId} = req.params;
+    console.log('bang',topicId)
 
     const result = await topics.findOne({
       _id: topicId,
-      $or: [
-        { 'questions._id': questionId },
-      ],
-    }).lean();
+    }).populate({
+      path: 'questions',
+      model: 'questions', 
+      select: 'questionText options correctOption',
+    }).select('course quiz topicName harderQuestions questions').lean();
+    console.log(result)
+
     if (!result) {
-      return res.status(404).json({ message: 'Topic or question not found' });
+      return res.status(404).json({ message: 'question not found' });
     }
 
     res.json(result);
   } catch (error) {
-    console.error('Error fetching topic with question:', error);
+    console.error('Error fetching harder question:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -28,10 +32,12 @@ export const getTopicWithQuestion = async (req, res) => {
 export const getHarderQuestion = async (req, res) => {
   try {
     const { topicId, harderQuestionsId } = req.params;
+    console.log(topicId)
 
     const result = await topics.findOne({
       _id: topicId,
     }).populate('harderQuestions', 'questionText options correctOption')
+    console.log(result)
 
     if (!result) {
       return res.status(404).json({ message: 'Harder question not found' });

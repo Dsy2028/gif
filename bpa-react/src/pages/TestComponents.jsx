@@ -21,33 +21,23 @@ export default function TestComponents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchQuestion = async () => {
-      setLoading(true);
-
-      const url = harderQuestionsId
-        ? `https://bpa-api1.onrender.com/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`
-        : `https://bpa-api1.onrender.com/api/topics/${topicId}/questions/${questionId}`;
-
-      try {
-        const response = await fetch(url);
+    fetch(`/api/topics/${topicId}/questions/${questionId}`)
+      .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
-        const data = await response.json();
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data);
         setQuestion(data);
-        setharderQuestion(data.harderQuestions);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+        //console.log(data)
+      })
+      .catch(error => {
+        console.error('Error fetching data: ', error);
+      });
+  }, []);
 
-  
-    fetchQuestion();
-  
-  }, [topicName]);
 
   const handleNext = (event) => {
     event.preventDefault();
@@ -89,11 +79,14 @@ export default function TestComponents() {
     );
   }
   const handleOptionChange = (selectedOption) => {
-    const updatedQuestion = { ...question };
-    updatedQuestion.questions[currentQuestionIndex].selectedOption =
-      selectedOption;
-    setQuestion(updatedQuestion);
+    if (question && question.questions[currentQuestionIndex]) {
+      const updatedQuestion = { ...question };
+      updatedQuestion.questions[currentQuestionIndex].selectedOption =
+        selectedOption;
+      setQuestion(updatedQuestion); 
+    }
   };
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -125,7 +118,7 @@ export default function TestComponents() {
     try {
       setLoading(true);
       // Send the answers to the server
-      const response = await fetch('http://localhost:3000/api/user/updateQuizResults', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/user/updateQuizResults', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -157,7 +150,7 @@ export default function TestComponents() {
       console.log(urlParts)
       const part = urlParts[urlParts.length - 4];
       const topicId = [urlParts.length - 3]
-      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+      fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
         method: 'POST',
         credentials: 'include',
       })
@@ -252,7 +245,7 @@ export default function TestComponents() {
       </button>
     </div>
     <h1 className="text-lg">Question {currentQuestionIndex + 1}</h1>
-    <h1 className="text-xl">
+    <h1 className="text-xl ">
       {question.questions[currentQuestionIndex].questionText}
     </h1>
     {question.questions[currentQuestionIndex].type === "input" ? (

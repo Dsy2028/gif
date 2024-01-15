@@ -25,6 +25,7 @@ export default function Dashboard() {
     const [getCode, setGetCode] = useState(0);
     const [chartData, setChartData] = useState({});
     const [classWithMostCompleted, setClassWithMostCompleted] = useState(null);
+    const [missingAssignments, setMissingAssignments] = useState(null);
     ChartJS.register(...registerables);
     useEffect(() => {
      
@@ -113,7 +114,7 @@ export default function Dashboard() {
     
     useEffect(() => {
       let missingAssignmentsCount = 0;
-      
+      let courseAssignments;
       getStudents && getStudents.forEach(classItem => {
         
         classItem.forEach(classItem => {
@@ -121,16 +122,15 @@ export default function Dashboard() {
           classItem.students.forEach(student => {
             student.classes.forEach(course => {
               // Assuming courseAssignments is an object that maps courses to assignments
-              const courseAssignments = courseAssignments[course];
+             // const courseAssignments = courseAssignments[course];
               const completedAssignments = student.completed.map(item => item.assignment[0].$oid);
-              const missingAssignments = courseAssignments.filter(assignment => !completedAssignments.includes(assignment));
-              missingAssignmentsCount += missingAssignments.length;
+              const missingAssignments = 0;
+
+              setMissingAssignments(missingAssignments);
             });
           });
         });
       });
-    
-      // Now you can use missingAssignmentsCount in your component state or wherever you need it
     }, [getStudents]);
     let completedLessonsCount = 0;
     getStudents && getStudents.forEach(classItem => {

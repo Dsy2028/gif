@@ -27,7 +27,7 @@ useEffect(() => {
         }
       }
       
-      fetch(`http://localhost:3000/api/user/${topicId}/${part}`, {
+      fetch(`https://bpa-api1.onrender.com/api/user/${topicId}/${part}`, {
         method: method, 
         credentials: 'include',
       })
@@ -45,7 +45,7 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/intros/intro/${topicId}/${introId}`)
+    fetch(`https://bpa-api1.onrender.com/api/intros/intro/${topicId}/${introId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -73,7 +73,7 @@ useEffect(() => {
             <h1 className="font-semibold nunito text-2xl text-center mb-2">{section.title}</h1>
             <div className="flex gap-4">
             {section.content.map((paragraph, i) => (
-                <div className="flex  flex-row border-[2px] rounded p-1">
+                <div className="flex  flex-row border-[2px] rounded p-1 dark:border-none">
                     <p className="dark:text-slate-300" key={i}>{paragraph}</p>
                 </div>
          ))}
