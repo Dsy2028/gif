@@ -49,7 +49,7 @@ export default function TeacherProfile() {
           setFile(undefined);
           setFilePerc(0);
           
-          fetch(`http://localhost:3000/api/user/update/${currentUser._id}`, {
+          fetch(`https://bpa-api1.onrender.com/api/user/update/${currentUser._id}`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -103,7 +103,7 @@ export default function TeacherProfile() {
     }
       try {
         dispatch(deleteUserStart());
-        const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        const res = await fetch(`https://bpa-api1.onrender.com/api/user/delete/${currentUser._id}`, {
           method: 'DELETE',
         });
         const data = await res.json();
@@ -123,7 +123,7 @@ export default function TeacherProfile() {
     const update = async () => {
       try {
         dispatch(updateUserStart());
-        const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        const res = await fetch(`https://bpa-api1.onrender.com/api/user/update/${currentUser._id}`, {
           method: 'POST',
           credentials: 'include',
           headers: {

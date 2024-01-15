@@ -15,7 +15,7 @@ export default function AdminAdd() {
   const [editCourses, setEditCourse] = useState(null);
   const [getCourse, setGetCourse] = useState(null);
   const [add_course, setAddCourse] = useState(false);
-  const [addCourses, setaddCourses] = useState([]);
+  const [addItem, setAddItem] = useState([]);
   const [formData, setFormData] = useState({});
   const [units, setUnits] = useState(null);
   const [lessons, setLessons] = useState(null);
@@ -28,60 +28,106 @@ export default function AdminAdd() {
   const [getTopic, setGetTopic] = useState(null);
   const [editTopic, setEditTopics] = useState(false);
   const [addCour, setAddCour] = useState(false);
+  const [addUnit, setAddUnit] = useState(false);
   const [addQuestion, setAddQuestion] = useState(false);
   const [addLesson, setAddLesson] = useState(false);
   const[editCou, setEditCour] = useState(false);
-  useFetch(`http://localhost:3000/api/courseheader/courses`, setCourse);
-  useFetch(`http://localhost:3000/api/units/unit/getUnits`, setUnits);
-  useFetch(`http://localhost:3000/api/lessons/getAllLessons`, setLessons);
-  useFetch(`http://localhost:3000/api/topics/getAllTopics`, setTopics);
-  useFetch(`http://localhost:3000/api/questions/getAllQuestions`, setQuestions);
+  const[getCou, setGetCour] = useState(null);
+  useFetch(`https://bpa-api1.onrender.com/api/courseheader/courses`, setCourse);
+  useFetch(`https://bpa-api1.onrender.com/api/units/unit/getUnits`, setUnits);
+  useFetch(`https://bpa-api1.onrender.com/api/lessons/getAllLessons`, setLessons);
+  useFetch(`https://bpa-api1.onrender.com/api/topics/getAllTopics`, setTopics);
+  useFetch(`https://bpa-api1.onrender.com/api/questions/getAllQuestions`, setQuestions);
   const editCourse = createEditFunction(setEditCourse, setGetCourse);
-  const editCour = createEditFunction(setEditCour, setGetCourse);
+  const editCour = createEditFunction(setEditCour, setGetCour);
+  
   
   const closeEditCourse = createCloseFunction(setEditCourse, setGetCourse, setFormData);
+  const closeEditCour = createCloseFunction(setEditCour, setGetCour, setFormData);
+  const closeEditUnit = createCloseFunction(setEditUnits, setGetUnit, setFormData);
   const editLessons =  createEditFunction(setEditLessons,setGetLesson)
   const editUnits =  createEditFunction(setEditUnits,setGetUnit)
   const editTopics =  createEditFunction(setEditTopics,setGetTopic)
-  const addCourse = () => {
+  const closeEditTopics = createCloseFunction(setEditTopics, setGetTopic, setFormData);
+  const addCourseHeader = () => {
     setAddCourse(true);
   };
-  const closeCourse = () => {
+  const addCourse = () => {
+    setAddCour(true);
+  }
+  const unitAdd = () => {
+    setAddUnit(true);
+  }
+  const close = () => {
     setAddCourse(false);
     setAddCour(false);
-    setaddCourses([]);
+    setAddUnit(false);
+    setAddItem([]);
     setFormData("");
   };
 
   const handleInputChange = (e) => {
     if (e.key === "Enter") {
-      setaddCourses([...addCourses, e.target.value]);
+      setAddItem([...addItem, e.target.value]);
       e.target.value = "";
     }
   };
-
+  /*const handleInputChange = (e) => {
+    if (e.key === "Enter") {
+      setAddItem(prevState => ({
+        ...prevState,
+        [e.target.id]: [...prevState[e.target.id] || [], e.target.value]
+      }));
+      e.target.value = "";
+    }
+  };*/
   
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  const add_course_header_function = () => fetchData(`/api/courseheader/courses/add`, "POST", {
+  const add_course_header_function = () => fetchData(`https://bpa-api1.onrender.com/api/courseheader/courses/add`, "POST", {
     courseHeader: formData.courseHeader,
-    courses: addCourses,
+    courses: addItem,
   });
-  const add_course__function = () => fetchData(`/api/test/courses/add`, "POST", setFormData, closeCourse, {
+  const add_course__function = () => fetchData(`https://bpa-api1.onrender.com/api/test/courses/add`, "POST", setFormData(""), close, {
     courseName: formData.courseName,
-    units:addCourses
+    units:addItem
   });
-  const updateCourse = (courseId) => fetchData(`/api/courseheader/courses/edit`, "POST", {
+  const add_unit__function = () => fetchData(`https://bpa-api1.onrender.com/api/units/unit/add`, "POST", setFormData(""), close, {
+    name: formData.name,
+    course: formData.course,
+    topics: addItem
+  });
+  const updateCourseHeader = (courseId) => fetchData(`https://bpa-api1.onrender.com/api/courseheader/courses/edit`, "POST",setFormData(""), close, {
     courseId: courseId,
-          courseHeader: formData.courseHead,
-          courses: addCourses
+          courseHeader: formData.courseHeader,
+          courses: addItem
+  });
+
+  const updateCourse = (courseId) => fetchData(`https://bpa-api1.onrender.com/api/test/courses/edit`, "POST",setFormData(), close(), {
+    courseId: courseId,
+          courseName: formData.courseName,
+          units: addItem
   });
  
-  const deleteCourses = (courseId, coursesId) => fetchData(`/api/courseheader/courses/delete`, "DELETE", {
+  const deleteCourses = (courseId, coursesId) => fetchData(`https://bpa-api1.onrender.com/api/courseheader/courses/delete`, "DELETE", {
     courseId: courseId, course: coursesId
   });
+  const deleteCourseHeader = (itemId) => fetchData(`https://bpa-api1.onrender.com/api/courseheader/delete`, "DELETE",setFormData(), close(), {
+    courseId: itemId
+  });
+  const deleteCourse = (itemId) => fetchData(`https://bpa-api1.onrender.com/api/test/delete`, "DELETE",setFormData(), close(), {
+    courseId: itemId
+  });
+  const deleteUnit = (itemId) => fetchData(`https://bpa-api1.onrender.com/api/units/delete`, "DELETE",setFormData(), close(), {
+    unitId: itemId
+  });
+
+  const removeAdd =  (course) => {
+    setAddItem(addItem.filter((item) => item !== course));
+  }
  
+ //.console.log(formData.courseName)
   return (
     <>
       <div className="p-1 bg-slate-800 min-h-screen">
@@ -93,6 +139,7 @@ export default function AdminAdd() {
         </div>
         <div className="flex mt-3 flex-col">
           <AdminDashboardNav />
+          {/**Course Header */}
           {editCourses && getCourse && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
               <div className="bg-white rounded p-3">
@@ -110,7 +157,7 @@ export default function AdminAdd() {
                   <input
                     type="text"
                     className="border-[1px] mb-3"
-                    id="courseHead"
+                    id="courseHeader"
                     onChange={handleChange}
                   />
                   <h1>Add Courses</h1>
@@ -121,17 +168,18 @@ export default function AdminAdd() {
                   />
                   <div className="mt-4 flex flex-col ">
                     <h1 className="text-xl font-semibold nunito">
-                      {addCourses && addCourses.length >= 1
+                      {addItem && addItem.length >= 1
                         ? `Courses Being Added`
                         : ""}
                     </h1>
                     <div className=" w-full flex-wrap gap-3">
-                      {addCourses &&
-                        addCourses.map((course, index) => (
-                          <div key={index}>
-                            <span className="bg-fuchsia-600 text-white px-2 rounded">
-                              {course}{" "}
+                      {addItem &&
+                        addItem.map((course, index) => (
+                          <div key={index} className="bg-fuchsia-600 text-white px-2 rounded flex items-center justify-between mt-1">
+                            <span className="">
+                              {course}
                             </span>
+                            <i class="fa-solid fa-xmark" onClick={() => removeAdd(course)}></i>
                           </div>
                         ))}
                     </div>
@@ -155,9 +203,10 @@ export default function AdminAdd() {
                       </div>
                     ))}
                   </span>
+                  <button className="mt-5 w-full text-white bg-red-600 rounded" onClick={() => deleteCourseHeader(getCourse._id)}>Delete Course Header</button>
                   <button
                     className="mt-5 w-full text-white bg-fuchsia-600 rounded"
-                    onClick={() => updateCourse(getCourse._id)}
+                    onClick={() => updateCourseHeader(getCourse._id)}
                   >
                     Update Course
                   </button>
@@ -165,12 +214,89 @@ export default function AdminAdd() {
               </div>
             </div>
           )}
+          {/**Course Header  ENd*/}
+          {/**Courses */}
+          {editCou && getCou && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+            <div className="bg-white rounded p-3">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl nunito font-semibold">
+                  Edit: {getCou.courseName}
+                </h1>
+                <i
+                  class="fa-solid fa-xmark fa-xl cursor-pointer"
+                  onClick={closeEditCour}
+                ></i>
+              </div>
+              <div className="flex flex-col">
+                <h1>Edit Course Name </h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="courseName"
+                  onChange={handleChange}
+                />
+                <h1>Add Units</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl font-semibold nunito">
+                    {addItem && addItem.length >= 1
+                      ? `Courses Being Added`
+                      : ""}
+                  </h1>
+                  <div className=" w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index} className="bg-fuchsia-600 text-white px-2 rounded flex items-center justify-between mt-1">
+                            <span className="">
+                              {course}
+                            </span>
+                            <i class="fa-solid fa-xmark" onClick={() => removeAdd(course)}></i>
+                          </div>
+                      ))}
+                  </div>
+                </div>
+                <h1 className="font-semibold text-xl nunito mt-3">
+                  Delete Courses
+                </h1>
+                <span>
+                  {getCou && getCou.units.map((units, index) => (
+                    <div
+                      key={index}
+                      className=" flex items-center justify-between"
+                    >
+                      <span>{units.name}</span>
+                      <i
+                        class="fa-solid fa-trash-can"
+                        onClick={() =>
+                          deleteCourses(getCou._id, units._id)
+                        }
+                      ></i>
+                    </div>
+                  ))}
+                </span>
+                <button className="mt-5 w-full text-white bg-red-600 rounded" onClick={() => deleteCourse(getCou._id)}>Delete Course Header</button>
+                <button
+                  className="mt-5 w-full text-white bg-fuchsia-600 rounded"
+                  onClick={() => updateCourse(getCou._id)}
+                >
+                  Update Course
+                </button>
+              </div>
+            </div>
+          </div>
+          )
+          }
           {addCour && course && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
               <div className="bg-white rounded p-2 ">
                 <div className="flex items-center justify-between mb-4">
                   <h1 className="nunito font-semibold text-xl">Add A Course</h1>
-                  <i class="fa-solid fa-xmark fa-xl" onClick={closeCourse}></i>
+                  <i class="fa-solid fa-xmark fa-xl" onClick={close}></i>
                 </div>
                 <div className="flex gap-4">
                   <input
@@ -189,18 +315,19 @@ export default function AdminAdd() {
                 </div>
                 <div className="mt-4 flex flex-col ">
                   <h1 className="text-xl">
-                    {addCourses && addCourses.length >= 1
+                    {addItem && addItem.length >= 1
                       ? `Units Being Added`
                       : ""}
                   </h1>
                   <div className="flex w-full flex-wrap gap-3">
-                    {addCourses &&
-                      addCourses.map((course, index) => (
-                        <div key={index}>
-                          <span className="bg-fuchsia-600 text-white px-2 rounded">
-                            {course}{" "}
-                          </span>
-                        </div>
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index} className="bg-fuchsia-600 text-white px-2 rounded flex items-center justify-between mt-1">
+                            <span className="">
+                              {course}
+                            </span>
+                            <i class="fa-solid fa-xmark" onClick={() => removeAdd(course)}></i>
+                          </div>
                       ))}
                   </div>
                 </div>
@@ -216,6 +343,401 @@ export default function AdminAdd() {
             </div>
 
           )}
+          {/**Courses End */}
+          {/**Units Start */}
+          {editUnit && getUnit && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+            <div className="bg-white rounded p-3">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl nunito font-semibold">
+                  Edit: {getUnit.name}
+                </h1>
+                <i
+                  class="fa-solid fa-xmark fa-xl cursor-pointer"
+                  onClick={closeEditUnit}
+                ></i>
+              </div>
+              <div className="flex flex-col">
+                <h1>Edit UnitName </h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="unitName"
+                  onChange={handleChange}
+                />
+                <h1>Add Units</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl font-semibold nunito">
+                    {addItem && addItem.length >= 1
+                      ? `Courses Being Added`
+                      : ""}
+                  </h1>
+                  <div className=" w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index}>
+                          <span className="bg-fuchsia-600 text-white px-2 rounded">
+                            {course}{" "}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <h1 className="font-semibold text-xl nunito mt-3">
+                  Delete Courses
+                </h1>
+                <span>
+                  {getUnit && getUnit.topics.map((topics, index) => (
+                    <div
+                      key={index}
+                      className=" flex items-center justify-between"
+                    >
+                      <span>{topics.topicName}</span>
+                      <i
+                        class="fa-solid fa-trash-can"
+                        onClick={() =>
+                          deleteCourses(getUnit._id, topics._id)
+                        }
+                      ></i>
+                    </div>
+                  ))}
+                </span>
+                <button className="mt-5 w-full text-white bg-red-600 rounded" onClick={() => deleteUnit(getUnit._id)}>Delete Unit</button>
+                <button
+                  className="mt-5 w-full text-white bg-fuchsia-600 rounded"
+                  onClick={() => updateCourse(getUnit._id)}
+                >
+                  Update Course
+                </button>
+              </div>
+            </div>
+          </div>
+          )
+          }
+          {addUnit && units && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+              <div className="bg-white rounded p-2 ">
+                <div className="flex items-center justify-between mb-4">
+                  <h1 className="nunito font-semibold text-xl">Add A Unit</h1>
+                  <i class="fa-solid fa-xmark fa-xl" onClick={close}></i>
+                </div>
+                <div className="flex gap-4">
+                  <input
+                    type="text"
+                    id="name"
+                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Course Name"
+                    onChange={handleChange}
+                  ></input>
+                  <input
+                    type="text"
+                    id="course"
+                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Course"
+                    onChange={handleChange}
+                  ></input>
+                  <input
+                    type="text"
+                    className="border-[1px] p-2  focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="topics"
+                    onKeyDown={handleInputChange}
+                  />
+                </div>
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl">
+                    {addItem && addItem.length >= 1
+                      ? `Units Being Added`
+                      : ""}
+                  </h1>
+                  <div className="flex w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index} className="bg-fuchsia-600 text-white px-2 rounded flex items-center justify-between mt-1">
+                            <span className="">
+                              {course}
+                            </span>
+                            <i class="fa-solid fa-xmark" onClick={() => removeAdd(course)}></i>
+                          </div>
+                      ))}
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    className="w-fit bg-fuchsia-600 text-white px-5 rounded"
+                    onClick={() => add_unit__function()}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          )}
+          {/**Units End */}
+          {/**Lesson start */}
+          {editLesson && getLesson && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+            <div className="bg-white rounded p-3">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl nunito font-semibold">
+                  Edit: {getLesson.lessonName}
+                </h1>
+                <i
+                  class="fa-solid fa-xmark fa-xl cursor-pointer"
+                  onClick={closeEditUnit}
+                ></i>
+              </div>
+              <div className="flex flex-col">
+                <h1>Edit Name </h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonName"
+                  onChange={handleChange}
+                />
+                <h1>Edit Course Name</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonCourseName"
+                  onChange={handleChange}
+                />
+                 <h1>Edit Description</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="lessonCourseName"
+                  onChange={handleChange}
+                />
+                <h1>Image</h1>
+                <input type="radio"></input>
+                <h1>Completion</h1>
+                <input type="radio"></input>
+                <h1>Add Units</h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl font-semibold nunito">
+                    {addItem && addItem.length >= 1
+                      ? `Courses Being Added`
+                      : ""}
+                  </h1>
+                  <div className=" w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index}>
+                          <span className="bg-fuchsia-600 text-white px-2 rounded">
+                            {course}{" "}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <h1 className="font-semibold text-xl nunito mt-3">
+                  Delete Courses
+                </h1>
+                <span>
+                  {getUnit && getUnit.topics.map((topics, index) => (
+                    <div
+                      key={index}
+                      className=" flex items-center justify-between"
+                    >
+                      <span>{topics.topicName}</span>
+                      <i
+                        class="fa-solid fa-trash-can"
+                        onClick={() =>
+                          deleteCourses(getUnit._id, topics._id)
+                        }
+                      ></i>
+                    </div>
+                  ))}
+                </span>
+                <button className="mt-5 w-full text-white bg-red-600 rounded">Delete Unit</button>
+                <button
+                  className="mt-5 w-full text-white bg-fuchsia-600 rounded"
+                  onClick={() => updateCourse(getUnit._id)}
+                >
+                  Update Course
+                </button>
+              </div>
+            </div>
+          </div>
+          )
+          }
+          {addUnit && units && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+              <div className="bg-white rounded p-2 ">
+                <div className="flex items-center justify-between mb-4">
+                  <h1 className="nunito font-semibold text-xl">Add A Unit</h1>
+                  <i class="fa-solid fa-xmark fa-xl" onClick={close}></i>
+                </div>
+                <div className="flex gap-4">
+                  <input
+                    type="text"
+                    id="name"
+                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Course Name"
+                    onChange={handleChange}
+                  ></input>
+                  <input
+                    type="text"
+                    id="course"
+                    className="border-[1px] p-2 focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="Course"
+                    onChange={handleChange}
+                  ></input>
+                  <input
+                    type="text"
+                    className="border-[1px] p-2  focus:outline-[1px] focus:outline-fuchsia-600 focus:shadow-sm focus:shadow-fuchsia-600"
+                    placeholder="topics"
+                    onKeyDown={handleInputChange}
+                  />
+                </div>
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl">
+                    {addItem && addItem.length >= 1
+                      ? `Units Being Added`
+                      : ""}
+                  </h1>
+                  <div className="flex w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index} className="bg-fuchsia-600 text-white px-2 rounded flex items-center justify-between mt-1">
+                            <span className="">
+                              {course}
+                            </span>
+                            <i class="fa-solid fa-xmark" onClick={() => removeAdd(course)}></i>
+                          </div>
+                      ))}
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    className="w-fit bg-fuchsia-600 text-white px-5 rounded"
+                    onClick={() => add_unit__function()}
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          )}
+          {/**Lesson End */}
+          {/**topicss start*/}
+          {editTopic && getTopic && (
+            <div className="fixed z-50 inset-0 flex items-center justify-center ">
+            <div className="bg-white rounded p-3">
+              <div className="flex justify-between items-center mb-4">
+                <h1 className="text-xl nunito font-semibold">
+                  Edit: {getTopic.topicName}
+                </h1>
+                <i
+                  class="fa-solid fa-xmark fa-xl cursor-pointer"
+                  onClick={closeEditTopics}
+                ></i>
+              </div>
+              <div className="flex flex-col">
+                <h1>Edit Topic Name </h1>
+                <input
+                  type="text"
+                  className="border-[1px] mb-3"
+                  id="topicName"
+                  onChange={handleChange}
+                />
+                <h1>Add Questions</h1>
+                <input
+                  type="text"
+                  id="questions"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                <h1>Add Harder Questions</h1>
+                <input
+                  type="text"
+                  id="harderQuestions"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                 <h1>Add Quiz Questions</h1>
+                <input
+                  type="text"
+                  id="quiz"
+                  className="border-[1px] mb-3"
+                  onKeyDown={handleInputChange}
+                />
+                <div className="mt-4 flex flex-col ">
+                  <h1 className="text-xl font-semibold nunito">
+                    {addItem && addItem.length >= 1
+                      ? `Courses Being Added`
+                      : ""}
+                  </h1>
+                  <div className=" w-full flex-wrap gap-3">
+                    {addItem &&
+                      addItem.map((course, index) => (
+                        <div key={index}>
+                          <span className="bg-fuchsia-600 text-white px-2 rounded">
+                            {course}{" "}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <h1 className="font-semibold text-xl nunito mt-3">
+                  Delete Courses
+                </h1>
+                <span>
+                  {getTopic && getTopic.questions.map((question, index) => (
+                    <div
+                      key={index}
+                      className=" flex items-center justify-between flex-wrap break-word"
+                    >
+                      <span>{question.questionText}</span>
+                      <i
+                        class="fa-solid fa-trash-can"
+                        onClick={() =>
+                          deleteCourses(getTopic._id, question._id)
+                        }
+                      ></i>
+                    </div>
+                  ))}
+                  {getTopic && getTopic.harderQuestions.map((question, index) => (
+                    <div
+                      key={index}
+                      className=" flex items-center justify-between"
+                    >
+                      <span>{question.questionText}</span>
+                      <i
+                        class="fa-solid fa-trash-can"
+                        onClick={() =>
+                          deleteCourses(getTopic._id, question._id)
+                        }
+                      ></i>
+                    </div>
+                      ))}
+                </span>
+                <button className="mt-5 w-full text-white bg-red-600 rounded">Delete Unit</button>
+                <button
+                  className="mt-5 w-full text-white bg-fuchsia-600 rounded"
+                  onClick={() => updateCourse(getUnit._id)}
+                >
+                  Update Course
+                </button>
+              </div>
+            </div>
+          </div>
+          )
+          }
+          {/**topicss end*/}
+          
           {addQuestion && getQuestions &&
           <div>
           </div>
@@ -226,7 +748,7 @@ export default function AdminAdd() {
               <div className="bg-white rounded p-2">
                 <div className="flex items-center justify-between mb-4">
                   <h1 className="nunito font-semibold text-xl">Add A Course</h1>
-                  <i class="fa-solid fa-xmark fa-xl" onClick={closeCourse}></i>
+                  <i class="fa-solid fa-xmark fa-xl" onClick={close}></i>
                 </div>
                 <div className="flex gap-4">
                   <input
@@ -245,13 +767,13 @@ export default function AdminAdd() {
                 </div>
                 <div className="mt-4 flex flex-col ">
                   <h1 className="text-xl">
-                    {addCourses && addCourses.length >= 1
+                    {addItem && addItem.length >= 1
                       ? `Courses Being Added`
                       : ""}
                   </h1>
                   <div className="flex w-full flex-wrap gap-3">
-                    {addCourses &&
-                      addCourses.map((course, index) => (
+                    {addItem &&
+                      addItem.map((course, index) => (
                         <div key={index}>
                           <span className="bg-fuchsia-600 text-white px-2 rounded">
                             {course}{" "}
@@ -271,6 +793,7 @@ export default function AdminAdd() {
               </div>
             </div>
           )}
+         
           <div className="grid grid-cols-4  pl-[8rem] pr-[5rem] gap-4 mt-3 ">
             {course &&
               course.map((course, index) => (
@@ -281,7 +804,7 @@ export default function AdminAdd() {
                     </h2>
                     <i
                       class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
-                      onClick={() => editCour(course)}
+                      onClick={() => editCourse(course)}
                     ></i>
                   </div>
                 </div>
@@ -293,7 +816,7 @@ export default function AdminAdd() {
               </h1>
               <i
                 class="fa-solid fa-plus fa-xl text-white cursor-pointer"
-                onClick={() => addCourse()}
+                onClick={() => addCourseHeader()}
               ></i>
             </div>
           </div>
@@ -310,7 +833,7 @@ export default function AdminAdd() {
                             <h1>{course.courseName}</h1>
                           <i
                         class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
-                        onClick={() => editCourse(course)}
+                        onClick={() => editCour(course)}
                       ></i>
                           </div>
                           
@@ -325,7 +848,7 @@ export default function AdminAdd() {
                   </h1>
                   <i
                     class="fa-solid fa-plus fa-xl text-white cursor-pointer"
-                    onClick={() => setAddCour(true)}
+                    onClick={() => addCourse()}
                   ></i>
                   
                 </div>
@@ -341,12 +864,19 @@ export default function AdminAdd() {
                   <h1>{unit.name}</h1>
                   <i
                         class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
-                       
+                       onClick={() => editUnits(unit)}
                       ></i>
                 </div>
               </div>
             
             ))}
+            <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+              <h1>Add Unit</h1>
+              <i
+                    class="fa-solid fa-plus fa-xl text-white cursor-pointer"
+                    onClick={() => unitAdd()}
+                  ></i>
+            </div>
             </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold mt-3 text-xl">
@@ -363,8 +893,14 @@ export default function AdminAdd() {
                       ></i>
                 </div>
               </div>
-            
             ))}
+            <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+              <h1>Add Lesson</h1>
+              <i
+                    class="fa-solid fa-plus fa-xl text-white cursor-pointer"
+                    onClick={() => addLesson(true)}
+                  ></i>
+            </div>
           </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold mt-3 text-xl">
@@ -376,12 +912,19 @@ export default function AdminAdd() {
                   <h1>{topic.topicName}</h1>
                   <i
                         class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
-                       
+                        onClick={() => editTopics(topic)}
                       ></i>
                 </div>
               </div>
             
             ))}
+            <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+              <h1>Add Topic</h1>
+              <i
+                    class="fa-solid fa-plus fa-xl text-white cursor-pointer"
+                    onClick={() => addLesson(true)}
+                  ></i>
+            </div>
           </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold  mt-3 text-xl">
@@ -395,6 +938,13 @@ export default function AdminAdd() {
                 <button className="bg-fuchsia-600 w-fit px-2 rounded mt-2" onClick={() => setAddQuestion(true)}>Edit</button>
                 </div>
               ))}
+              <div className="bg-slate-700 rounded flex justify-between items-center py-1 px-1">
+              <h1>Add Question</h1>
+              <i
+                    class="fa-solid fa-plus fa-xl text-white cursor-pointer"
+                    onClick={() => addQuestion(true)}
+                  ></i>
+            </div>
             </div>
           </div>
         </div>

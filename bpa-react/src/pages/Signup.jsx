@@ -26,7 +26,7 @@ export default function signup() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup',
+      const res = await fetch('https://bpa-api1.onrender.com/api/auth/signup',
       {
         method: 'POST',
         headers:{

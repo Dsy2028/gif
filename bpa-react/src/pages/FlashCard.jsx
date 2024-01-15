@@ -42,7 +42,7 @@ export default function FlashCard() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/flashcards/${flashCardId}`)
+    fetch(`https://bpa-api1.onrender.com/api/flashcards/${flashCardId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

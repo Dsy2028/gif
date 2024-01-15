@@ -35,7 +35,7 @@ router.get('/:topicId/quiz', async (req, res) => {
         path: 'quiz.quizQuestions',
         model: 'questions', 
         select: 'questionText options correctOption',
-      }).select('course quiz topicName').lean();
+      }).select('course quiz topicName questions harderQuestions').lean();
       if(!getAllTopics){
         return res.status(404).json({ message: 'No topics found' });
       }

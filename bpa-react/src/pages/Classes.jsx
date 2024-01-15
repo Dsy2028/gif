@@ -42,7 +42,7 @@ export default function Classes() {
       
     }
     const createClass = async (code) => {
-      const response = await fetch('http://localhost:3000/api/classes/', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/classes/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -55,7 +55,7 @@ export default function Classes() {
     
    
     useEffect(() => {
-      fetch(`http://localhost:3000/api/courseheader/courses`)
+      fetch(`https://bpa-api1.onrender.com/api/courseheader/courses`)
         .then(response => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -73,7 +73,7 @@ export default function Classes() {
     }, []);
 
     useEffect(() => {
-      fetch(`http://localhost:3000/api/classes/${teacherId}`)
+      fetch(`https://bpa-api1.onrender.com/api/classes/${teacherId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -154,6 +154,7 @@ const closeCourse = () => {
   setCourse(false);
 }
     
+console.log(getCode)
   
     
     const closePopup = () => {
@@ -334,7 +335,7 @@ const closeCourse = () => {
         </div>
       )}
        
-            {[...getCode.classes, ...getCode.classToGet].map((classItem, index) => (
+            {getCode.classToGet.map((classItem, index) => (
              
               <div key={index} className="border-[2px] rounded border-gray-200 p-3 mt-3 dark:bg-slate-600 dark:border-none">
                 <div className="flex justify-between">

@@ -31,7 +31,7 @@ export default function LogIn() {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/log-in", {
+      const res = await fetch("https://bpa-api1.onrender.com/api/auth/log-in", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

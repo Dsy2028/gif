@@ -34,6 +34,8 @@ import AdminUsers from './pages/AdminUsers';
 import AdminCourses from './pages/AdminCourses';
 import AdminHelp from './pages/AdminHelp';
 import Contact from './pages/contact';
+import TeacherCourses from './pages/TeacherCourses';
+import AdminRoute from './components/AdminRoute';
 //import './App.css';
 //import ImageSlider from './components/ImageSlider';
 //import { SliderData } from './components/SliderData';
@@ -45,39 +47,47 @@ export default function App() {
 
   
 
-  const paths = ['/dashboard', '/classes', '/calender', '/prof', '/admin-dashboard', '/admin-add', '/admin-users', '/admin-courses'];
+  const paths = ['/dashboard', '/classes', '/calender', '/prof', '/admin-dashboard', '/admin-add', '/admin-users', '/admin-courses', 'teacher-courses'];
 
   return (
     <BrowserRouter>
       {!paths.some(path => location.pathname.includes(path)) && <Nav />}
       <Routes>
-        <Route path="/prof/:teacherId" element={<TeacherProfile />} />
+        
         <Route path="/:topicId/:flashCardId/review" element={<FlashCard />} />
         <Route path="/:topicId/:recapId/recap" element={<Recap />} />
         <Route path="/" element={<Index />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/log-in" element={<LogIn />} />
+        
         <Route element={<PrivRoute/>} >
        <Route path="/profile/:studentId" element={<Profile/>}/>
        </Route>
         <Route path="/intro/:topicId/:introId" element={<Intro />} />
+        <Route element={<AdminRoute/>}>
         <Route path="/admin-dashboard" element={<AdminDashboard />}/>
         <Route path="/admin-add" element={<AdminAdd />}/>
+        <Route path="/admin-users" element={<AdminUsers />} />
+        <Route path="/admin-courses" element={<AdminCourses />} />
+        </Route>
         <Route path="/:courses/:courseName/:lessonName/:quiz" element={<Quiz />} />
         <Route path="/practice/:topicId/questions/:questionId" element={<TestComponents />} />
         <Route path="/practice/:topicId/harderQuestions/:harderQuestionsId" element={<HarderQuestions />} />
-        <Route path="/courses/:courseName/:lessonName" element={<Topic />} />
-        <Route path="/admin-users" element={<AdminUsers />} />
+        <Route path="/courses/:courseName/:lessonName" element={<Topic />} />  
         <Route path="/:topicId/quiz" element={<Quiz />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:courseName" element={<TopicSkills/>}/>
         <Route path="/help" element={<Help />} />
-        {/*<Route element={<TeachRoute/>} >*/}
+        <Route element={<TeachRoute/>} >
         <Route path="/dashboard/:teacherId" element={<Dashboard />} />
-        {/*</Route>*/}
         <Route path="/classes/:teacherId" element={<Classes />} />
         <Route path="/calender" element={<Calender />} />
+        <Route path="/teacher-courses" element={<TeacherCourses />} />
+        <Route path="/prof/:teacherId" element={<TeacherProfile />} />
+        </Route>
+        
+        
         <Route path="/about" element ={<About />} />
         <Route path="/Chat" element ={<Chat />} />
         <Route path ="/inbox" element ={<Inbox />}/>
@@ -86,7 +96,7 @@ export default function App() {
         <Route path='/userguide' element={<Userguide/>}/>
         <Route path ='admin-help' element ={<AdminHelp/>}/>
         <Route path ='/workcited' element = {<Workcited/>}/>
-        <Route path="/admin-courses" element={<AdminCourses />} />
+        
       </Routes>
     </BrowserRouter>
   );

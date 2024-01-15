@@ -32,7 +32,7 @@ export default function ProfileDropdown() {
   const handleLogout = async () => {
     try {
       dispatch(logOutUserStart());
-      const res = await fetch('/api/auth/logout');
+      const res = await fetch('https://bpa-api1.onrender.com/api/auth/logout');
       const data = await res.json();
       if (data.success === false) {
         dispatch(logOutUserFailure(data.message));

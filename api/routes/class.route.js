@@ -65,7 +65,7 @@ router.get('/students', async (req, res) => {
     const { classId } = req.query;
     const students = await Class.find({ _id: classId }).populate({
       path: 'students',
-      select: 'quizResults completed',
+      select: 'quizResults completed classes',
       populate: {
         path: 'completedLessons',
         select: 'lessonId',
@@ -100,12 +100,12 @@ router.get('/student/:studentId', async (req, res) => {
 router.get('/:teacherId',  async (req, res) => {
   try {
     const id = req.params.teacherId;
-    const classToGet = await Class.find({ teacher: id }).populate('students').populate('courses', 'courseName');
-    const classes = await Class.find({ students: { $in: [id] } }).populate('students', ' avatar firstName lastName  email').populate('courses', 'courseName');
-    if (!classToGet && classes ) {
+    const classToGet = await Class.find({ teacher: id }).populate('students').populate('courses', 'courseName units');
+   // const classes = await Class.find({ students: { $in: [id] } }).populate('students', ' avatar firstName lastName  email').populate('courses', 'courseName');
+    if (!classToGet /*&& classes*/ ) {
       return res.status(404).json({ message: 'Class not found' });
     }
-    res.status(200).json({ classToGet, classes });
+    res.status(200).json({ classToGet });
   } catch (error) {
     console.error('Error getting classes by teacher:', error);
     res.status(500).json({ message: 'Internal server error' });

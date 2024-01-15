@@ -42,6 +42,7 @@ export const useFetch = (url, setter) => {
       const data = await res.json();
       setFormData("");
       closeCourse();
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error);
     }
