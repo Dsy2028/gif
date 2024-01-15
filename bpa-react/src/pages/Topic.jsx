@@ -46,95 +46,12 @@ export default function Topic() {
 
 
 
-useEffect(() => {
-  //if (!user) return;
-   fetch(`https://bpa-api1.onrender.com/api/lessons/courses/${courseName}/${lessonName}`)
-     .then((response) => {
-       if (!response.ok) {
-         throw new Error(`HTTP error! status: ${response.status}`);
-       }
-       return response.json();
-     })
-     .then((data) => {
-       setLessons(data.lessons);    
-       setName(data);    
-       const lessonIds = user.completedLessons.map(lesson => lesson.lessonId._id);
-
-// Find the lesson ID that matches the current page's topic_id
-const lessonId = lessonIds.find(id => id === name.topic_id);
-const lesson1 = user.completedLessons.find(lesson => lesson.lessonId._id === name.topic_id);
-let i;
-       const completionPercentages = user.completedLessons.map(lesson => {
-   
-        // Check if the lessonId of the current lesson is equal to topic_id
-       if (lessonId === name.topic_id) {
-          const totalItems = Object.keys(lesson).length - 2;
-
-        const completedItems = Object.values(lesson1).filter(value => value === true).length;
-     
-       i = (completedItems / totalItems) * 100;
-       } 
-      });
-  
-      // Filter out the 0s (the lessons that didn't match topic_id)
-     // const filteredCompletionPercentages = completionPercentages.filter(percentage => percentage !== 0);
-      
-      // Calculate the total completion percentage
-      //const totalCompletionPercentage = filteredCompletionPercentages.reduce((a, b) => a + b, 0) / filteredCompletionPercentages.length;
-      
-     // setProgress(i);
-       if(progress === 100){
-         setComplete(true);
-       } 
-       setImageSrc(imageMapping[data.image]);
-       setAward(awardmap[data.completion]);
-       
-     })
-     .catch((error) => {
-       console.error("Error fetching data: ", error);
-     });
- }, [lessonName, user]);
-
- useEffect(() => {
-  if(progress === 100){
-    const lessonI = name.topic_id; // replace with the ID of the current lesson
-    const isLessonCompleted = user.completedLessons.find((lesson) => lesson.lessonId === lessonI)
-    
-    const completePart = isLessonCompleted.completed
-    const splitter = award.split('/');
-    const path = splitter[splitter.length - 1];
-    const name1 = path.split('.')
-    const gname =  name1[name1.length - 2]
-    const hasReceivedAward = user.awards.some(award => award.lessonId === lessonI && award.award === gname);
-   
-    if (completePart === true && !hasReceivedAward) {
-      const posAward = async ()  => {
-        try {
-          const token = currentUser._id;
-          const splitter = award.split('/');
-          const path = splitter[splitter.length - 1];
-          const name = path.split('.')
-          const gname =  name[name.length - 2]
-
-          const response = await fetch('https://bpa-api1.onrender.com/api/user/award ', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              lessonId: lessonI,
-              award: gname
-            })
-          });
-
-          if(response.ok){
-      
-          }
-
-          const r = await response.json();
-        } catch (error) {
-          console.error('error posting award',error);
+  useEffect(() => {
+    //if (!user) return;
+    fetch(`https://bpa-api1.onrender.com/api/lessons/courses/${courseName}/${lessonName}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
@@ -242,15 +159,6 @@ let i;
   }
 
 
-<<<<<<< HEAD
-};
-const awardmap = {
-  straw: straw,
-  doffy: doffy,
-  dragon: dragon,
-  jojo: jojo,
-  fishing: fishing
-=======
   const pageNames = {
     "/courses/Algebra%201": "Algebra 1",
     "/courses/Geometry": "Geometry",
@@ -263,7 +171,6 @@ const awardmap = {
     const currentPath = `/${pathSegments[1]}/${pathSegments[2]}`;
     return pageNames[currentPath] || '';
   };
->>>>>>> eaa297225a1f6444f7d96d28729df55484ed21d1
 
 
 
