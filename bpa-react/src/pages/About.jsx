@@ -1,3 +1,8 @@
+/**
+ * This is the about page here you can learn all about what this webiste work our exception for the user. 
+ * 
+ */
+
 import React from "react";
 import Footer from "../components/Footer";
 

@@ -1,3 +1,7 @@
+/**
+ * This pages is to let you know who worked on this project and some fake contacts. 
+ * 
+ */
 import React from 'react'
 import fbIcon from "../imgs/fb-icon.png"
 import Footer from '../components/Footer.jsx'

@@ -1,3 +1,8 @@
+/**
+ * This pages lets the admin see all the users who have signed into this website they can remove accounts and change their information. 
+ * 
+ */
+
 import React from "react";
 import { ReactDOM } from "react";
 import { useState, useEffect } from "react";
