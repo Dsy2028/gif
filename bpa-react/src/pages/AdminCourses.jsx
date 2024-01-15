@@ -25,12 +25,12 @@ export default function AdminCourses() {
     const [data, setData] = useState()
     const itemsPerPage = 25;
     const numbersPerPage = 10;
-    useFetch(`http://localhost:3000/api/courseheader/courses`, setCourse);
-    useFetch(`http://localhost:3000/api/units/unit/getUnits`, setUnits);
-    useFetch(`http://localhost:3000/api/lessons/getAllLessons`, setLessons);
-  useFetch(`http://localhost:3000/api/topics/getAllTopics`, setTopics);
-  useFetch(`/api/questions/getAllQuestions`, setQuestions);
-  useFetch('/api/intros/getAllIntros', setIntros);
+    useFetch(`https://bpa-api1.onrender.com/api/courseheader/courses`, setCourse);
+    useFetch(`https://bpa-api1.onrender.com/api/units/unit/getUnits`, setUnits);
+    useFetch(`https://bpa-api1.onrender.com/api/lessons/getAllLessons`, setLessons);
+  useFetch(`https://bpa-api1.onrender.com/api/topics/getAllTopics`, setTopics);
+  useFetch(`https://bpa-api1.onrender.com/api/questions/getAllQuestions`, setQuestions);
+  useFetch('https://bpa-api1.onrender.com/api/intros/getAllIntros', setIntros);
   
   useEffect(() => {
     if (course && units && lessons && topics && questions) {
@@ -40,7 +40,7 @@ export default function AdminCourses() {
         ...lessons.map(item => ({ ...item, type: 'Lesson' })),
         ...topics.map(item => ({ ...item, type: 'Topic' })),
         ...questions.map(item => ({ ...item, type: 'Question' })),
-        ...intros.map(item => ({ ...item, type: 'Intro' })),
+        ...intros.map(item => ({ ...item, type: 'Intro' }))
       ];
       setData(combinedData);
     }

@@ -31,7 +31,7 @@ const numbersPerPage = 10;
 
   useEffect(() => {
     ChartJS.register(...registerables);
-    fetch(`http://localhost:3000/api/user/getUsers`)
+    fetch(`https://bpa-api1.onrender.com/api/user/getUsers`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,7 +51,7 @@ const numbersPerPage = 10;
   const update = async (userId) => {
     console.log('update', userId)
     try {
-      const res = await fetch(`/api/user/update/users/user`, {
+      const res = await fetch(`https://bpa-api1.onrender.com/api/user/update/users/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const numbersPerPage = 10;
       return;
     }
     try {
-      const res = await fetch(`/api/user/delete/users/user`, {
+      const res = await fetch(`https://bpa-api1.onrender.com/api/user/delete/users/user`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

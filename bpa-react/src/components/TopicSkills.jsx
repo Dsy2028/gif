@@ -8,7 +8,7 @@ function TopicSkills() {
   const [courseDetails, setCourseDetails] = useState(null);
   console.log(courseName)
   useEffect(() => {
-    fetch(`http://localhost:3000/api/test/${courseName}`)
+    fetch(`https://bpa-api1.onrender.com/api/test/${courseName}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

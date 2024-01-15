@@ -26,8 +26,10 @@ export default function Nav() {
   const [darkMode, setDarkMode] = useState(false);
   const [bars, setBars] = useState(window.innerWidth <= 768);
   const [value, setValue] = useState("");
-
-
+  if (currentUser && currentUser._id) {
+    localStorage.setItem('userId', currentUser._id);
+  }
+//console.log(currentUser._id)
   useEffect(() => {
     const handleResize = () => {
       setBars(window.innerWidth <= 768);
@@ -77,7 +79,7 @@ export default function Nav() {
     try {
       const token = currentUser._id;
 
-      const response = await fetch('/api/classes/join', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/classes/join', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -130,7 +132,7 @@ export default function Nav() {
   const onChange = (event) => {
     setValue(event.target.value);
   }
-  console.log(value)
+  //console.log(value)
   const onSearch = (searchTerm) => {
     setValue(searchTerm);
     //api to fetch the search result
@@ -154,8 +156,19 @@ export default function Nav() {
           <div>
             {/* ... */}
             {joinMessage && (
-              <div className="p-3 w-40 h-32 outline fixed top-0 z-50">
-                <h1>{joinMessage}</h1>
+              <div className="fixed z-50 inset-0 flex items-center justify-center ">
+                <div className="bg-white p-2 flex-col rounded">
+                  <div className="flex gap-3">
+                <div className='rounded-full bg-green-500 w-7 grid place-items-center'>
+                <i class="fa-solid fa-check text-white"></i>
+                </div>
+                <h1 className="nunito font-semibold">{joinMessage}</h1>
+                </div>
+                <div className="flex justify-end mt-4">
+                <button className=" text-white w-fit nunito px-2 bg-green-500 rounded" onClick={() => setJoinMessage(false)}>Close</button>
+                </div>
+                </div>
+               
               </div>
             )}
             {/* ... */}
@@ -196,16 +209,16 @@ export default function Nav() {
                      
                     {value &&
                       <div>
-                        <div className="nav-dropdown">
+                        <div className="rounded nunito">
                           {data.filter(item => {
                             const searchTerm = value.toLowerCase();
                             const pageTitle = item.page_title.toLowerCase();
 
-                            return searchTerm && pageTitle.startsWith(searchTerm) && pageTitle !== searchTerm;
+                            return searchTerm && pageTitle.startsWith(searchTerm);
                           }).slice(0, 5)
                             .map((item) => (
-                              <div onClick={() => onSearch(item.page_title)}
-                                className="nav-dropdown-row" key={item.page_title}>{item.page_title}</div>
+                              <Link to={`/${item.page_url}`}><div onClick={() => onSearch(item.page_title)}
+                                className="main-color text-white text-xl flex gap-2  p-1 " key={item.page_title}><i class="fa-solid fa-magnifying-glass"></i>{item.page_title}</div></Link>
                             ))}
                         </div>
                       </div>

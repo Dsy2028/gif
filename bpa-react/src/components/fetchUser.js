@@ -9,7 +9,7 @@ const fetchUser = (currentUser) => {
       try {
         const token = currentUser._id;
 
-        const response = await fetch('/api/user/get', {
+        const response = await fetch('https://bpa-api1.onrender.com/api/user/get', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

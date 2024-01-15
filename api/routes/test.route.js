@@ -77,19 +77,19 @@ router.get('/:courseName', async (req, res) => {
   
   router.post('/courses/edit', async (req, res) => {
     try {
-      const {courseHeader, courseId, courses} = req.body;
-      console.log(courseHeader)
+      const {courseName, courseId, units} = req.body;
+      console.log(courseName)
       console.log(courseId)
-      console.log(courses)
-      const editHeader = await otherTest.updateOne(
+      console.log(units)
+      const editCourse = await otherTest.updateOne(
         { _id: courseId }, 
         { 
-          $set: { courseHeader: courseHeader},
-          $push: { courses: courses }
+          $set: { courseName: courseName},
+          $push: { units: units }
         }
       );
-      console.log(editHeader);
-      res.status(200).json(editHeader)
+      console.log(editCourse);
+      res.status(200).json(editCourse)
     } catch (error) {
       console.error('error editing courses', error)
       res.status(500).json({ message: 'Internal Server Error' })
@@ -109,7 +109,21 @@ router.get('/:courseName', async (req, res) => {
   
   }
   )
-
+  router.delete('/delete', async (req, res) => {
+    try {
+      const { courseId} = req.body;
+      console.log(courseId)
+  
+      const deleteCourse = await otherTest.deleteOne({ _id: courseId })
+      console.log(deleteCourse)
+      res.status(200).json(deleteCourse);
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  
+  }
+  )
   router.post('')
 
   export default router;

@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+
 const data = [
 {"page_title":"Contact","page_url":"../pages/contact.jsx"},
-{"page_title":"Profile","page_url":"../pages/Profile.jsx"},
-{"page_title":"Home","page_url":"../pages/index.jsx"},
+{"page_title":"Profile","page_url":`../profile/${localStorage.getItem('userId')}`},
+{"page_title":"Home","page_url":"../"},
 {"page_title":"Chat","page_url":"../pages/Chat.jsx"},
 {"page_title":"Cources","page_url":"../pages/Cources.jsx"},
 {"page_title":"Admin","page_url":"../pages/AdminDashboard.jsx"},
@@ -26,5 +27,6 @@ const data = [
 
 
 ]
+
 
 export default data;

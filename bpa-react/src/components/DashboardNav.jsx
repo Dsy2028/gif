@@ -81,7 +81,7 @@ export default function DashboardNav() {
           <i class="fa-solid fa-book mr-2"></i>
           Library
         </Link>
-        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white'>
+        <Link className='text-xl font-bold  w-full cursor-pointer flex items-center rounded  hover:bg-gray-200 dark:text-white' to={'/teacher-courses'}>
           <i class="fa-solid fa-book-reader mr-2"></i>
           Courses
         </Link>

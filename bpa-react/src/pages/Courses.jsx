@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 export default function Courses() {
   const [course, setCourse] = useState(null);
   useEffect(() => {
-    fetch(`http://localhost:3000/api/courseheader/courses`)
+    fetch(`https://bpa-api1.onrender.com/api/courseheader/courses`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

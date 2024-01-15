@@ -43,7 +43,7 @@ router.post('/courses/add', async (req, res) => {
 router.post('/courses/edit', async (req, res) => {
   try {
     const {courseHeader, courseId, courses} = req.body;
-    console.log(courseHeader)
+    console.log('f' , courseHeader)
     console.log(courseId)
     console.log(courses)
     const editHeader = await courseheader.updateOne(
@@ -66,6 +66,22 @@ router.delete('/courses/delete', async (req, res) => {
     const {course, courseId} = req.body;
 
     const deleteCourse = await courseheader.updateOne({ _id: courseId }, { $pull: { courses: course } });
+    res.status(200).json(deleteCourse);
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+
+}
+)
+
+router.delete('/delete', async (req, res) => {
+  try {
+    const { courseId} = req.body;
+    console.log(courseId)
+
+    const deleteCourse = await courseheader.deleteOne({ _id: courseId })
+    console.log(deleteCourse)
     res.status(200).json(deleteCourse);
   } catch (error) {
     console.error(error)

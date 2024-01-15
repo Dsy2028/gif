@@ -14,7 +14,7 @@ export default function GoogleAuth() {
       const auth = getAuth(app);
 
       const result = await signInWithPopup(auth, provider);
-      const res = await fetch('/api/auth/google', {
+      const res = await fetch('https://bpa-api1.onrender.com/api/auth/google', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

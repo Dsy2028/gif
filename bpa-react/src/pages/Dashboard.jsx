@@ -6,10 +6,13 @@ import TeacherDropdown from "../components/TeacherDropdown.jsx";
 import  {Doughnut } from 'react-chartjs-2';
 import DashNav from "../components/DashNav.jsx";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart, CategoryScale } from 'chart.js';
+
 import { Line } from 'react-chartjs-2';
 import { registerables } from 'chart.js';
 import { json } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Bar } from 'react-chartjs-2';
 export default function Dashboard() {
 
     const [open_Table, setisOpenTable] = useState(false);
@@ -21,7 +24,10 @@ export default function Dashboard() {
     const dropdownRef = useRef(false);
     const [getCode, setGetCode] = useState(0);
     const [chartData, setChartData] = useState({});
+    const [classWithMostCompleted, setClassWithMostCompleted] = useState(null);
+    ChartJS.register(...registerables);
     useEffect(() => {
+     
       fetch("")
       .then(res => res.json())
       .then(res => {
@@ -32,7 +38,7 @@ export default function Dashboard() {
     })
 
     useEffect(() => {
-      fetch(`http://localhost:3000/api/classes/${teacherId}`)
+      fetch(`https://bpa-api1.onrender.com/api/classes/${teacherId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -55,12 +61,12 @@ export default function Dashboard() {
     }, []);
     useEffect(() => {
       // Fetch all classes
-      fetch(`http://localhost:3000/api/classes/student/${teacherId}`)
+      fetch(`https://bpa-api1.onrender.com/api/classes/student/${teacherId}`)
         .then(response => response.json())
         .then(classes => {
           // For each class, fetch its students
           const promises = classes.map(classItem => 
-            fetch(`http://localhost:3000/api/classes/students?classId=${classItem._id}`)
+            fetch(`https://bpa-api1.onrender.com/api/classes/students?classId=${classItem._id}`)
               .then(response => response.json()),
               
           );
@@ -80,21 +86,83 @@ export default function Dashboard() {
           count += classItem.students.length;
           
         });
-      }
+      } 
     }, [getCode]);
- 
-    {getStudents && getStudents.map((classItem, index) => (
-      classItem.map((classItem, index) =>(
-       classItem.students.map((student, index) => (
-        console.log(student.completed),
-        student.completedLessons.map((assignments, index) =>(
-          console.log(assignments.lessonId)
-       ))
-     ))
+    useEffect(() => {
+      let maxCompletedLessons = 0;
+      let classWithMostCompletedLessons = null;
     
-   ))
-    ))}
-  /** <Chart type='donut' options={chartOptions} series={chartSeries}/> */
+      getStudents && getStudents.forEach(classItem => {
+        let completedLessonsCount = 0;
+        classItem.forEach(classItem => {
+          classItem.students.forEach(student => {
+            student.completedLessons.forEach(() => {
+              completedLessonsCount++;
+            });
+          });
+        });
+    
+        if (completedLessonsCount > maxCompletedLessons) {
+          maxCompletedLessons = completedLessonsCount;
+          classWithMostCompletedLessons = classItem;
+        }
+      });
+    
+      setClassWithMostCompleted(classWithMostCompletedLessons);
+    }, [getStudents]);
+    
+    useEffect(() => {
+      let missingAssignmentsCount = 0;
+      
+      getStudents && getStudents.forEach(classItem => {
+        
+        classItem.forEach(classItem => {
+          
+          classItem.students.forEach(student => {
+            student.classes.forEach(course => {
+              // Assuming courseAssignments is an object that maps courses to assignments
+              const courseAssignments = courseAssignments[course];
+              const completedAssignments = student.completed.map(item => item.assignment[0].$oid);
+              const missingAssignments = courseAssignments.filter(assignment => !completedAssignments.includes(assignment));
+              missingAssignmentsCount += missingAssignments.length;
+            });
+          });
+        });
+      });
+    
+      // Now you can use missingAssignmentsCount in your component state or wherever you need it
+    }, [getStudents]);
+    let completedLessonsCount = 0;
+    getStudents && getStudents.forEach(classItem => {
+      classItem.forEach(classItem => {
+        classItem.students.forEach(student => {
+         // console.log(student)
+          student.completedLessons.forEach(() => {
+            completedLessonsCount++;
+          });
+        });
+      });
+    });
+    
+    
+    // Prepare the data for the chart
+    const data = {
+      labels: ['Completed Lessons'],
+      datasets: [
+        {
+          label: '# of Completed Lessons',
+          data: [completedLessonsCount],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }
+      ]
+    };
+  
+    
+    /*console.log(classWithMostCompleted.map((key,index) => (
+      console.log(c)
+    )))*/
     const notiDropdown = () => {
       setNotiDropdownOpen((prevOpen) => !prevOpen);
       console.log('noti opened')
@@ -138,9 +206,22 @@ export default function Dashboard() {
               <div className='rounded-full w-9  grid place-items-center h-9 bg-green-500'>
               <i class="fa-solid fa-check fa-xl"></i>
               </div>
-              <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Completed Assignments</h1>
+              <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Completed Assignments</h1>   
               </div>
-              
+              <Bar data={data} options={{
+  scales: {
+    x: {
+      grid: {
+        display: false
+      }
+    },
+    y: {
+      grid: {
+        display: false
+      }
+    }
+  }
+}}/>
             </div>
             <div className="border-[2px] rounded border-gray-200 p-3 shadow-lg dark:bg-slate-600 dark:border-none">
               <div className='flex items-center'>
@@ -157,6 +238,12 @@ export default function Dashboard() {
               </div>
               <h1 className='nunito font-bold text-xl ml-3 dark:text-white'>Top Class</h1>
               </div>
+              {classWithMostCompleted && classWithMostCompleted.map((classItem, index) => (
+                <div className=" h-5/6 flex justify-center items-center">
+                  <h1 className="dark:text-white">{classItem.className ? classItem.className : classItem.code}</h1>
+
+                </div>
+              ))}
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4 mt-4 p-5 ">

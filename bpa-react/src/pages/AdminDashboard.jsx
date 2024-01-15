@@ -25,7 +25,7 @@ export default function AdminDashboard() {
  
   useEffect(() => {
    ChartJS.register(...registerables);
-    fetch(`http://localhost:3000/api/user/getUsers`)
+    fetch(`https://bpa-api1.onrender.com/api/user/getUsers`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

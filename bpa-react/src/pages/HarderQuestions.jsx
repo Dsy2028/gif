@@ -24,7 +24,7 @@ export default function HarderQuestions() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    fetch(`http://localhost:3000/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`)
+    fetch(`https://bpa-api1.onrender.com/api/topics/${topicId}/harderQuestions/${harderQuestionsId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -119,7 +119,7 @@ export default function HarderQuestions() {
     try {
       setLoading(true);
       // Send the answers to the server
-      const response = await fetch('http://localhost:3000/api/user/updateQuizResults', {
+      const response = await fetch('https://bpa-api1.onrender.com/api/user/updateQuizResults', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ if (percentageScore >= 70) {
   try {
     setLoading(true);
     // Second POST request
-    const res = await fetch(`http://localhost:3000/api/user/harderQuestions/${harderQuestionsId}`, {
+    const res = await fetch(`https://bpa-api1.onrender.com/api/user/harderQuestions/${harderQuestionsId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
