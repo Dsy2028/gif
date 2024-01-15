@@ -1,3 +1,8 @@
+/**
+ * This pages is here to show you how to use the admin aspect of this application walking you through what the admin is capable of doing. 
+ * 
+ */
+
 import React from 'react'
 import Adminadditems from '../imgs/Adminadditems.mp4'
 import Adminchange from '../imgs/Adminchange.mp4'

@@ -1,3 +1,7 @@
+/**
+ * This pages is to help the admin add and delete stuff for the users account. 
+ * 
+ */
 import React from "react";
 import { ReactDOM } from "react";
 import { useState, useEffect } from "react";
