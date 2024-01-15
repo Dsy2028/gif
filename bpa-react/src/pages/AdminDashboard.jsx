@@ -92,7 +92,7 @@ export default function AdminDashboard() {
     }
     console.log(userId)
     try {
-      const res = await fetch(`/api/user/delete/users/user`, {
+      const res = await fetch(`https://bpa-api1.onrender.com/api/user/delete/users/user`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
