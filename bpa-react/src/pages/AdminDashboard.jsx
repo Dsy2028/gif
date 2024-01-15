@@ -177,19 +177,6 @@ export default function AdminDashboard() {
 </div>
         
       </div>
-      <div className="">
-        <h1 className="text-2xl font-semibold nunito text-white mb-2">Delete Users</h1>
-      <div className="grid grid-cols-3">
-        {allUsers && allUsers.map((users,index) => (
-          <div className="grid grid-cols-4" key={index}>
-            <div className="flex items-center px-2  py-1 rounded w-fit mt-2 bg-slate-700">
-            <h1 className="text-slate-300">{users.email}</h1>
-            <button className="bg-red-500 rounded px-2 ml-3" onClick={() => deleteUser(users._id)}>Delete</button>
-            </div>
-          </div>
-        ))}
-      </div>
-      </div>
     </div>
     </div>
    </div>
