@@ -20,6 +20,7 @@ export default function AdminAdd() {
   const [units, setUnits] = useState(null);
   const [lessons, setLessons] = useState(null);
   const [topics, setTopics] = useState(null);
+  const [getQuestions, setQuestions] = useState(null);
   const [editLesson, setEditLessons] = useState(false);
   const [getLesson, setGetLesson] = useState(null);
   const [editUnit, setEditUnits] = useState(false);
@@ -27,11 +28,17 @@ export default function AdminAdd() {
   const [getTopic, setGetTopic] = useState(null);
   const [editTopic, setEditTopics] = useState(false);
   const [addCour, setAddCour] = useState(false);
+  const [addQuestion, setAddQuestion] = useState(false);
+  const [addLesson, setAddLesson] = useState(false);
+  const[editCou, setEditCour] = useState(false);
   useFetch(`http://localhost:3000/api/courseheader/courses`, setCourse);
   useFetch(`http://localhost:3000/api/units/unit/getUnits`, setUnits);
   useFetch(`http://localhost:3000/api/lessons/getAllLessons`, setLessons);
   useFetch(`http://localhost:3000/api/topics/getAllTopics`, setTopics);
+  useFetch(`http://localhost:3000/api/questions/getAllQuestions`, setQuestions);
   const editCourse = createEditFunction(setEditCourse, setGetCourse);
+  const editCour = createEditFunction(setEditCour, setGetCourse);
+  
   const closeEditCourse = createCloseFunction(setEditCourse, setGetCourse, setFormData);
   const editLessons =  createEditFunction(setEditLessons,setGetLesson)
   const editUnits =  createEditFunction(setEditUnits,setGetUnit)
@@ -133,7 +140,7 @@ export default function AdminAdd() {
                     Delete Courses
                   </h1>
                   <span>
-                    {getCourse.courses.map((courses, index) => (
+                    {getCourse && getCourse.courses.map((courses, index) => (
                       <div
                         key={index}
                         className=" flex items-center justify-between"
@@ -209,6 +216,11 @@ export default function AdminAdd() {
             </div>
 
           )}
+          {addQuestion && getQuestions &&
+          <div>
+          </div>
+
+          }
           {add_course && course && (
             <div className="fixed z-50 inset-0 flex items-center justify-center ">
               <div className="bg-white rounded p-2">
@@ -269,7 +281,7 @@ export default function AdminAdd() {
                     </h2>
                     <i
                       class="fa-solid fa-ellipsis-vertical fa-xl cursor-pointer"
-                      onClick={() => editCourse(course)}
+                      onClick={() => editCour(course)}
                     ></i>
                   </div>
                 </div>
@@ -373,7 +385,17 @@ export default function AdminAdd() {
           </div>
           </div>
           <div className="pl-[8rem] text-white nunito font-semibold  mt-3 text-xl">
-            <h1>Edit Questions</h1>
+            <h1 className="text-2xl">Edit Questions</h1>
+            <div className="grid grid-cols-6 gap-3">
+              {getQuestions && getQuestions.map((question, index) => (
+                <div key={index} className="bg-slate-700  p-1 rounded">
+                <div className=" flex break-words flex-wrap " >
+                  <h1>{question.questionText}</h1>
+                </div>
+                <button className="bg-fuchsia-600 w-fit px-2 rounded mt-2" onClick={() => setAddQuestion(true)}>Edit</button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
