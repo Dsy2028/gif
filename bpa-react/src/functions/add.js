@@ -49,7 +49,11 @@ export const useFetch = (url, setter) => {
   };
 
 
+<<<<<<< Updated upstream
   export const useAward = (progress, user, name, award, currentUser, gname) => {
+=======
+  export const useAward = (progress, user, name, award, currentUser, path, gname) => {
+>>>>>>> Stashed changes
     useEffect(() => {
       if(progress === 100){
         const lessonI = name.topic_id; // replace with the ID of the current lesson
