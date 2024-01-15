@@ -97,29 +97,32 @@ export default function index() {
               stay connected—wherever your journey takes you.
             </p>
           </div>
-
           <img src={ThirdPicture} />
         </div>
-        <div className="potential-container">
-          <img src={SecondPicture} />
-          <div className="mainContent">
-      </div>
-      <div className="placeholderContent">
-        {/* Placeholder text */}
-      </div>
-          <div className="content-holder ">
-            <h1 className="font-semibold text-3xl mb-4"></h1>
-            <p>
+
+        <div className="hero">
+            <img src={SecondPicture} />
+            <div className="content-holder">
+              <h1 className="font-semibold text-3xl mb-4"></h1>
+              <p>
+
               Unlock your full potential with our interactive learning platform.
               Powered by AI, we provide personalized insights for tailored
               learning experiences. Whether you're a student exploring new
               horizons or an educator enhancing your skills, our platform adapts
               to your unique style. Learn at your own pace for a customized
               journey—all for free. Join us and transcend traditional education,
-              where possibilities are boundless!
-            </p>
+              where possibilities are boundless!              </p>
+            </div>
+
           </div>
-        </div>
+
+
+
+
+         (
+   {}
+    
   );
       </div>
 

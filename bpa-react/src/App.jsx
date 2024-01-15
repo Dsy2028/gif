@@ -32,6 +32,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminAdd from './pages/AdminAdd';
 import AdminUsers from './pages/AdminUsers';
 import AdminCourses from './pages/AdminCourses';
+import Contact from './pages/contact';
 //import './App.css';
 //import ImageSlider from './components/ImageSlider';
 //import { SliderData } from './components/SliderData';
