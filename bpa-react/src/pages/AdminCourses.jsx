@@ -1,3 +1,7 @@
+/**
+ * This pages helps the admin add and delete cources from the libary of courses we offer. 
+ * 
+ */
 import React from 'react'
 import { useState, useEffect } from "react";
 import fetchUser from "../components/fetchUser";

@@ -1,3 +1,7 @@
+/**
+ * This pages is a calander for you to track your days before a assigment is due. 
+ * 
+ */
 import React, { useEffect, useState } from 'react';
 import DashNav from '../components/DashNav'
 import DashboardNav from '../components/DashboardNav'

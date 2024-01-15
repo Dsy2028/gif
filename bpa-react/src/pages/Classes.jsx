@@ -1,3 +1,7 @@
+/**
+ * This pages creates classes and displays a code for each class. 
+ * 
+ */
 import React from 'react'
 import DashboardNav from '../components/DashboardNav'
 import DashNav from '../components/DashNav'

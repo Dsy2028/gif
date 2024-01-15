@@ -1,3 +1,7 @@
+/**
+ * this pages helps user with the topic 
+ * 
+ */
 import React from 'react'
 import fetchUser from "../components/fetchUser";
 import { useState, useEffect} from 'react'
