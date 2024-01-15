@@ -32,6 +32,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminAdd from './pages/AdminAdd';
 import AdminUsers from './pages/AdminUsers';
 import AdminCourses from './pages/AdminCourses';
+import AdminHelp from './pages/AdminHelp';
 import Contact from './pages/contact';
 //import './App.css';
 //import ImageSlider from './components/ImageSlider';
@@ -83,6 +84,7 @@ export default function App() {
         <Route path='privacy' element={<Privacy/>}/>
         <Route path='contact' element={<Contact/>}/>
         <Route path='/userguide' element={<Userguide/>}/>
+        <Route path ='admin-help' element ={<AdminHelp/>}/>
         <Route path ='/workcited' element = {<Workcited/>}/>
         <Route path="/admin-courses" element={<AdminCourses />} />
       </Routes>
