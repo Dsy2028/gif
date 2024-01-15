@@ -81,6 +81,7 @@ export default function App() {
         <Route path="/Chat" element ={<Chat />} />
         <Route path ="/inbox" element ={<Inbox />}/>
         <Route path='privacy' element={<Privacy/>}/>
+        <Route path='contact' element={<Contact/>}/>
         <Route path='/userguide' element={<Userguide/>}/>
         <Route path ='/workcited' element = {<Workcited/>}/>
         <Route path="/admin-courses" element={<AdminCourses />} />

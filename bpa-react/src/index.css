@@ -2516,7 +2516,20 @@ flex-direction: column;
     transition-duration: 1s;
     transform: scale(1.08);
   }
-  
+
+  /* contact */
+  .contact-socialMedia{
+    margin: auto;
+    display: flex;
+    
+  }
+  .contact-socialMedia li{
+    margin: 0 0 0  ;
+  padding: 0 1rem 0 1rem;
+}
+.space-filler{
+    height: 10rem; width: 100%;
+}
 .hero{
     width: 100%;
     display: flex;
