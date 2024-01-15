@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 export default function Help() {
   const helpTopics = [
-    { title: 'Frequent Questions', image: QuestionImage },
+    // { title: 'Frequent Questions', image: QuestionImage },
     // { title: 'Utilizing Features', image: FeatureImage },
     { title: 'User Guide', image: userGuide },
     { title: 'Report a Problem', image: problem },

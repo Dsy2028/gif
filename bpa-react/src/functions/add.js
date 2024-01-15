@@ -49,7 +49,7 @@ export const useFetch = (url, setter) => {
   };
 
 
-  export const useAward = (progress, user, name, award, currentUser, path, name, gname) => {
+  export const useAward = (progress, user, name, award, currentUser, path,  gname) => {
     useEffect(() => {
       if(progress === 100){
         const lessonI = name.topic_id; // replace with the ID of the current lesson
